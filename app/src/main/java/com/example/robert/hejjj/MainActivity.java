@@ -18,6 +18,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.example.robert.hejjj.fragments.Home;
+
 
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -50,22 +52,35 @@ public class MainActivity extends ActionBarActivity
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
+        Fragment fragment;
         FragmentManager fragmentManager = getSupportFragmentManager();
+        switch(position) {
+            default:
+            case 0:
+                fragment = new Home();
+                break;
+        }
         fragmentManager.beginTransaction()
-                .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
+                .replace(R.id.container, fragment)
                 .commit();
     }
 
     public void onSectionAttached(int number) {
         switch (number) {
             case 1:
-                mTitle = getString(R.string.title_section1);
+                mTitle = getString(R.string.drawer_section1);
                 break;
             case 2:
-                mTitle = getString(R.string.title_section2);
+                mTitle = getString(R.string.drawer_section2);
                 break;
             case 3:
-                mTitle = getString(R.string.title_section3);
+                mTitle = getString(R.string.drawer_section3);
+                break;
+            case 4:
+                mTitle = getString(R.string.drawer_section4);
+                break;
+            case 5:
+                mTitle = getString(R.string.drawer_section5);
                 break;
         }
     }

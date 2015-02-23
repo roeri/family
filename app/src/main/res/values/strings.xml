@@ -1,9 +1,11 @@
 <resources>
     <string name="app_name">Hejjj</string>
 
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
+    <string name="drawer_section1">Hem</string>
+    <string name="drawer_section2">Shoppinglista</string>
+    <string name="drawer_section3">Recept</string>
+    <string name="drawer_section4">Middagsförslag</string>
+    <string name="drawer_section5">Notes</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
