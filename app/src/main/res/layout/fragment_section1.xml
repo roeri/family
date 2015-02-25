@@ -10,7 +10,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="HOME! SECTION 1!"
-        android:id="@+id/textViewHej"
+        android:id="@+id/section1_text"
         android:layout_gravity="center" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="GET"
+        android:id="@+id/section1_button"
+        android:layout_below="@+id/section1_text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="103dp" />
 
 </RelativeLayout>
