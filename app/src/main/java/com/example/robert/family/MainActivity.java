@@ -12,9 +12,7 @@ import android.support.v4.widget.DrawerLayout;
 import com.example.robert.family.fragments.Section1;
 import com.example.robert.family.fragments.Section2;
 
-
 public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
-
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private CharSequence mTitle;
 
@@ -59,18 +57,6 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
             case 1:
                 mTitle = getString(R.string.drawer_section1);
                 break;
-            case 2:
-                mTitle = getString(R.string.drawer_section2);
-                break;
-            case 3:
-                mTitle = getString(R.string.drawer_section3);
-                break;
-            case 4:
-                mTitle = getString(R.string.drawer_section4);
-                break;
-            case 5:
-                mTitle = getString(R.string.drawer_section5);
-                break;
         }
     }*/
 
@@ -80,7 +66,6 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle(mTitle);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -102,13 +87,10 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
-
-
 }
