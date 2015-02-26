@@ -1,4 +1,4 @@
-package com.example.robert.hejjj;
+package com.example.robert.family;
 
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;

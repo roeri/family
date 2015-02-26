@@ -1,4 +1,4 @@
-package com.example.robert.hejjj;
+package com.example.robert.family;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

@@ -1,4 +1,4 @@
-package com.example.robert.hejjj.fragments;
+package com.example.robert.family.fragments;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.robert.hejjj.R;
+import com.example.robert.family.R;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -20,11 +20,6 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.Statement;
 
 /**
  * Created by robert on 2015-02-23.
