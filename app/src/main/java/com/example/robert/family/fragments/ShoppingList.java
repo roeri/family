@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 public class ShoppingList {
     @JsonProperty("Items")
-    private List<Object> Items = new ArrayList<>();
+    private List<String> Items = new ArrayList<>();
 
 
 }

@@ -10,6 +10,13 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <string name="icon_edit">&#xf044;</string>
+    <string name="icon_checkboxEmpty">&#xf096;</string>
+    <string name="icon_checkboxChecked">&#xf046;</string>
+    <string name="icon_plus">&#xf196;</string>
+    <string name="icon_cancel">&#xf05e;</string>
+    <string name="icon_save">&#xf0c7;</string>
+
     <string name="action_example">Example action</string>
 
     <string name="action_settings">Settings</string>
