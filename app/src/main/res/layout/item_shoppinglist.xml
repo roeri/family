@@ -16,6 +16,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="[ THIS ITEM HAS NO TEXT ]"
         android:id="@+id/item_shoppinglist_text" />
+        <!--android:ellipsize="end"-->
 
     <Button
         style="?android:attr/buttonStyleSmall"
