@@ -17,14 +17,21 @@ public class HttpAsyncTask extends AsyncTask<String, Void, String> {
     private final String createItemUrl = "http://roberteriksson.no-ip.org/family/createitem.php";
     private final String deleteItemUrl = "http://roberteriksson.no-ip.org/family/deleteitem.php";
 
-    private final Section2 section2Fragment;
-    private final HttpTasks whatToDo;
-    private final String param;
+    private final String createUserUrl = "http://roberteriksson.no-ip.org/family/createuser.php";
 
-    public HttpAsyncTask(Section2 section2Fragment, HttpTasks whatToDo, String param) {
+    private final LoginActivity loginActivity;
+    private final Section2 section2Fragment;
+
+    private final HttpTask whatToDo;
+    private final String param1;
+    private final String param2;
+
+    public HttpAsyncTask(LoginActivity loginActivity, Section2 section2Fragment, HttpTask whatToDo, String param1, String param2) {
+        this.loginActivity = loginActivity;
         this.section2Fragment = section2Fragment;
         this.whatToDo = whatToDo;
-        this.param = param;
+        this.param1 = param1;
+        this.param2 = param2;
     }
 
     @Override
@@ -34,7 +41,7 @@ public class HttpAsyncTask extends AsyncTask<String, Void, String> {
                 return Util.doHttpPost(shoppingListUrl, true, null);
             case CREATE_SHOPPING_LIST_ITEM:
                 try {
-                    StringEntity entityToSend = new StringEntity(param);
+                    StringEntity entityToSend = new StringEntity(param1);
                     Util.doHttpPost(createItemUrl, false, entityToSend);
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
@@ -42,11 +49,20 @@ public class HttpAsyncTask extends AsyncTask<String, Void, String> {
                 break;
             case DELETE_SHOPPING_LIST_ITEM:
                 try {
-                    StringEntity entityToSend = new StringEntity(param);
+                    StringEntity entityToSend = new StringEntity(param1);
                     Util.doHttpPost(deleteItemUrl, false, entityToSend);
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
+                break;
+            case CREATE_USER:
+                try {
+                    StringEntity entityToSend = new StringEntity(param1 + param2); //TODO: Make json object
+                    return Util.doHttpPost(createUserUrl, true, entityToSend);
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+
                 break;
             default:
         }
@@ -59,10 +75,13 @@ public class HttpAsyncTask extends AsyncTask<String, Void, String> {
                 section2Fragment.fillShoppingList(result);
                 break;
             case CREATE_SHOPPING_LIST_ITEM:
-                new HttpAsyncTask(section2Fragment, HttpTasks.GET_SHOPPING_LIST, "").execute();
+                new HttpAsyncTask(null, section2Fragment, HttpTask.GET_SHOPPING_LIST, "", "").execute();
                 break;
             case DELETE_SHOPPING_LIST_ITEM:
-                new HttpAsyncTask(section2Fragment, HttpTasks.GET_SHOPPING_LIST, "").execute();
+                new HttpAsyncTask(null, section2Fragment, HttpTask.GET_SHOPPING_LIST, "", "").execute();
+                break;
+            case CREATE_USER:
+                System.out.println(result);
                 break;
             default:
         }

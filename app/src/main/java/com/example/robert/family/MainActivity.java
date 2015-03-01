@@ -1,5 +1,7 @@
 package com.example.robert.family;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.graphics.Typeface;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
@@ -31,6 +33,10 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
                 (DrawerLayout) findViewById(R.id.drawer_layout));
     }
 
+    public String getHopp() {
+        return "HEJHOPP";
+    }
+
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         Fragment fragment;
@@ -54,6 +60,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 
     }
 
+    //Use this method to set the title in each section/fragment?
     /*public void onSectionAttached(int number) {
         switch (number) {
             case 1:

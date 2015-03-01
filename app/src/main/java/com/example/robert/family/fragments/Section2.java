@@ -16,7 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.robert.family.HttpAsyncTask;
-import com.example.robert.family.HttpTasks;
+import com.example.robert.family.HttpTask;
 import com.example.robert.family.R;
 import com.example.robert.family.Util;
 
@@ -50,7 +50,7 @@ public class Section2 extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        new HttpAsyncTask(theThis, HttpTasks.GET_SHOPPING_LIST, "").execute();
+        new HttpAsyncTask(null, theThis, HttpTask.GET_SHOPPING_LIST, "", "").execute();
     }
 
     public void showCreateShoppingListItem() {
@@ -91,7 +91,7 @@ public class Section2 extends Fragment {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new HttpAsyncTask(theThis, HttpTasks.CREATE_SHOPPING_LIST_ITEM, createItemText.getText().toString()).execute();
+                new HttpAsyncTask(null, theThis, HttpTask.CREATE_SHOPPING_LIST_ITEM, createItemText.getText().toString(), "").execute();
                 inputMethodManager.hideSoftInputFromWindow(createItemText.getWindowToken(), 0);
                 final View addItemLayout = getView().findViewById(R.id.section2_addItemLayout);
                 addItemLayout.setVisibility(View.INVISIBLE);
@@ -150,7 +150,7 @@ public class Section2 extends Fragment {
             itemEditButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    new HttpAsyncTask(theThis, HttpTasks.DELETE_SHOPPING_LIST_ITEM, itemText.getText().toString()).execute();
+                    new HttpAsyncTask(null, theThis, HttpTask.DELETE_SHOPPING_LIST_ITEM, itemText.getText().toString(), "").execute();
                 }
             });
 
