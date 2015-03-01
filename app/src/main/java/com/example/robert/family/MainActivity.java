@@ -1,5 +1,6 @@
 package com.example.robert.family;
 
+import android.graphics.Typeface;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
+import android.view.WindowManager;
 
 import com.example.robert.family.fragments.Section1;
 import com.example.robert.family.fragments.Section2;

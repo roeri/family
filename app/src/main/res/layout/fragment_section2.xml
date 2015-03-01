@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/icon_plus"
-        android:id="@+id/section2_button"
+        android:id="@+id/section2_createItemButton"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
@@ -21,7 +21,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:visibility="invisible"
-    android:layout_below="@+id/section2_button"
+    android:layout_below="@+id/section2_createItemButton"
     android:id="@+id/section2_addItemLayout">
 
         <Button
@@ -52,7 +52,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/section2_listView"
-        android:layout_below="@+id/section2_button"
+        android:layout_below="@+id/section2_createItemButton"
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="false" />
 
