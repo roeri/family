@@ -31,27 +31,11 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-
-/**
- * A login screen that offers login via email/password.
- */
 public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     private final LoginActivity theThis = this;
 
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world", "a@b.c:derp"//, "gqlksisd@xldkdkkdd.vvvgg:fjebdbfx"
-    };
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
-    //public UserLoginTask mAuthTask = null; //TODO: Make this private?
     public HttpAsyncTask mAuthTask = null; //TODO: Make this private?
 
-    // UI references.
     private AutoCompleteTextView mEmailView;
     public EditText mPasswordView; //TODO: Make private!
     private View mProgressView;
@@ -62,7 +46,6 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
 
@@ -104,12 +87,6 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         getLoaderManager().initLoader(0, null, this);
     }
 
-
-    /**
-     * Attempts to sign in or register the account specified by the login form.
-     * If there are form errors (invalid email, missing fields, etc.), the
-     * errors are presented and no actual login attempt is made.
-     */
     public void attemptLogin(String email, String password) {
         String loginEmail;
         String loginPassword;
@@ -118,11 +95,9 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             return;
         }
 
-        // Reset errors.
         mEmailView.setError(null);
         mPasswordView.setError(null);
 
-        // Store values at the time of the login attempt.
         if((email != null) && (password != null)) {
             loginEmail = email;
             loginPassword = password;
@@ -134,15 +109,12 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         boolean cancel = false;
         View focusView = null;
 
-
-        // Check for a valid password, if the user entered one.
         if (!TextUtils.isEmpty(loginPassword) && !isPasswordValid(loginPassword)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             cancel = true;
         }
 
-        // Check for a valid email address.
         if (TextUtils.isEmpty(loginEmail)) {
             mEmailView.setError(getString(R.string.error_field_required));
             focusView = mEmailView;
@@ -154,16 +126,10 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         }
 
         if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
+            // There was an error; don't attempt login and focus the first form field with an error.
             focusView.requestFocus();
         } else {
-            // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
             showProgress(true);
-
-            //mAuthTask = new UserLoginTask(loginEmail, loginPassword);
-            //mAuthTask.execute((Void) null);
             new HttpAsyncTask(theThis, null, AccountManager.get(getApplicationContext()), HttpTask.LOGIN, loginEmail, loginPassword).execute();
         }
     }
@@ -262,73 +228,6 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(LoginActivity.this, android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
 
         mEmailView.setAdapter(adapter);
-    }
-
-    /**
-     * Represents an asynchronous login/registration task used to authenticate
-     * the user.
-     */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
-
-        private final String mEmail;
-        private final String mPassword;
-
-        UserLoginTask(String email, String password) {
-            mEmail = email;
-            mPassword = password;
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            AccountManager accountManager = AccountManager.get(getApplicationContext());
-
-            Account[] accounts = accountManager.getAccountsByType(getString(R.string.application_account_type));
-
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
-
-            new HttpAsyncTask(theThis, null, AccountManager.get(getApplicationContext()), HttpTask.CREATE_USER, mEmail, mPassword).execute();
-
-            //TODO: Create user account on phone and then make token/session etc
-            //Account newAccount = new Account(mEmail, getString(R.string.application_account_type));
-            //Bundle userData = new Bundle();
-            //userData.putString("First Name", "name");
-
-            //if(accountManager.addAccountExplicitly(newAccount, mPassword, userData)) {
-                /*Bundle result = new Bundle();
-                result.putString(AccountManager.KEY_ACCOUNT_NAME, mEmail);
-                result.putString(AccountManager.KEY_ACCOUNT_TYPE, getString(R.string.application_account_type));
-                setAccountAuthenticatorResult(result);*/
-            //}
-
-            return false;
-        }
-
-        @Override
-        protected void onPostExecute(final Boolean success) {
-            //mAuthTask = null;
-            showProgress(false);
-
-            if (success) {
-                finish();
-                //TODO: Create some kind of session!
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-            } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
-            }
-        }
-
-        @Override
-        protected void onCancelled() {
-            //mAuthTask = null;
-            showProgress(false);
-        }
     }
 }
 

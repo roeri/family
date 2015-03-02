@@ -80,20 +80,6 @@ public class HttpAsyncTask extends AsyncTask<String, Void, String> {
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
-                /*for (String credential : DUMMY_CREDENTIALS) {
-                    String[] pieces = credential.split(":");
-                    if (pieces[0].equals(mEmail)) {
-                        //Account exists
-                        if (pieces[1].equals(mPassword)) {
-                            //Password correct, success!
-                            return "SUCCESS";
-                        } else {
-                            //Wrong password, fail!
-                            return "FAILURE";
-                        }
-                    }
-                }*/
-                //Account does not exist, create a new user by not breaking.
                 return "CREATE USER";
             case CREATE_USER:
                 User user = new User();
@@ -134,7 +120,7 @@ public class HttpAsyncTask extends AsyncTask<String, Void, String> {
                 loginActivity.mAuthTask = null;
                 loginActivity.showProgress(false);
                 switch(result) {
-                    case "SUCCESS\n":
+                    case "SUCCESS\n": //TODO: Remove all \n in HTTP results
                         loginActivity.finish();
                         //TODO: Create some kind of session!
                         loginActivity.startActivity(new Intent(loginActivity, MainActivity.class));
@@ -149,7 +135,7 @@ public class HttpAsyncTask extends AsyncTask<String, Void, String> {
                 }
                 break;
             case CREATE_USER:
-                if(result.equals("SUCCESS\n")) {
+                if(result.equals("SUCCESS\n")) { //TODO: Remove all \n in HTTP results
                     Account newAccount = new Account(param1, loginActivity.getString(R.string.application_account_type));
                     Bundle userData = new Bundle();
                     userData.putString("First Name", "users first name here");
@@ -162,7 +148,6 @@ public class HttpAsyncTask extends AsyncTask<String, Void, String> {
                     } else {
                         //User could not be created or something?
                     }
-
                 } else {
                     System.out.println("FAILURE TO CREATE USER!!!");
                 }
