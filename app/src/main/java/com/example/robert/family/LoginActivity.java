@@ -48,11 +48,12 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
-    private UserLoginTask mAuthTask = null;
+    //public UserLoginTask mAuthTask = null; //TODO: Make this private?
+    public HttpAsyncTask mAuthTask = null; //TODO: Make this private?
 
     // UI references.
     private AutoCompleteTextView mEmailView;
-    private EditText mPasswordView;
+    public EditText mPasswordView; //TODO: Make private!
     private View mProgressView;
     private View mLoginFormView;
 
@@ -160,8 +161,10 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(loginEmail, loginPassword);
-            mAuthTask.execute((Void) null);
+
+            //mAuthTask = new UserLoginTask(loginEmail, loginPassword);
+            //mAuthTask.execute((Void) null);
+            new HttpAsyncTask(theThis, null, AccountManager.get(getApplicationContext()), HttpTask.LOGIN, loginEmail, loginPassword).execute();
         }
     }
 
@@ -289,7 +292,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                 }
             }
 
-            new HttpAsyncTask(theThis, null, HttpTask.CREATE_USER, mEmail, mPassword).execute();
+            new HttpAsyncTask(theThis, null, AccountManager.get(getApplicationContext()), HttpTask.CREATE_USER, mEmail, mPassword).execute();
 
             //TODO: Create user account on phone and then make token/session etc
             //Account newAccount = new Account(mEmail, getString(R.string.application_account_type));
@@ -308,7 +311,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
         @Override
         protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
+            //mAuthTask = null;
             showProgress(false);
 
             if (success) {
@@ -323,7 +326,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
         @Override
         protected void onCancelled() {
-            mAuthTask = null;
+            //mAuthTask = null;
             showProgress(false);
         }
     }

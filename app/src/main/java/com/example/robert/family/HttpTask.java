@@ -8,5 +8,6 @@ public enum HttpTask {
     CREATE_SHOPPING_LIST_ITEM,
     DELETE_SHOPPING_LIST_ITEM,
 
-    CREATE_USER
+    LOGIN,
+    CREATE_USER,
 }
