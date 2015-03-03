@@ -120,14 +120,14 @@ public class HttpAsyncTask extends AsyncTask<String, Void, String> {
                 loginActivity.mAuthTask = null;
                 loginActivity.showProgress(false);
                 switch(result) {
-                    case "SUCCESS\n": //TODO: Remove all \n in HTTP results
+                    case "SUCCESS": //TODO: Remove all \n in HTTP results
                         loginActivity.finish();
                         //TODO: Create some kind of session!
                         loginActivity.startActivity(new Intent(loginActivity, MainActivity.class));
                         break;
                     case "FAILURE":
-                        loginActivity.mPasswordView.setError(loginActivity.getString(R.string.error_incorrect_password));
-                        loginActivity.mPasswordView.requestFocus();
+                        loginActivity.passwordView.setError(loginActivity.getString(R.string.error_incorrect_password));
+                        loginActivity.passwordView.requestFocus();
                         break;
                     case "CREATE USER":
                         new HttpAsyncTask(loginActivity, null, accountManager, HttpTask.CREATE_USER, param1, param2).execute();
@@ -135,7 +135,7 @@ public class HttpAsyncTask extends AsyncTask<String, Void, String> {
                 }
                 break;
             case CREATE_USER:
-                if(result.equals("SUCCESS\n")) { //TODO: Remove all \n in HTTP results
+                if(result.equals("SUCCESS")) { //TODO: Remove all \n in HTTP results
                     Account newAccount = new Account(param1, loginActivity.getString(R.string.application_account_type));
                     Bundle userData = new Bundle();
                     userData.putString("First Name", "users first name here");
@@ -146,10 +146,10 @@ public class HttpAsyncTask extends AsyncTask<String, Void, String> {
                         result.putString(AccountManager.KEY_ACCOUNT_TYPE, getString(R.string.application_account_type));
                         setAccountAuthenticatorResult(result);*/
                     } else {
-                        //User could not be created or something?
+                        System.out.println("FAILURE TO CREATE USER");
                     }
                 } else {
-                    System.out.println("FAILURE TO CREATE USER!!!");
+                    System.out.println("FAILURE TO CREATE USER");
                 }
                 break;
             default:

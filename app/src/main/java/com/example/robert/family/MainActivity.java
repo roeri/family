@@ -1,8 +1,5 @@
 package com.example.robert.family;
 
-import android.accounts.Account;
-import android.accounts.AccountManager;
-import android.graphics.Typeface;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -11,30 +8,25 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
-import android.view.WindowManager;
 
 import com.example.robert.family.fragments.Section1;
 import com.example.robert.family.fragments.Section2;
 
 public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
-    private NavigationDrawerFragment mNavigationDrawerFragment;
-    private CharSequence mTitle;
+    private NavigationDrawerFragment navigationDrawerFragment;
+    private CharSequence title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
-        mTitle = getTitle();
+        navigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
+        title = getTitle();
 
-        mNavigationDrawerFragment.setUp(
+        navigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
-    }
-
-    public String getHopp() {
-        return "HEJHOPP";
     }
 
     @Override
@@ -45,11 +37,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
             default:
             case 0:
                 fragment = new Section1();
-                fragmentManager.beginTransaction()
-                        .replace(R.id.container, fragment)
-                        .commit();
-                return;
-                //break;
+                break;
             case 1:
                 fragment = new Section2();
                 break;
@@ -57,28 +45,30 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         fragmentManager.beginTransaction()
                 .replace(R.id.container, fragment)
                 .commit();
-
+        onSectionAttached(position);
     }
 
-    //Use this method to set the title in each section/fragment?
-    /*public void onSectionAttached(int number) {
+    public void onSectionAttached(int number) {
         switch (number) {
+            case 0:
+                title = getString(R.string.drawer_section1);
+                break;
             case 1:
-                mTitle = getString(R.string.drawer_section1);
+                title = getString(R.string.drawer_section2);
                 break;
         }
-    }*/
+    }
 
     public void restoreActionBar() {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setTitle(mTitle);
+        actionBar.setTitle(title);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (!mNavigationDrawerFragment.isDrawerOpen()) {
+        if (!navigationDrawerFragment.isDrawerOpen()) {
             // Only show items in the action bar relevant to this screen
             // if the drawer is not showing. Otherwise, let the drawer
             // decide what to show in the action bar.

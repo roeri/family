@@ -40,12 +40,12 @@ public class Util {
             HttpResponse httpResponse = httpclient.execute(httppost);
             if(wantResult) {
                 InputStream inputStream = httpResponse.getEntity().getContent();
-                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"), 8); // "UTF-8" / "iso-8859-1"
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"), 8);
                 StringBuilder sb = new StringBuilder();
 
-                String line = null;
+                String line;
                 while ((line = reader.readLine()) != null) {
-                    sb.append(line + "\n");
+                    sb.append(line); //TODO: Figure out if "sb.append(line + '\n')" is better for something, shouldn't be for json.
                 }
                 inputStream.close();
                 result = sb.toString();

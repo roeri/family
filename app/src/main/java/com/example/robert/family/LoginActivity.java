@@ -8,11 +8,9 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
-import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.AsyncTask;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -36,21 +34,26 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
     public HttpAsyncTask mAuthTask = null; //TODO: Make this private?
 
-    private AutoCompleteTextView mEmailView;
-    public EditText mPasswordView; //TODO: Make private!
-    private View mProgressView;
-    private View mLoginFormView;
+    private AutoCompleteTextView emailView;
+    public EditText passwordView; //TODO: Make private!
+    private View progressView;
+    private View loginFormView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+        loginFormView = findViewById(R.id.login_form);
+        progressView = findViewById(R.id.login_progress);
+        emailView = (AutoCompleteTextView) findViewById(R.id.email);
+        passwordView = (EditText) findViewById(R.id.password);
+        Button emailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        AccountManager accountManager = AccountManager.get(getApplicationContext());
+
         populateAutoComplete();
 
-        mPasswordView = (EditText) findViewById(R.id.password);
-        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        passwordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == R.id.login || id == EditorInfo.IME_NULL) {
@@ -61,18 +64,13 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
+        emailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 attemptLogin(null, null);
             }
         });
 
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
-
-        AccountManager accountManager = AccountManager.get(getApplicationContext());
         Account[] accounts = accountManager.getAccountsByType(getString(R.string.application_account_type));
         if(accounts != null) {
             for(Account account : accounts) {
@@ -88,45 +86,43 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     }
 
     public void attemptLogin(String email, String password) {
-        String loginEmail;
-        String loginPassword;
-
         if (mAuthTask != null) {
             return;
         }
 
-        mEmailView.setError(null);
-        mPasswordView.setError(null);
+        boolean cancel = false;
+        View focusView = null;
+        String loginEmail;
+        String loginPassword;
+
+        emailView.setError(null);
+        passwordView.setError(null);
 
         if((email != null) && (password != null)) {
             loginEmail = email;
             loginPassword = password;
         } else {
-            loginEmail = mEmailView.getText().toString();
-            loginPassword = mPasswordView.getText().toString();
+            loginEmail = emailView.getText().toString();
+            loginPassword = passwordView.getText().toString();
         }
 
-        boolean cancel = false;
-        View focusView = null;
-
         if (!TextUtils.isEmpty(loginPassword) && !isPasswordValid(loginPassword)) {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
-            focusView = mPasswordView;
+            passwordView.setError(getString(R.string.error_invalid_password));
+            focusView = passwordView;
             cancel = true;
         }
 
         if (TextUtils.isEmpty(loginEmail)) {
-            mEmailView.setError(getString(R.string.error_field_required));
-            focusView = mEmailView;
+            emailView.setError(getString(R.string.error_field_required));
+            focusView = emailView;
             cancel = true;
         } else if (!isEmailValid(loginEmail)) {
-            mEmailView.setError(getString(R.string.error_invalid_email));
-            focusView = mEmailView;
+            emailView.setError(getString(R.string.error_invalid_email));
+            focusView = emailView;
             cancel = true;
         }
 
         if (cancel) {
-            // There was an error; don't attempt login and focus the first form field with an error.
             focusView.requestFocus();
         } else {
             showProgress(true);
@@ -135,16 +131,13 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     }
 
     private boolean isEmailValid(String email) { //TODO: Extend this with proper email verification.
-        return email.contains("@");
+        return email.contains("@") && (email.length() <= 30); //TODO: Perhaps change to a longer maximum length? Also in db.
     }
 
     private boolean isPasswordValid(String password) { //TODO: Extend this to make sure only letters and numbers are used.
         return (password.length() >= 6) && (password.length() <= 30);
     }
 
-    /**
-     * Shows the progress UI and hides the login form.
-     */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     public void showProgress(final boolean show) {
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
@@ -153,28 +146,28 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-            mLoginFormView.animate().setDuration(shortAnimTime).alpha(
+            loginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+            loginFormView.animate().setDuration(shortAnimTime).alpha(
                     show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
-                    mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+                    loginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
                 }
             });
 
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mProgressView.animate().setDuration(shortAnimTime).alpha(
+            progressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            progressView.animate().setDuration(shortAnimTime).alpha(
                     show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
-                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+                    progressView.setVisibility(show ? View.VISIBLE : View.GONE);
                 }
             });
         } else {
             // The ViewPropertyAnimator APIs are not available, so simply show
             // and hide the relevant UI components.
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+            progressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            loginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
     }
 
@@ -214,20 +207,17 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
     private interface ProfileQuery {
         String[] PROJECTION = {
-                ContactsContract.CommonDataKinds.Email.ADDRESS,
-                ContactsContract.CommonDataKinds.Email.IS_PRIMARY,
+            ContactsContract.CommonDataKinds.Email.ADDRESS,
+            ContactsContract.CommonDataKinds.Email.IS_PRIMARY,
         };
 
         int ADDRESS = 0;
         int IS_PRIMARY = 1;
     }
 
-
     private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
-        //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
         ArrayAdapter<String> adapter = new ArrayAdapter<>(LoginActivity.this, android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
-
-        mEmailView.setAdapter(adapter);
+        emailView.setAdapter(adapter);
     }
 }
 

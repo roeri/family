@@ -9,8 +9,8 @@ import lombok.Data;
  * Created by robert on 2015-03-02.
  */
 @JsonPropertyOrder({
-        "name",
-        "password"
+    "name",
+    "password"
 })
 @Data
 public class User {
