@@ -3,7 +3,9 @@ package com.example.robert.family;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 /**
  * Created by robert on 2015-03-02.
@@ -13,6 +15,7 @@ import lombok.Data;
     "password"
 })
 @Data
+//@AllArgsConstructor
 public class User {
     @JsonProperty("name")
     String name;

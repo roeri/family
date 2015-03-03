@@ -65,39 +65,28 @@ public class HttpAsyncTask extends AsyncTask<String, Void, String> {
                 }
                 break;
             case LOGIN:
-                User loginUser = new User();
-                loginUser.setName(param1);
-                loginUser.setPassword(param2);
-                String loginJson = "";
+                User userToLogin = new User(/*param1, param2*/);
+                userToLogin.setName(param1);
+                userToLogin.setPassword(param2);
                 try {
-                    loginJson = new ObjectMapper().writeValueAsString(loginUser);
-                } catch (JsonProcessingException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    StringEntity entityToSend = new StringEntity(loginJson);
+                    String json = new ObjectMapper().writeValueAsString(userToLogin);
+                    StringEntity entityToSend = new StringEntity(json);
                     return Util.doHttpPost(loginUrl, true, entityToSend);
-                } catch (UnsupportedEncodingException e) {
+                } catch (Exception e) { //JsonProcessingException or UnsupportedEncodingException
                     e.printStackTrace();
                 }
                 return "CREATE USER";
             case CREATE_USER:
-                User user = new User();
-                user.setName(param1);
-                user.setPassword(param2);
-                String json = "";
+                User userToCreate = new User(/*param1, param2*/);
+                userToCreate.setName(param1);
+                userToCreate.setPassword(param2);
                 try {
-                    json = new ObjectMapper().writeValueAsString(user);
-                } catch (JsonProcessingException e) {
-                    e.printStackTrace();
-                }
-                try {
+                    String json = new ObjectMapper().writeValueAsString(userToCreate);
                     StringEntity entityToSend = new StringEntity(json);
                     return Util.doHttpPost(createUserUrl, true, entityToSend);
-                } catch (UnsupportedEncodingException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
-
                 break;
             default:
         }

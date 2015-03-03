@@ -6,8 +6,8 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/icon_edit"
-        android:id="@+id/item_shoppinglist_editButton" />
+        android:text="@string/icon_checkboxEmpty"
+        android:id="@+id/item_shoppinglist_checkButton" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -22,6 +22,6 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/icon_checkboxEmpty"
-        android:id="@+id/item_shoppinglist_checkButton" />
+        android:text="@string/icon_move"
+        android:id="@+id/item_shoppinglist_moveButton" />
 </LinearLayout>

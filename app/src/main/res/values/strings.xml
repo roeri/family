@@ -16,6 +16,7 @@
     <string name="icon_plus">&#xf196;</string>
     <string name="icon_cancel">&#xf05e;</string>
     <string name="icon_save">&#xf0c7;</string>
+    <string name="icon_move">&#xf0c9;</string>
 
     <string name="action_refresh">Refresh</string>
     <string name="action_settings">Settings</string>

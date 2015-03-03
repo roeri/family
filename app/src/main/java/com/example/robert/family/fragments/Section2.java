@@ -20,6 +20,8 @@ import com.example.robert.family.HttpAsyncTask;
 import com.example.robert.family.HttpTask;
 import com.example.robert.family.R;
 import com.example.robert.family.Util;
+import com.mobeta.android.dslv.DragSortController;
+import com.mobeta.android.dslv.DragSortListView;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -46,6 +48,13 @@ public class Section2 extends Fragment {
             }
         });
 
+        DragSortListView listView = (DragSortListView) view.findViewById(R.id.list);
+        DragSortController dragSortController = new DragSortController(listView);
+        dragSortController.setDragInitMode(DragSortController.ON_LONG_PRESS);
+
+        listView.setFloatViewManager(dragSortController);
+        listView.setOnTouchListener(dragSortController);
+        listView.setDragEnabled(true);
         return view;
     }
 
@@ -61,7 +70,7 @@ public class Section2 extends Fragment {
         final EditText createItemText = (EditText) getView().findViewById(R.id.item_shoppinglist_createItemText);
         final Button cancelButton = (Button) addItemLayout.findViewById(R.id.item_shoppinglist_cancelButton);
         final Button saveButton = (Button) addItemLayout.findViewById(R.id.item_shoppinglist_saveButton);
-        final View listView = getView().findViewById(R.id.section2_listView);
+        final View listView = getView().findViewById(R.id.list);
 
         final RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) listView.getLayoutParams();
         final InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -110,7 +119,7 @@ public class Section2 extends Fragment {
         if(view == null) { //Function is called with null all the time, why?
             return;
         }
-        ListView shoppingList = (ListView) getView().findViewById(R.id.section2_listView);
+        ListView shoppingList = (ListView) getView().findViewById(R.id.list);
 
         try {
             ShoppingList inputShoppingList = Util.jsonToShoppingList(shoppingListJson);
@@ -126,7 +135,6 @@ public class Section2 extends Fragment {
         }
     }
 
-
     public class ShoppingListAdapter extends ArrayAdapter<ShoppingListItem> {
 
         public ShoppingListAdapter(Context context, ArrayList<ShoppingListItem> shoppingList) {
@@ -141,17 +149,17 @@ public class Section2 extends Fragment {
             ShoppingListItem shoppingListItem = getItem(position);
 
             final TextView itemText = (TextView) convertView.findViewById(R.id.item_shoppinglist_text);
-            final Button itemEditButton = (Button) convertView.findViewById(R.id.item_shoppinglist_editButton);
             final Button itemCheckButton = (Button) convertView.findViewById(R.id.item_shoppinglist_checkButton);
+            final Button itemMoveButton = (Button) convertView.findViewById(R.id.item_shoppinglist_moveButton);
 
-            itemEditButton.setTypeface(font);
             itemCheckButton.setTypeface(font);
+            itemMoveButton.setTypeface(font);
 
             itemText.setText(shoppingListItem.text);
-            itemEditButton.setOnClickListener(new View.OnClickListener() {
+            itemCheckButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    new HttpAsyncTask(null, theThis, AccountManager.get(getActivity()), HttpTask.DELETE_SHOPPING_LIST_ITEM, itemText.getText().toString(), "").execute();
+                new HttpAsyncTask(null, theThis, AccountManager.get(getActivity()), HttpTask.DELETE_SHOPPING_LIST_ITEM, itemText.getText().toString(), "").execute();
                 }
             });
 
