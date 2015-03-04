@@ -6,6 +6,7 @@ package com.example.robert.family;
 public enum HttpTask {
     GET_SHOPPING_LIST,
     CREATE_SHOPPING_LIST_ITEM,
+    CHECK_SHOPPING_LIST_ITEM,
     DELETE_SHOPPING_LIST_ITEM,
 
     LOGIN,

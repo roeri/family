@@ -2,6 +2,7 @@ package com.example.robert.family.fragments;
 
 import android.accounts.AccountManager;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -51,6 +52,7 @@ public class Section2 extends Fragment {
         DragSortListView listView = (DragSortListView) view.findViewById(R.id.list);
         DragSortController dragSortController = new DragSortController(listView);
         dragSortController.setDragInitMode(DragSortController.ON_LONG_PRESS);
+        dragSortController.setBackgroundColor(Color.TRANSPARENT);
 
         listView.setFloatViewManager(dragSortController);
         listView.setOnTouchListener(dragSortController);
@@ -122,10 +124,10 @@ public class Section2 extends Fragment {
         ListView shoppingList = (ListView) getView().findViewById(R.id.list);
 
         try {
-            ShoppingList inputShoppingList = Util.jsonToShoppingList(shoppingListJson);
+            ShoppingList inputShoppingListItems = Util.jsonToShoppingList(shoppingListJson);
             ArrayList<ShoppingListItem> shoppingListItems = new ArrayList<>();
-            for(String shoppingListItem : inputShoppingList.getItems()) {
-                shoppingListItems.add(new ShoppingListItem(shoppingListItem));
+            for(ShoppingListItem shoppingListItem : inputShoppingListItems.getItems()) {
+                shoppingListItems.add(shoppingListItem);
             }
 
             ShoppingListAdapter shoppingListAdapter = new ShoppingListAdapter(getActivity(), shoppingListItems);
@@ -142,7 +144,7 @@ public class Section2 extends Fragment {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(int position, View convertView, ViewGroup parent) { //TODO: Top item in list is always checked it seems... WHYYY
             if (convertView == null) {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_shoppinglist, parent, false);
             }
@@ -150,18 +152,31 @@ public class Section2 extends Fragment {
 
             final TextView itemText = (TextView) convertView.findViewById(R.id.item_shoppinglist_text);
             final Button itemCheckButton = (Button) convertView.findViewById(R.id.item_shoppinglist_checkButton);
-            final Button itemMoveButton = (Button) convertView.findViewById(R.id.item_shoppinglist_moveButton);
 
             itemCheckButton.setTypeface(font);
-            itemMoveButton.setTypeface(font);
-
             itemText.setText(shoppingListItem.text);
-            itemCheckButton.setOnClickListener(new View.OnClickListener() {
+
+            final View.OnClickListener itemDeleteListener = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                new HttpAsyncTask(null, theThis, AccountManager.get(getActivity()), HttpTask.DELETE_SHOPPING_LIST_ITEM, itemText.getText().toString(), "").execute();
+                    new HttpAsyncTask(null, theThis, AccountManager.get(getActivity()), HttpTask.DELETE_SHOPPING_LIST_ITEM, itemText.getText().toString(), "").execute();
                 }
-            });
+            };
+            final View.OnClickListener itemCheckListener = new View.OnClickListener() {
+                @Override
+                public void onClick(View thisButton) {
+                    Button button = (Button) thisButton;
+                    new HttpAsyncTask(null, theThis, AccountManager.get(getActivity()), HttpTask.CHECK_SHOPPING_LIST_ITEM, itemText.getText().toString(), "").execute();
+                    button.setText(getString(R.string.icon_checkboxChecked));
+                    button.setOnClickListener(itemDeleteListener);
+                }
+            };
+            if(shoppingListItem.checked) {
+                itemCheckButton.setText(getString(R.string.icon_checkboxChecked));
+                itemCheckButton.setOnClickListener(itemDeleteListener);
+            } else {
+                itemCheckButton.setOnClickListener(itemCheckListener);
+            }
 
             return convertView;
         }

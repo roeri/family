@@ -21,6 +21,7 @@ public class HttpAsyncTask extends AsyncTask<String, Void, String> {
 
     private final String shoppingListUrl = "http://roberteriksson.no-ip.org/family/shoppinglist.php";
     private final String createItemUrl = "http://roberteriksson.no-ip.org/family/createitem.php";
+    private final String checkItemUrl = "http://roberteriksson.no-ip.org/family/checkitem.php";
     private final String deleteItemUrl = "http://roberteriksson.no-ip.org/family/deleteitem.php";
 
     private final String loginUrl = "http://roberteriksson.no-ip.org/family/login.php";
@@ -52,6 +53,14 @@ public class HttpAsyncTask extends AsyncTask<String, Void, String> {
                 try {
                     StringEntity entityToSend = new StringEntity(param1);
                     Util.doHttpPost(createItemUrl, false, entityToSend);
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case CHECK_SHOPPING_LIST_ITEM:
+                try {
+                    StringEntity entityToSend = new StringEntity(param1);
+                    Util.doHttpPost(checkItemUrl, false, entityToSend);
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
@@ -100,6 +109,9 @@ public class HttpAsyncTask extends AsyncTask<String, Void, String> {
                 section2Fragment.fillShoppingList(result);
                 break;
             case CREATE_SHOPPING_LIST_ITEM:
+                new HttpAsyncTask(null, section2Fragment, accountManager, HttpTask.GET_SHOPPING_LIST, "", "").execute();
+                break;
+            case CHECK_SHOPPING_LIST_ITEM:
                 new HttpAsyncTask(null, section2Fragment, accountManager, HttpTask.GET_SHOPPING_LIST, "", "").execute();
                 break;
             case DELETE_SHOPPING_LIST_ITEM:

@@ -2,12 +2,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <Button
+    <!--<Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/icon_checkboxEmpty"
-        android:id="@+id/item_shoppinglist_checkButton" />
+        android:id="@+id/item_shoppinglist_checkButton" />-->
 
     <TextView
         android:layout_width="wrap_content"
@@ -22,6 +22,6 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/icon_move"
-        android:id="@+id/item_shoppinglist_moveButton" />
+        android:text="@string/icon_checkboxEmpty"
+        android:id="@+id/item_shoppinglist_checkButton" />
 </LinearLayout>
