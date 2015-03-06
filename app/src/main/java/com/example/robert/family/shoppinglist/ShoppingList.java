@@ -15,8 +15,10 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.robert.family.R;
+import com.example.robert.family.util.RefreshableFragment;
 import com.example.robert.family.util.Util;
 import com.example.robert.family.util.httptasks.CheckShoppingListItem;
 import com.example.robert.family.util.httptasks.CreateShoppingListItem;
@@ -31,7 +33,7 @@ import java.util.ArrayList;
 /**
  * Created by robert on 2015-02-23.
  */
-public class ShoppingList extends Fragment {
+public class ShoppingList extends Fragment implements RefreshableFragment {
 
     private final ShoppingList theThis = this;
     private Typeface font;
@@ -138,6 +140,11 @@ public class ShoppingList extends Fragment {
         }
     }
 
+    @Override
+    public void refresh() {
+        new GetShoppingList(this).execute();
+    }
+
     public class ShoppingListAdapter extends ArrayAdapter<ShoppingListItemJson> {
 
         public ShoppingListAdapter(Context context, ArrayList<ShoppingListItemJson> shoppingList) {
@@ -145,7 +152,7 @@ public class ShoppingList extends Fragment {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) { //TODO: Top item in list is always checked it seems... WHYYY
+        public View getView(int position, View convertView, ViewGroup parent) {
             if (convertView == null) {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_shoppinglist, parent, false);
             }
@@ -161,7 +168,6 @@ public class ShoppingList extends Fragment {
                 @Override
                 public void onClick(View thisButton) {
                     new DeleteShoppingListItem(theThis, itemText.getText().toString()).execute();
-                    //new HttpTask(null, theThis, AccountManager.get(getActivity()), HttpTasks.DELETE_SHOPPING_LIST_ITEM, itemText.getText().toString(), "").execute();
                 }
             };
             final View.OnClickListener itemCheckListener = new View.OnClickListener() {
@@ -169,7 +175,6 @@ public class ShoppingList extends Fragment {
                 public void onClick(View thisButton) {
                     Button button = (Button) thisButton;
                     new CheckShoppingListItem(theThis, itemText.getText().toString()).execute();
-                    //new HttpTask(null, theThis, AccountManager.get(getActivity()), HttpTasks.CHECK_SHOPPING_LIST_ITEM, itemText.getText().toString(), "").execute();
                     button.setText(getString(R.string.icon_checkboxChecked));
                     button.setOnClickListener(itemDeleteListener);
                 }

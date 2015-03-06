@@ -11,14 +11,22 @@ import android.support.v4.widget.DrawerLayout;
 
 import com.example.robert.family.home.Home;
 import com.example.robert.family.shoppinglist.ShoppingList;
+import com.example.robert.family.util.FragmentId;
 import com.example.robert.family.util.NavigationDrawer;
+import com.example.robert.family.util.RefreshableFragment;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends ActionBarActivity implements NavigationDrawer.NavigationDrawerCallbacks {
     private NavigationDrawer navigationDrawer;
     private CharSequence title;
+    private Map<Integer, Fragment> currentlyActiveFragments;
+    private RefreshableFragment currentlyLiveFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        currentlyActiveFragments = new HashMap<>();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -30,23 +38,41 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawer.
             (DrawerLayout) findViewById(R.id.drawer_layout));
     }
 
+    public RefreshableFragment getCurrentlyLiveFragment() {
+        return this.currentlyLiveFragment; //TODO: Risk for NPE, fix!
+    }
+
     @Override
-    public void onNavigationDrawerItemSelected(int position) {
+    public void onNavigationDrawerItemSelected(int number) {
         Fragment fragment;
         FragmentManager fragmentManager = getSupportFragmentManager();
-        switch(position) {
-            default:
-            case 0:
-                fragment = new Home();
-                break;
-            case 1:
-                fragment = new ShoppingList();
-                break;
+
+        if(currentlyActiveFragments.containsKey(number)) {
+            fragment = currentlyActiveFragments.get(number);
+        } else {
+            fragment = numberToFragment(number);
         }
+
         fragmentManager.beginTransaction()
                 .replace(R.id.container, fragment)
                 .commit();
-        onSectionAttached(position);
+
+        currentlyLiveFragment = (RefreshableFragment) fragment;
+        onSectionAttached(number);
+    }
+
+    public Fragment numberToFragment(int number) {
+        Fragment fragment = new Home(); //number == 0
+        switch (number) {
+            case 1:
+                fragment = new ShoppingList();
+                break;
+            case 2:
+
+                break;
+            default:
+        }
+        return fragment;
     }
 
     public void onSectionAttached(int number) {

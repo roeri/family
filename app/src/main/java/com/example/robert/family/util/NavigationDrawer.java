@@ -1,5 +1,6 @@
 package com.example.robert.family.util;
 
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
 import android.support.v7.app.ActionBar;
@@ -22,6 +23,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.robert.family.MainActivity;
 import com.example.robert.family.R;
 
 /**
@@ -252,7 +254,9 @@ public class NavigationDrawer extends Fragment {
         }
 
         if (item.getItemId() == R.id.action_example) {
-            Toast.makeText(getActivity(), "Example action.", Toast.LENGTH_SHORT).show();
+            //FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+            ((MainActivity) getActivity()).getCurrentlyLiveFragment().refresh();
+            //TODO: Use this somewhere for notification popups?: Toast.makeText(getActivity(), "Example action.", Toast.LENGTH_SHORT).show();
             return true;
         }
 
