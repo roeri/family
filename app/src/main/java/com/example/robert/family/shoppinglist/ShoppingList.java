@@ -142,6 +142,7 @@ public class ShoppingList extends Fragment implements RefreshableFragment {
 
     @Override
     public void refresh() {
+        Toast.makeText(getActivity(), "Refreshing...", Toast.LENGTH_SHORT).show();
         new GetShoppingList(this).execute();
     }
 

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
+import android.widget.Toast;
 
 import com.example.robert.family.home.Home;
 import com.example.robert.family.shoppinglist.ShoppingList;
@@ -114,6 +115,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawer.
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
+            Toast.makeText(this, "WAOAOAOAOOO", Toast.LENGTH_SHORT).show();
             return true;
         }
 

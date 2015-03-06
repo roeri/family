@@ -21,10 +21,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.robert.family.MainActivity;
 import com.example.robert.family.R;
+
+import java.util.ArrayList;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -95,13 +98,14 @@ public class NavigationDrawer extends Fragment {
                              Bundle savedInstanceState) {
         mDrawerListView = (ListView) inflater.inflate(
                 R.layout.fragment_navigation_drawer, container, false);
+
         mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selectItem(position);
             }
         });
-        mDrawerListView.setAdapter(new ArrayAdapter<String>(
+        mDrawerListView.setAdapter(new ArrayAdapter<>(
                 getActionBar().getThemedContext(),
                 android.R.layout.simple_list_item_activated_1,
                 android.R.id.text1,
