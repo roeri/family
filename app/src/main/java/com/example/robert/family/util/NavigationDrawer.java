@@ -1,6 +1,5 @@
 package com.example.robert.family.util;
 
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
 import android.support.v7.app.ActionBar;
@@ -21,13 +20,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.robert.family.MainActivity;
 import com.example.robert.family.R;
-
-import java.util.ArrayList;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -257,11 +252,13 @@ public class NavigationDrawer extends Fragment {
             return true;
         }
 
-        if (item.getItemId() == R.id.action_example) {
-            //FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-            ((MainActivity) getActivity()).getCurrentlyLiveFragment().refresh();
-            //TODO: Use this somewhere for notification popups?: Toast.makeText(getActivity(), "Example action.", Toast.LENGTH_SHORT).show();
-            return true;
+        switch(item.getItemId()) {
+            case R.id.action_refresh:
+                ((MainActivity) getActivity()).getCurrentlyLiveFragment().refresh();
+                return true;
+            case R.id.action_profile:
+                ((MainActivity) getActivity()).onNavigationDrawerItemSelected(FragmentNumbers.PROFILE);
+            default:
         }
 
         return super.onOptionsItemSelected(item);

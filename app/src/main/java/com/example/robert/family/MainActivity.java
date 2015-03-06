@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.example.robert.family.home.Home;
 import com.example.robert.family.shoppinglist.ShoppingList;
 import com.example.robert.family.util.FragmentId;
+import com.example.robert.family.util.FragmentNumbers;
 import com.example.robert.family.util.NavigationDrawer;
 import com.example.robert.family.util.RefreshableFragment;
 
@@ -44,7 +45,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawer.
     }
 
     @Override
-    public void onNavigationDrawerItemSelected(int number) {
+    public void onNavigationDrawerItemSelected(int number) { //TODO: Maybe alias this to something for external use?
         Fragment fragment;
         FragmentManager fragmentManager = getSupportFragmentManager();
 
@@ -62,21 +63,23 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawer.
         onSectionAttached(number);
     }
 
-    public Fragment numberToFragment(int number) {
-        Fragment fragment = new Home(); //number == 0
+    private Fragment numberToFragment(int number) {
+        Fragment fragment;
         switch (number) {
-            case 1:
+            default: //FragmentNumbers.HOME:
+                fragment = new Home();
+                break;
+            case FragmentNumbers.SHOPPING_LIST:
                 fragment = new ShoppingList();
                 break;
-            case 2:
-
+            case FragmentNumbers.PROFILE:
+                fragment = new Profile();
                 break;
-            default:
         }
         return fragment;
     }
 
-    public void onSectionAttached(int number) {
+    private void onSectionAttached(int number) {
         switch (number) {
             case 0:
                 title = getString(R.string.section1);
