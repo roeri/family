@@ -1,8 +1,6 @@
-package com.example.robert.family;
+package com.example.robert.family.util;
 
-import android.graphics.Typeface;
-
-import com.example.robert.family.fragments.ShoppingList;
+import com.example.robert.family.shoppinglist.ShoppingListJson;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.apache.http.HttpResponse;
@@ -21,12 +19,12 @@ import java.io.InputStreamReader;
  */
 public class Util {
 
-    public static ShoppingList jsonToShoppingList(String jsonString) throws IOException {
-        return new ObjectMapper().readValue(jsonString, ShoppingList.class);
+    public static ShoppingListJson jsonToShoppingList(String jsonString) throws IOException {
+        return new ObjectMapper().readValue(jsonString, ShoppingListJson.class);
     }
 
-    public static String shoppingListToJson(ShoppingList shoppingList) throws IOException {
-        return new ObjectMapper().writeValueAsString(shoppingList);
+    public static String shoppingListToJson(ShoppingListJson shoppingListJson) throws IOException {
+        return new ObjectMapper().writeValueAsString(shoppingListJson);
     }
 
     public static String doHttpPost(String postUrl, boolean wantResult, AbstractHttpEntity entityToSend) {

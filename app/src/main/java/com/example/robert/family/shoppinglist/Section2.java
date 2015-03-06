@@ -1,4 +1,4 @@
-package com.example.robert.family.fragments;
+package com.example.robert.family.shoppinglist;
 
 import android.accounts.AccountManager;
 import android.content.Context;
@@ -17,10 +17,12 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.robert.family.HttpAsyncTask;
-import com.example.robert.family.HttpTask;
 import com.example.robert.family.R;
-import com.example.robert.family.Util;
+import com.example.robert.family.util.Util;
+import com.example.robert.family.util.httptasks.CheckShoppingListItem;
+import com.example.robert.family.util.httptasks.CreateShoppingListItem;
+import com.example.robert.family.util.httptasks.DeleteShoppingListItem;
+import com.example.robert.family.util.httptasks.GetShoppingList;
 import com.mobeta.android.dslv.DragSortController;
 import com.mobeta.android.dslv.DragSortListView;
 
@@ -62,7 +64,7 @@ public class Section2 extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        new HttpAsyncTask(null, theThis, AccountManager.get(getActivity()), HttpTask.GET_SHOPPING_LIST, "", "").execute();
+        new GetShoppingList(this).execute();
     }
 
     public void showCreateShoppingListItem() {
@@ -103,7 +105,7 @@ public class Section2 extends Fragment {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new HttpAsyncTask(null, theThis, AccountManager.get(getActivity()), HttpTask.CREATE_SHOPPING_LIST_ITEM, createItemText.getText().toString(), "").execute();
+                new CreateShoppingListItem(theThis, createItemText.getText().toString()).execute();
                 inputMethodManager.hideSoftInputFromWindow(createItemText.getWindowToken(), 0);
                 final View addItemLayout = getView().findViewById(R.id.section2_addItemLayout);
                 addItemLayout.setVisibility(View.INVISIBLE);
@@ -124,22 +126,22 @@ public class Section2 extends Fragment {
         ListView shoppingList = (ListView) getView().findViewById(R.id.list);
 
         try {
-            ShoppingList inputShoppingListItems = Util.jsonToShoppingList(shoppingListJson);
-            ArrayList<ShoppingListItem> shoppingListItems = new ArrayList<>();
-            for(ShoppingListItem shoppingListItem : inputShoppingListItems.getItems()) {
-                shoppingListItems.add(shoppingListItem);
+            ShoppingListJson inputShoppingListJsonItems = Util.jsonToShoppingList(shoppingListJson);
+            ArrayList<ShoppingListItemJson> shoppingListItemJsons = new ArrayList<>();
+            for(ShoppingListItemJson shoppingListItemJson : inputShoppingListJsonItems.getItems()) {
+                shoppingListItemJsons.add(shoppingListItemJson);
             }
 
-            ShoppingListAdapter shoppingListAdapter = new ShoppingListAdapter(getActivity(), shoppingListItems);
+            ShoppingListAdapter shoppingListAdapter = new ShoppingListAdapter(getActivity(), shoppingListItemJsons);
             shoppingList.setAdapter(shoppingListAdapter);
         } catch (IOException e) {
             System.out.println("ERROR: " + e.getMessage());
         }
     }
 
-    public class ShoppingListAdapter extends ArrayAdapter<ShoppingListItem> {
+    public class ShoppingListAdapter extends ArrayAdapter<ShoppingListItemJson> {
 
-        public ShoppingListAdapter(Context context, ArrayList<ShoppingListItem> shoppingList) {
+        public ShoppingListAdapter(Context context, ArrayList<ShoppingListItemJson> shoppingList) {
             super(context, 0, shoppingList);
         }
 
@@ -148,33 +150,36 @@ public class Section2 extends Fragment {
             if (convertView == null) {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_shoppinglist, parent, false);
             }
-            ShoppingListItem shoppingListItem = getItem(position);
+            ShoppingListItemJson shoppingListItemJson = getItem(position);
 
             final TextView itemText = (TextView) convertView.findViewById(R.id.item_shoppinglist_text);
             final Button itemCheckButton = (Button) convertView.findViewById(R.id.item_shoppinglist_checkButton);
 
             itemCheckButton.setTypeface(font);
-            itemText.setText(shoppingListItem.text);
+            itemText.setText(shoppingListItemJson.text);
 
             final View.OnClickListener itemDeleteListener = new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
-                    new HttpAsyncTask(null, theThis, AccountManager.get(getActivity()), HttpTask.DELETE_SHOPPING_LIST_ITEM, itemText.getText().toString(), "").execute();
+                public void onClick(View thisButton) {
+                    new DeleteShoppingListItem(theThis, itemText.getText().toString()).execute();
+                    //new HttpTask(null, theThis, AccountManager.get(getActivity()), HttpTasks.DELETE_SHOPPING_LIST_ITEM, itemText.getText().toString(), "").execute();
                 }
             };
             final View.OnClickListener itemCheckListener = new View.OnClickListener() {
                 @Override
                 public void onClick(View thisButton) {
                     Button button = (Button) thisButton;
-                    new HttpAsyncTask(null, theThis, AccountManager.get(getActivity()), HttpTask.CHECK_SHOPPING_LIST_ITEM, itemText.getText().toString(), "").execute();
+                    new CheckShoppingListItem(theThis, itemText.getText().toString()).execute();
+                    //new HttpTask(null, theThis, AccountManager.get(getActivity()), HttpTasks.CHECK_SHOPPING_LIST_ITEM, itemText.getText().toString(), "").execute();
                     button.setText(getString(R.string.icon_checkboxChecked));
                     button.setOnClickListener(itemDeleteListener);
                 }
             };
-            if(shoppingListItem.checked) {
+            if(shoppingListItemJson.checked) {
                 itemCheckButton.setText(getString(R.string.icon_checkboxChecked));
                 itemCheckButton.setOnClickListener(itemDeleteListener);
             } else {
+                itemCheckButton.setText(getString(R.string.icon_checkboxUnchecked));
                 itemCheckButton.setOnClickListener(itemCheckListener);
             }
 

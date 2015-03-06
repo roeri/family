@@ -1,17 +1,17 @@
 <resources>
     <string name="app_name">R &#9829; A</string>
 
-    <string name="drawer_section1">Hem</string>
-    <string name="drawer_section2">Shoppinglista</string>
-    <string name="drawer_section3">Recept</string>
-    <string name="drawer_section4">Middagsförslag</string>
-    <string name="drawer_section5">Notes</string>
+    <string name="section1">Home</string>
+    <string name="section2">Shopping list</string>
+    <string name="section3">Recipes</string>
+    <string name="section4">Dinner suggestions</string>
+    <string name="section5">Notes</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="icon_edit">&#xf044;</string>
-    <string name="icon_checkboxEmpty">&#xf096;</string>
+    <string name="icon_checkboxUnchecked">&#xf096;</string>
     <string name="icon_checkboxChecked">&#xf046;</string>
     <string name="icon_plus">&#xf196;</string>
     <string name="icon_cancel">&#xf05e;</string>

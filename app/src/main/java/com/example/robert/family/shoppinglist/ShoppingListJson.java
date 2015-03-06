@@ -1,5 +1,5 @@
 
-package com.example.robert.family.fragments;
+package com.example.robert.family.shoppinglist;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ import lombok.Data;
         "items"
 })
 @Data
-public class ShoppingList {
+public class ShoppingListJson {
     @JsonProperty("items")
-    private List<ShoppingListItem> items = new ArrayList<>();
+    private List<ShoppingListItemJson> items = new ArrayList<>();
 }

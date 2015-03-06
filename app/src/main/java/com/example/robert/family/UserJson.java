@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.Builder;
 
 /**
  * Created by robert on 2015-03-02.
@@ -15,8 +16,7 @@ import lombok.RequiredArgsConstructor;
     "password"
 })
 @Data
-//@AllArgsConstructor
-public class User {
+public class UserJson {
     @JsonProperty("name")
     String name;
     @JsonProperty("password")

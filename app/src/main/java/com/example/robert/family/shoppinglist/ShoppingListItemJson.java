@@ -1,4 +1,4 @@
-package com.example.robert.family.fragments;
+package com.example.robert.family.shoppinglist;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -14,7 +14,7 @@ import lombok.Data;
         "checked"
 })
 @Data
-public class ShoppingListItem {
+public class ShoppingListItemJson {
     @JsonProperty("text")
     String text;
     @JsonProperty("checked")

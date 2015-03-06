@@ -12,6 +12,7 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -26,13 +27,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.robert.family.util.httptasks.Login;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
-    private final LoginActivity theThis = this;
 
-    public HttpAsyncTask mAuthTask = null; //TODO: Make this private?
+    //This is set in **** //TODO: OR NOT DOODOO
+    public AsyncTask mAuthTask = null; //TODO: Make this private?
 
     private AutoCompleteTextView emailView;
     public EditText passwordView; //TODO: Make private!
@@ -126,7 +129,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             focusView.requestFocus();
         } else {
             showProgress(true);
-            new HttpAsyncTask(theThis, null, AccountManager.get(getApplicationContext()), HttpTask.LOGIN, loginEmail, loginPassword).execute();
+            new Login(this, loginEmail, loginPassword).execute(); //TODO: Save this in mAuthTask?
         }
     }
 

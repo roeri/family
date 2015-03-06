@@ -1,4 +1,4 @@
-package com.example.robert.family.fragments;
+package com.example.robert.family.home;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

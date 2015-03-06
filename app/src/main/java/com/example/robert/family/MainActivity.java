@@ -9,11 +9,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
 
-import com.example.robert.family.fragments.Section1;
-import com.example.robert.family.fragments.Section2;
+import com.example.robert.family.home.Section1;
+import com.example.robert.family.shoppinglist.Section2;
+import com.example.robert.family.util.NavigationDrawer;
 
-public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
-    private NavigationDrawerFragment navigationDrawerFragment;
+import java.util.HashMap;
+import java.util.Map;
+
+public class MainActivity extends ActionBarActivity implements NavigationDrawer.NavigationDrawerCallbacks {
+    private NavigationDrawer navigationDrawer;
     private CharSequence title;
 
     @Override
@@ -21,12 +25,12 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        navigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
+        navigationDrawer = (NavigationDrawer) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         title = getTitle();
 
-        navigationDrawerFragment.setUp(
-                R.id.navigation_drawer,
-                (DrawerLayout) findViewById(R.id.drawer_layout));
+        navigationDrawer.setUp(
+            R.id.navigation_drawer,
+            (DrawerLayout) findViewById(R.id.drawer_layout));
     }
 
     @Override
@@ -51,10 +55,10 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
     public void onSectionAttached(int number) {
         switch (number) {
             case 0:
-                title = getString(R.string.drawer_section1);
+                title = getString(R.string.section1);
                 break;
             case 1:
-                title = getString(R.string.drawer_section2);
+                title = getString(R.string.section2);
                 break;
         }
     }
@@ -68,7 +72,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (!navigationDrawerFragment.isDrawerOpen()) {
+        if (!navigationDrawer.isDrawerOpen()) {
             // Only show items in the action bar relevant to this screen
             // if the drawer is not showing. Otherwise, let the drawer
             // decide what to show in the action bar.
