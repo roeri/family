@@ -1,6 +1,5 @@
 package com.example.robert.family.shoppinglist;
 
-import android.accounts.AccountManager;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -32,9 +31,9 @@ import java.util.ArrayList;
 /**
  * Created by robert on 2015-02-23.
  */
-public class Section2 extends Fragment {
+public class ShoppingList extends Fragment {
 
-    private final Section2 theThis = this;
+    private final ShoppingList theThis = this;
     private Typeface font;
 
     @Override

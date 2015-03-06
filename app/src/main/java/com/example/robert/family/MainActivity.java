@@ -9,12 +9,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
 
-import com.example.robert.family.home.Section1;
-import com.example.robert.family.shoppinglist.Section2;
+import com.example.robert.family.home.Home;
+import com.example.robert.family.shoppinglist.ShoppingList;
 import com.example.robert.family.util.NavigationDrawer;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class MainActivity extends ActionBarActivity implements NavigationDrawer.NavigationDrawerCallbacks {
     private NavigationDrawer navigationDrawer;
@@ -40,10 +37,10 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawer.
         switch(position) {
             default:
             case 0:
-                fragment = new Section1();
+                fragment = new Home();
                 break;
             case 1:
-                fragment = new Section2();
+                fragment = new ShoppingList();
                 break;
         }
         fragmentManager.beginTransaction()

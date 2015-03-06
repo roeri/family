@@ -2,7 +2,7 @@ package com.example.robert.family.util.httptasks;
 
 import android.os.AsyncTask;
 
-import com.example.robert.family.shoppinglist.Section2;
+import com.example.robert.family.shoppinglist.ShoppingList;
 import com.example.robert.family.util.Url;
 import com.example.robert.family.util.Util;
 
@@ -11,10 +11,10 @@ import com.example.robert.family.util.Util;
  */
 public class GetShoppingList extends AsyncTask<String, Void, String> {
 
-    private final Section2 section2;
+    private final ShoppingList shoppingList;
 
-    public GetShoppingList(Section2 section2) {
-        this.section2 = section2;
+    public GetShoppingList(ShoppingList shoppingList) {
+        this.shoppingList = shoppingList;
     }
 
     @Override
@@ -24,6 +24,6 @@ public class GetShoppingList extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
-        section2.fillShoppingList(result);
+        shoppingList.fillShoppingList(result);
     }
 }
