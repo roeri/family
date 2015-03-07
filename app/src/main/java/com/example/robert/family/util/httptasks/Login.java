@@ -6,9 +6,11 @@ import android.os.AsyncTask;
 import com.example.robert.family.LoginActivity;
 import com.example.robert.family.MainActivity;
 import com.example.robert.family.R;
-import com.example.robert.family.UserJson;
+import com.example.robert.family.TemporarySession;
+import com.example.robert.family.UserToCreateJson;
 import com.example.robert.family.util.Url;
-import com.example.robert.family.util.Util;
+import com.example.robert.family.util.HttpPoster;
+import com.example.robert.family.util.UserToLoginJson;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.apache.http.entity.StringEntity;
@@ -19,24 +21,24 @@ import org.apache.http.entity.StringEntity;
 public class Login extends AsyncTask<String, Void, String> {
 
     private final LoginActivity loginActivity;
-    private final String userName;
+    private final String email;
     private final String password;
 
-    public Login(LoginActivity loginActivity, String userName, String password) {
+    public Login(LoginActivity loginActivity, String email, String password) {
         this.loginActivity = loginActivity;
-        this.userName = userName;
+        this.email = email;
         this.password = password;
     }
 
     @Override
     protected String doInBackground(String... urls) {
-        UserJson userToLogin = new UserJson();
-        userToLogin.setName(userName);
+        UserToLoginJson userToLogin = new UserToLoginJson();
+        userToLogin.setEmail(email);
         userToLogin.setPassword(password);
         try {
             String json = new ObjectMapper().writeValueAsString(userToLogin);
             StringEntity entityToSend = new StringEntity(json);
-            return Util.doHttpPost(Url.loginUrl, true, entityToSend);
+            return HttpPoster.doHttpPost(Url.loginUrl, true, entityToSend);
         } catch (Exception e) { //JsonProcessingException or UnsupportedEncodingException
             e.printStackTrace();
         }
@@ -50,15 +52,17 @@ public class Login extends AsyncTask<String, Void, String> {
         switch(result) {
             case "SUCCESS":
                 loginActivity.finish();
-                //TODO: Create some kind of session!
+                TemporarySession.getInstance().setUserEmail(email); //TODO: Create some better kind of session!
+                //TemporarySession.getInstance().setUserId();
                 loginActivity.startActivity(new Intent(loginActivity, MainActivity.class));
                 break;
-            case "FAILURE":
+            case "FAILURE": //TODO: Handler for failure.
+            case "WRONG PASSWORD":
                 loginActivity.passwordView.setError(loginActivity.getString(R.string.error_incorrect_password));
                 loginActivity.passwordView.requestFocus();
                 break;
             case "CREATE USER":
-                new CreateUser(loginActivity, userName, password);
+                new CreateUser(loginActivity, email, password).execute();
                 break;
         }
     }

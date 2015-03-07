@@ -17,15 +17,7 @@ import java.io.InputStreamReader;
 /**
  * Created by robert on 2015-03-01.
  */
-public class Util {
-
-    public static ShoppingListJson jsonToShoppingList(String jsonString) throws IOException {
-        return new ObjectMapper().readValue(jsonString, ShoppingListJson.class);
-    }
-
-    public static String shoppingListToJson(ShoppingListJson shoppingListJson) throws IOException {
-        return new ObjectMapper().writeValueAsString(shoppingListJson);
-    }
+public class HttpPoster {
 
     public static String doHttpPost(String postUrl, boolean wantResult, AbstractHttpEntity entityToSend) {
         String result = "";

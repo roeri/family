@@ -1,24 +1,21 @@
-package com.example.robert.family;
+package com.example.robert.family.util;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
-import lombok.experimental.Builder;
 
 /**
  * Created by robert on 2015-03-02.
  */
 @JsonPropertyOrder({
-    "name",
+    "email",
     "password"
 })
 @Data
-public class UserJson {
-    @JsonProperty("name")
-    String name;
+public class UserToLoginJson {
+    @JsonProperty("email")
+    private String email;
     @JsonProperty("password")
-    String password;
+    private String password;
 }

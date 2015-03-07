@@ -19,11 +19,12 @@ import android.widget.Toast;
 
 import com.example.robert.family.R;
 import com.example.robert.family.util.RefreshableFragment;
-import com.example.robert.family.util.Util;
+import com.example.robert.family.util.HttpPoster;
 import com.example.robert.family.util.httptasks.CheckShoppingListItem;
 import com.example.robert.family.util.httptasks.CreateShoppingListItem;
 import com.example.robert.family.util.httptasks.DeleteShoppingListItem;
 import com.example.robert.family.util.httptasks.GetShoppingList;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mobeta.android.dslv.DragSortController;
 import com.mobeta.android.dslv.DragSortListView;
 
@@ -33,9 +34,9 @@ import java.util.ArrayList;
 /**
  * Created by robert on 2015-02-23.
  */
-public class ShoppingList extends Fragment implements RefreshableFragment {
+public class ShoppingListFragment extends Fragment implements RefreshableFragment {
 
-    private final ShoppingList theThis = this;
+    private final ShoppingListFragment theThis = this;
     private Typeface font;
 
     @Override
@@ -85,7 +86,7 @@ public class ShoppingList extends Fragment implements RefreshableFragment {
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { //Refactor to use View v param?
+            public void onClick(View v) { //TODO: Refactor to use View v param?
                 addItemLayout.setVisibility(View.INVISIBLE);
                 layoutParams.addRule(RelativeLayout.BELOW, R.id.section2_createItemButton);
                 inputMethodManager.hideSoftInputFromWindow(createItemText.getWindowToken(), 0);
@@ -127,7 +128,7 @@ public class ShoppingList extends Fragment implements RefreshableFragment {
         ListView shoppingList = (ListView) getView().findViewById(R.id.list);
 
         try {
-            ShoppingListJson inputShoppingListJsonItems = Util.jsonToShoppingList(shoppingListJson);
+            ShoppingListJson inputShoppingListJsonItems = new ObjectMapper().readValue(shoppingListJson, ShoppingListJson.class);
             ArrayList<ShoppingListItemJson> shoppingListItemJsons = new ArrayList<>();
             for(ShoppingListItemJson shoppingListItemJson : inputShoppingListJsonItems.getItems()) {
                 shoppingListItemJsons.add(shoppingListItemJson);

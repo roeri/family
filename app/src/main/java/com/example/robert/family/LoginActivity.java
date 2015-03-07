@@ -77,6 +77,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         Account[] accounts = accountManager.getAccountsByType(getString(R.string.application_account_type));
         if(accounts != null) {
             for(Account account : accounts) {
+                //int id = Integer.parseInt(accountManager.getUserData(account, "id"));
                 String email = account.name;
                 String password = accountManager.getPassword(account);
                 attemptLogin(email, password);

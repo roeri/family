@@ -10,9 +10,8 @@ import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.Toast;
 
-import com.example.robert.family.home.Home;
-import com.example.robert.family.shoppinglist.ShoppingList;
-import com.example.robert.family.util.FragmentId;
+import com.example.robert.family.home.HomeFragment;
+import com.example.robert.family.shoppinglist.ShoppingListFragment;
 import com.example.robert.family.util.FragmentNumbers;
 import com.example.robert.family.util.NavigationDrawer;
 import com.example.robert.family.util.RefreshableFragment;
@@ -26,6 +25,8 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawer.
     private Map<Integer, Fragment> currentlyActiveFragments;
     private RefreshableFragment currentlyLiveFragment;
 
+    public String userEmail = ""; //TODO: Create a session for this!!
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         currentlyActiveFragments = new HashMap<>();
@@ -35,9 +36,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawer.
         navigationDrawer = (NavigationDrawer) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         title = getTitle();
 
-        navigationDrawer.setUp(
-            R.id.navigation_drawer,
-            (DrawerLayout) findViewById(R.id.drawer_layout));
+        navigationDrawer.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout));
     }
 
     public RefreshableFragment getCurrentlyLiveFragment() {
@@ -67,13 +66,13 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawer.
         Fragment fragment;
         switch (number) {
             default: //FragmentNumbers.HOME:
-                fragment = new Home();
+                fragment = new HomeFragment();
                 break;
             case FragmentNumbers.SHOPPING_LIST:
-                fragment = new ShoppingList();
+                fragment = new ShoppingListFragment();
                 break;
             case FragmentNumbers.PROFILE:
-                fragment = new Profile();
+                fragment = new ProfileFragment();
                 break;
         }
         return fragment;

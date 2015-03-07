@@ -2,9 +2,9 @@ package com.example.robert.family.util.httptasks;
 
 import android.os.AsyncTask;
 
-import com.example.robert.family.shoppinglist.ShoppingList;
+import com.example.robert.family.shoppinglist.ShoppingListFragment;
 import com.example.robert.family.util.Url;
-import com.example.robert.family.util.Util;
+import com.example.robert.family.util.HttpPoster;
 
 import org.apache.http.entity.StringEntity;
 
@@ -15,11 +15,11 @@ import java.io.UnsupportedEncodingException;
  */
 public class CheckShoppingListItem extends AsyncTask<String, Void, String> {
 
-    private final ShoppingList shoppingList;
+    private final ShoppingListFragment shoppingListFragment;
     private final String itemName;
 
-    public CheckShoppingListItem(ShoppingList shoppingList, String itemName) {
-        this.shoppingList = shoppingList;
+    public CheckShoppingListItem(ShoppingListFragment shoppingListFragment, String itemName) {
+        this.shoppingListFragment = shoppingListFragment;
         this.itemName = itemName;
     }
 
@@ -27,7 +27,7 @@ public class CheckShoppingListItem extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... urls) {
         try {
             StringEntity entityToSend = new StringEntity(itemName);
-            Util.doHttpPost(Url.checkItemUrl, false, entityToSend);
+            HttpPoster.doHttpPost(Url.checkItemUrl, false, entityToSend);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -36,6 +36,6 @@ public class CheckShoppingListItem extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
-        new GetShoppingList(shoppingList).execute();
+        new GetShoppingList(shoppingListFragment).execute();
     }
 }
