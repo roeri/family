@@ -1,4 +1,4 @@
-package com.example.robert.family;
+package com.example.robert.family.main.profile;
 
 import android.support.v4.app.Fragment;
 import android.graphics.Typeface;
@@ -8,10 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.robert.family.util.ProfileJson;
-import com.example.robert.family.util.RefreshableFragment;
+import com.example.robert.family.R;
+import com.example.robert.family.TemporarySession;
+import com.example.robert.family.main.RefreshableFragment;
 import com.example.robert.family.util.httptasks.GetProfile;
-import com.example.robert.family.util.httptasks.GetShoppingList;
 
 /**
  * Created by robert on 2015-03-06.

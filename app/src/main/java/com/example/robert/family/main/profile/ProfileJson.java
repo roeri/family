@@ -1,4 +1,4 @@
-package com.example.robert.family.util;
+package com.example.robert.family.main.profile;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;

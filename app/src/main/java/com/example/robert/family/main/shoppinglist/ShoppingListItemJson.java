@@ -1,9 +1,8 @@
-package com.example.robert.family.shoppinglist;
+package com.example.robert.family.main.shoppinglist;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**

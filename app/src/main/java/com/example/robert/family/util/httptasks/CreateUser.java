@@ -5,9 +5,9 @@ import android.accounts.AccountManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
-import com.example.robert.family.LoginActivity;
+import com.example.robert.family.login.LoginActivity;
 import com.example.robert.family.R;
-import com.example.robert.family.UserToCreateJson;
+import com.example.robert.family.login.UserToCreateJson;
 import com.example.robert.family.util.Url;
 import com.example.robert.family.util.HttpPoster;
 import com.fasterxml.jackson.databind.ObjectMapper;

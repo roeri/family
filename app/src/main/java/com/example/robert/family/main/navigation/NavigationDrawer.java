@@ -1,4 +1,4 @@
-package com.example.robert.family.util;
+package com.example.robert.family.main.navigation;
 
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
@@ -21,8 +21,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.example.robert.family.MainActivity;
+import com.example.robert.family.main.MainActivity;
 import com.example.robert.family.R;
+import com.example.robert.family.util.FragmentNumbers;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -258,6 +259,7 @@ public class NavigationDrawer extends Fragment {
                 return true;
             case R.id.action_profile:
                 ((MainActivity) getActivity()).onNavigationDrawerItemSelected(FragmentNumbers.PROFILE);
+                return true; //TODO: Not sure if I have to return true here... What happens if I don't?
             default:
         }
 

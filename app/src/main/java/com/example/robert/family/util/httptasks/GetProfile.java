@@ -2,8 +2,8 @@ package com.example.robert.family.util.httptasks;
 
 import android.os.AsyncTask;
 
-import com.example.robert.family.ProfileFragment;
-import com.example.robert.family.util.ProfileJson;
+import com.example.robert.family.main.profile.ProfileFragment;
+import com.example.robert.family.main.profile.ProfileJson;
 import com.example.robert.family.util.Url;
 import com.example.robert.family.util.HttpPoster;
 import com.fasterxml.jackson.databind.ObjectMapper;

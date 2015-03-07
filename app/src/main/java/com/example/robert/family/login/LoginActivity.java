@@ -1,4 +1,4 @@
-package com.example.robert.family;
+package com.example.robert.family.login;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -27,6 +27,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.robert.family.R;
 import com.example.robert.family.util.httptasks.Login;
 
 import java.util.ArrayList;

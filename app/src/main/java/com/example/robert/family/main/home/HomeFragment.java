@@ -1,4 +1,4 @@
-package com.example.robert.family.home;
+package com.example.robert.family.main.home;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.robert.family.R;
-import com.example.robert.family.util.RefreshableFragment;
+import com.example.robert.family.main.RefreshableFragment;
 
 import lombok.extern.slf4j.Slf4j;
 

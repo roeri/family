@@ -1,4 +1,4 @@
-package com.example.robert.family.shoppinglist;
+package com.example.robert.family.main.shoppinglist;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -18,8 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.robert.family.R;
-import com.example.robert.family.util.RefreshableFragment;
-import com.example.robert.family.util.HttpPoster;
+import com.example.robert.family.main.RefreshableFragment;
 import com.example.robert.family.util.httptasks.CheckShoppingListItem;
 import com.example.robert.family.util.httptasks.CreateShoppingListItem;
 import com.example.robert.family.util.httptasks.DeleteShoppingListItem;

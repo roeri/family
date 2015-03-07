@@ -1,5 +1,5 @@
 
-package com.example.robert.family.shoppinglist;
+package com.example.robert.family.main.shoppinglist;
 
 import java.util.ArrayList;
 import java.util.List;

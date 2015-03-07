@@ -1,4 +1,4 @@
-package com.example.robert.family;
+package com.example.robert.family.main;
 
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
@@ -10,11 +10,12 @@ import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.Toast;
 
-import com.example.robert.family.home.HomeFragment;
-import com.example.robert.family.shoppinglist.ShoppingListFragment;
+import com.example.robert.family.R;
+import com.example.robert.family.main.home.HomeFragment;
+import com.example.robert.family.main.profile.ProfileFragment;
+import com.example.robert.family.main.shoppinglist.ShoppingListFragment;
 import com.example.robert.family.util.FragmentNumbers;
-import com.example.robert.family.util.NavigationDrawer;
-import com.example.robert.family.util.RefreshableFragment;
+import com.example.robert.family.main.navigation.NavigationDrawer;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -65,7 +66,8 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawer.
     private Fragment numberToFragment(int number) {
         Fragment fragment;
         switch (number) {
-            default: //FragmentNumbers.HOME:
+            default:
+            case FragmentNumbers.HOME:
                 fragment = new HomeFragment();
                 break;
             case FragmentNumbers.SHOPPING_LIST:
@@ -80,11 +82,15 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawer.
 
     private void onSectionAttached(int number) {
         switch (number) {
-            case 0:
+            case FragmentNumbers.HOME:
                 title = getString(R.string.section1);
                 break;
-            case 1:
+            case FragmentNumbers.SHOPPING_LIST:
                 title = getString(R.string.section2);
+                break;
+            case FragmentNumbers.PROFILE:
+                title = getString(R.string.fragment_profile);
+                restoreActionBar(); //TODO: Don't do it this way. How does it work for navigation drawer fragments?
                 break;
         }
     }

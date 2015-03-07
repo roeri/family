@@ -3,14 +3,13 @@ package com.example.robert.family.util.httptasks;
 import android.content.Intent;
 import android.os.AsyncTask;
 
-import com.example.robert.family.LoginActivity;
-import com.example.robert.family.MainActivity;
+import com.example.robert.family.login.LoginActivity;
+import com.example.robert.family.main.MainActivity;
 import com.example.robert.family.R;
 import com.example.robert.family.TemporarySession;
-import com.example.robert.family.UserToCreateJson;
 import com.example.robert.family.util.Url;
 import com.example.robert.family.util.HttpPoster;
-import com.example.robert.family.util.UserToLoginJson;
+import com.example.robert.family.login.UserToLoginJson;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.apache.http.entity.StringEntity;
@@ -53,7 +52,6 @@ public class Login extends AsyncTask<String, Void, String> {
             case "SUCCESS":
                 loginActivity.finish();
                 TemporarySession.getInstance().setUserEmail(email); //TODO: Create some better kind of session!
-                //TemporarySession.getInstance().setUserId();
                 loginActivity.startActivity(new Intent(loginActivity, MainActivity.class));
                 break;
             case "FAILURE": //TODO: Handler for failure.

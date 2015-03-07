@@ -2,7 +2,7 @@ package com.example.robert.family.util.httptasks;
 
 import android.os.AsyncTask;
 
-import com.example.robert.family.shoppinglist.ShoppingListFragment;
+import com.example.robert.family.main.shoppinglist.ShoppingListFragment;
 import com.example.robert.family.util.Url;
 import com.example.robert.family.util.HttpPoster;
 

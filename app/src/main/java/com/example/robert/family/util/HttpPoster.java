@@ -1,8 +1,5 @@
 package com.example.robert.family.util;
 
-import com.example.robert.family.shoppinglist.ShoppingListJson;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
@@ -10,7 +7,6 @@ import org.apache.http.entity.AbstractHttpEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
