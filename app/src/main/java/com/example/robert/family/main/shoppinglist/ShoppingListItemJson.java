@@ -9,11 +9,14 @@ import lombok.Data;
  * Created by robert on 2015-03-01.
  */
 @JsonPropertyOrder({
+        "users_id",
         "text",
         "checked"
 })
 @Data
 public class ShoppingListItemJson {
+    @JsonProperty("users_id")
+    int usersId;
     @JsonProperty("text")
     String text;
     @JsonProperty("checked")

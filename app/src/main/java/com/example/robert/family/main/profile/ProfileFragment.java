@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.robert.family.R;
-import com.example.robert.family.TemporarySession;
+import com.example.robert.family.Session;
 import com.example.robert.family.main.RefreshableFragment;
 import com.example.robert.family.util.httptasks.GetProfile;
 
@@ -32,7 +32,7 @@ public class ProfileFragment extends Fragment implements RefreshableFragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        new GetProfile(this, TemporarySession.getInstance().getUserEmail()).execute();
+        new GetProfile(this, Session.getInstance().getUserEmail()).execute();
     }
 
     @Override

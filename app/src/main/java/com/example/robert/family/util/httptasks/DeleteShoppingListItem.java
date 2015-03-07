@@ -27,7 +27,7 @@ public class DeleteShoppingListItem extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... urls) {
         try {
             StringEntity entityToSend = new StringEntity(itemName);
-            HttpPoster.doHttpPost(Url.deleteItemUrl, false, entityToSend);
+            HttpPoster.doHttpPost(Url.SHOPPING_LIST_DELETE_ITEM, false, entityToSend);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }

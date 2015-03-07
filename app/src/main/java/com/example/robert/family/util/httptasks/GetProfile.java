@@ -30,7 +30,7 @@ public class GetProfile extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... urls) {
         try {
             StringEntity entityToSend = new StringEntity(email);
-            return HttpPoster.doHttpPost(Url.getProfileUrl, true, entityToSend);
+            return HttpPoster.doHttpPost(Url.PROFILE_GET_PROFILE, true, entityToSend);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }

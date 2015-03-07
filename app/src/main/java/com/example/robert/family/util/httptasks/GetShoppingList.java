@@ -19,7 +19,7 @@ public class GetShoppingList extends AsyncTask<String, Void, String> {
 
     @Override
     protected String doInBackground(String... urls) {
-        return HttpPoster.doHttpPost(Url.shoppingListUrl, true, null);
+        return HttpPoster.doHttpPost(Url.SHOPPING_LIST_GET_SHOPPING_LIST, true, null);
     }
 
     @Override

@@ -2,9 +2,13 @@ package com.example.robert.family.util.httptasks;
 
 import android.os.AsyncTask;
 
+import com.example.robert.family.Session;
 import com.example.robert.family.main.shoppinglist.ShoppingListFragment;
+import com.example.robert.family.main.shoppinglist.ShoppingListItemJson;
 import com.example.robert.family.util.Url;
 import com.example.robert.family.util.HttpPoster;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.apache.http.entity.StringEntity;
 
@@ -26,9 +30,16 @@ public class CreateShoppingListItem extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... urls) {
         try {
-            StringEntity entityToSend = new StringEntity(itemName);
-            HttpPoster.doHttpPost(Url.createItemUrl, false, entityToSend);
+            ShoppingListItemJson shoppingListItemJson = new ShoppingListItemJson();
+            shoppingListItemJson.setText(itemName);
+            shoppingListItemJson.setUsersId(Session.getInstance().getUserId());
+            String json = new ObjectMapper().writeValueAsString(shoppingListItemJson);
+
+            StringEntity entityToSend = new StringEntity(json);
+            HttpPoster.doHttpPost(Url.SHOPPING_LIST_CREATE_ITEM, false, entityToSend);
         } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
         return "";

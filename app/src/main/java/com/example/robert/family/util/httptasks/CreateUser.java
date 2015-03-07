@@ -37,7 +37,7 @@ public class CreateUser extends AsyncTask<String, Void, String> {
         try {
             String json = new ObjectMapper().writeValueAsString(userToCreate);
             StringEntity entityToSend = new StringEntity(json);
-            return HttpPoster.doHttpPost(Url.createUserUrl, true, entityToSend);
+            return HttpPoster.doHttpPost(Url.LOGIN_CREATE_USER, true, entityToSend);
         } catch (Exception e) {
             e.printStackTrace();
         }

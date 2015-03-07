@@ -6,7 +6,6 @@ import android.os.AsyncTask;
 import com.example.robert.family.login.LoginActivity;
 import com.example.robert.family.main.MainActivity;
 import com.example.robert.family.R;
-import com.example.robert.family.TemporarySession;
 import com.example.robert.family.util.Url;
 import com.example.robert.family.util.HttpPoster;
 import com.example.robert.family.login.UserToLoginJson;
@@ -37,7 +36,7 @@ public class Login extends AsyncTask<String, Void, String> {
         try {
             String json = new ObjectMapper().writeValueAsString(userToLogin);
             StringEntity entityToSend = new StringEntity(json);
-            return HttpPoster.doHttpPost(Url.loginUrl, true, entityToSend);
+            return HttpPoster.doHttpPost(Url.LOGIN_ATTEMPT_LOGIN, true, entityToSend);
         } catch (Exception e) { //JsonProcessingException or UnsupportedEncodingException
             e.printStackTrace();
         }
@@ -51,7 +50,6 @@ public class Login extends AsyncTask<String, Void, String> {
         switch(result) {
             case "SUCCESS":
                 loginActivity.finish();
-                TemporarySession.getInstance().setUserEmail(email); //TODO: Create some better kind of session!
                 loginActivity.startActivity(new Intent(loginActivity, MainActivity.class));
                 break;
             case "FAILURE": //TODO: Handler for failure.

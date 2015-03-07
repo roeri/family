@@ -27,7 +27,7 @@ public class CheckShoppingListItem extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... urls) {
         try {
             StringEntity entityToSend = new StringEntity(itemName);
-            HttpPoster.doHttpPost(Url.checkItemUrl, false, entityToSend);
+            HttpPoster.doHttpPost(Url.SHOPPING_LIST_CHECK_ITEM, false, entityToSend);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }

@@ -1,5 +1,7 @@
 package com.example.robert.family.main;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -11,6 +13,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.widget.Toast;
 
 import com.example.robert.family.R;
+import com.example.robert.family.Session;
 import com.example.robert.family.main.home.HomeFragment;
 import com.example.robert.family.main.profile.ProfileFragment;
 import com.example.robert.family.main.shoppinglist.ShoppingListFragment;
@@ -25,11 +28,11 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawer.
     private CharSequence title;
     private Map<Integer, Fragment> currentlyActiveFragments;
     private RefreshableFragment currentlyLiveFragment;
-
-    public String userEmail = ""; //TODO: Create a session for this!!
+    private Account userAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Session.getInstance().initiate(this);
         currentlyActiveFragments = new HashMap<>();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -42,6 +45,10 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawer.
 
     public RefreshableFragment getCurrentlyLiveFragment() {
         return this.currentlyLiveFragment; //TODO: Risk for NPE, fix!
+    }
+
+    public Account getUserAccount() {
+        return this.userAccount;
     }
 
     @Override

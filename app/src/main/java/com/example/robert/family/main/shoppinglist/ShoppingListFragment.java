@@ -86,31 +86,31 @@ public class ShoppingListFragment extends Fragment implements RefreshableFragmen
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { //TODO: Refactor to use View v param?
-                addItemLayout.setVisibility(View.INVISIBLE);
-                layoutParams.addRule(RelativeLayout.BELOW, R.id.section2_createItemButton);
-                inputMethodManager.hideSoftInputFromWindow(createItemText.getWindowToken(), 0);
+            addItemLayout.setVisibility(View.INVISIBLE);
+            layoutParams.addRule(RelativeLayout.BELOW, R.id.section2_createItemButton);
+            inputMethodManager.hideSoftInputFromWindow(createItemText.getWindowToken(), 0);
             }
         });
 
         createItemText.setOnFocusChangeListener(new EditText.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View createItemText, boolean hasFocus) {
-                if (hasFocus) {
-                    ((EditText) createItemText).setText("");
-                } else {
-                    ((EditText) createItemText).setText(R.string.section2_createItemHint);
-                }
+            if (hasFocus) {
+                ((EditText) createItemText).setText("");
+            } else {
+                ((EditText) createItemText).setText(R.string.section2_createItemHint);
+            }
             }
         });
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new CreateShoppingListItem(theThis, createItemText.getText().toString()).execute();
-                inputMethodManager.hideSoftInputFromWindow(createItemText.getWindowToken(), 0);
-                final View addItemLayout = getView().findViewById(R.id.section2_addItemLayout);
-                addItemLayout.setVisibility(View.INVISIBLE);
-                layoutParams.addRule(RelativeLayout.BELOW, R.id.section2_createItemButton);
+            new CreateShoppingListItem(theThis, createItemText.getText().toString()).execute();
+            inputMethodManager.hideSoftInputFromWindow(createItemText.getWindowToken(), 0);
+            final View addItemLayout = getView().findViewById(R.id.section2_addItemLayout);
+            addItemLayout.setVisibility(View.INVISIBLE);
+            layoutParams.addRule(RelativeLayout.BELOW, R.id.section2_createItemButton);
             }
         });
 
@@ -168,16 +168,16 @@ public class ShoppingListFragment extends Fragment implements RefreshableFragmen
             final View.OnClickListener itemDeleteListener = new View.OnClickListener() {
                 @Override
                 public void onClick(View thisButton) {
-                    new DeleteShoppingListItem(theThis, itemText.getText().toString()).execute();
+                new DeleteShoppingListItem(theThis, itemText.getText().toString()).execute();
                 }
             };
             final View.OnClickListener itemCheckListener = new View.OnClickListener() {
                 @Override
                 public void onClick(View thisButton) {
-                    Button button = (Button) thisButton;
-                    new CheckShoppingListItem(theThis, itemText.getText().toString()).execute();
-                    button.setText(getString(R.string.icon_checkboxChecked));
-                    button.setOnClickListener(itemDeleteListener);
+                Button button = (Button) thisButton;
+                new CheckShoppingListItem(theThis, itemText.getText().toString()).execute();
+                button.setText(getString(R.string.icon_checkboxChecked));
+                button.setOnClickListener(itemDeleteListener);
                 }
             };
             if(shoppingListItemJson.checked) {
