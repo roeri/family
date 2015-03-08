@@ -5,10 +5,11 @@ package com.example.robert.family.util;
  */
 public class FragmentNumbers {
     public static final int HOME = 0;
-    public static final int SHOPPING_LIST = 1;
+    public static final int LIST_OF_SHOPPING_LISTS = 1;
 
 
 
     public static final int PROFILE = 11;
+    public static final int SHOPPING_LIST = 12;
 
 }

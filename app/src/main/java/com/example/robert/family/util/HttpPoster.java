@@ -15,7 +15,7 @@ import java.io.InputStreamReader;
  */
 public class HttpPoster {
 
-    public static String doHttpPost(String postUrl, boolean wantResult, AbstractHttpEntity entityToSend) {
+    public static String doHttpPost(String postUrl, AbstractHttpEntity entityToSend) {
         String result = "";
         HttpClient httpclient = new DefaultHttpClient();
         HttpPost httppost = new HttpPost(postUrl);
@@ -24,18 +24,16 @@ public class HttpPoster {
                 httppost.setEntity(entityToSend);
             }
             HttpResponse httpResponse = httpclient.execute(httppost);
-            if(wantResult) {
-                InputStream inputStream = httpResponse.getEntity().getContent();
-                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"), 8);
-                StringBuilder sb = new StringBuilder();
+            InputStream inputStream = httpResponse.getEntity().getContent();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"), 8);
+            StringBuilder sb = new StringBuilder();
 
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    sb.append(line); //TODO: Figure out if "sb.append(line + '\n')" is better for something, shouldn't be for json.
-                }
-                inputStream.close();
-                result = sb.toString();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line); //TODO: Figure out if "sb.append(line + '\n')" is better for something, shouldn't be for json.
             }
+            inputStream.close();
+            result = sb.toString();
         }catch(Exception e){
             System.out.println("ERROR: " + e.getMessage());
         }

@@ -36,7 +36,7 @@ public class Login extends AsyncTask<String, Void, String> {
         try {
             String json = new ObjectMapper().writeValueAsString(userToLogin);
             StringEntity entityToSend = new StringEntity(json);
-            return HttpPoster.doHttpPost(Url.LOGIN_ATTEMPT_LOGIN, true, entityToSend);
+            return HttpPoster.doHttpPost(Url.LOGIN_ATTEMPT_LOGIN, entityToSend);
         } catch (Exception e) { //JsonProcessingException or UnsupportedEncodingException
             e.printStackTrace();
         }

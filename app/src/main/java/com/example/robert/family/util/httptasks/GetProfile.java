@@ -1,6 +1,7 @@
 package com.example.robert.family.util.httptasks;
 
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import com.example.robert.family.main.profile.ProfileFragment;
 import com.example.robert.family.main.profile.ProfileJson;
@@ -30,20 +31,24 @@ public class GetProfile extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... urls) {
         try {
             StringEntity entityToSend = new StringEntity(email);
-            return HttpPoster.doHttpPost(Url.PROFILE_GET_PROFILE, true, entityToSend);
+            return HttpPoster.doHttpPost(Url.PROFILE_GET_PROFILE, entityToSend);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        return "";
+        return "FAILURE";
     }
 
     @Override
     protected void onPostExecute(String profileJson) {
-        try {
-            ProfileJson profile = new ObjectMapper().readValue(profileJson, ProfileJson.class);
-            profileFragment.populateProfile(profile);
-        } catch (IOException e) {
-            e.printStackTrace();
+        if(!profileJson.equals("FAILURE")) {
+            try {
+                ProfileJson profile = new ObjectMapper().readValue(profileJson, ProfileJson.class);
+                profileFragment.populateProfile(profile);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Toast.makeText(profileFragment.getActivity(), "ERROR in GetProfile", Toast.LENGTH_SHORT).show();
         }
     }
 }

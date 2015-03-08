@@ -36,6 +36,7 @@ import java.util.ArrayList;
 public class ShoppingListFragment extends Fragment implements RefreshableFragment {
 
     private final ShoppingListFragment theThis = this;
+    public final int shoppingListsId = 1; //TODO: FIX THIS, also make private?
     private Typeface font;
 
     @Override
@@ -157,7 +158,7 @@ public class ShoppingListFragment extends Fragment implements RefreshableFragmen
             if (convertView == null) {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_shoppinglist, parent, false);
             }
-            ShoppingListItemJson shoppingListItemJson = getItem(position);
+            final ShoppingListItemJson shoppingListItemJson = getItem(position);
 
             final TextView itemText = (TextView) convertView.findViewById(R.id.item_shoppinglist_text);
             final Button itemCheckButton = (Button) convertView.findViewById(R.id.item_shoppinglist_checkButton);
@@ -168,14 +169,14 @@ public class ShoppingListFragment extends Fragment implements RefreshableFragmen
             final View.OnClickListener itemDeleteListener = new View.OnClickListener() {
                 @Override
                 public void onClick(View thisButton) {
-                new DeleteShoppingListItem(theThis, itemText.getText().toString()).execute();
+                new DeleteShoppingListItem(theThis, shoppingListItemJson.id).execute();
                 }
             };
             final View.OnClickListener itemCheckListener = new View.OnClickListener() {
                 @Override
                 public void onClick(View thisButton) {
                 Button button = (Button) thisButton;
-                new CheckShoppingListItem(theThis, itemText.getText().toString()).execute();
+                new CheckShoppingListItem(theThis, shoppingListItemJson.id).execute();
                 button.setText(getString(R.string.icon_checkboxChecked));
                 button.setOnClickListener(itemDeleteListener);
                 }

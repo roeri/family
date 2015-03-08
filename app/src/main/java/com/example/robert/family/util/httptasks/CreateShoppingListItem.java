@@ -1,6 +1,7 @@
 package com.example.robert.family.util.httptasks;
 
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import com.example.robert.family.Session;
 import com.example.robert.family.main.shoppinglist.ShoppingListFragment;
@@ -31,22 +32,26 @@ public class CreateShoppingListItem extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... urls) {
         try {
             ShoppingListItemJson shoppingListItemJson = new ShoppingListItemJson();
-            shoppingListItemJson.setText(itemName);
+            shoppingListItemJson.setShoppingListsId(shoppingListFragment.shoppingListsId);
             shoppingListItemJson.setUsersId(Session.getInstance().getUserId());
+            shoppingListItemJson.setText(itemName);
             String json = new ObjectMapper().writeValueAsString(shoppingListItemJson);
-
             StringEntity entityToSend = new StringEntity(json);
-            HttpPoster.doHttpPost(Url.SHOPPING_LIST_CREATE_ITEM, false, entityToSend);
+            return HttpPoster.doHttpPost(Url.SHOPPING_LIST_CREATE_ITEM, entityToSend);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        return "";
+        return "FAILURE";
     }
 
     @Override
     protected void onPostExecute(String result) {
-        new GetShoppingList(shoppingListFragment).execute();
+        if(result.equals("SUCCESS")) {
+            new GetShoppingList(shoppingListFragment).execute();
+        } else {
+            Toast.makeText(shoppingListFragment.getActivity(), "ERROR in CreateShoppingListItem", Toast.LENGTH_SHORT).show();
+        }
     }
 }

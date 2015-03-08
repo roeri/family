@@ -17,6 +17,7 @@ import com.example.robert.family.Session;
 import com.example.robert.family.main.home.HomeFragment;
 import com.example.robert.family.main.profile.ProfileFragment;
 import com.example.robert.family.main.shoppinglist.ShoppingListFragment;
+import com.example.robert.family.main.shoppinglist.ShoppingListsFragment;
 import com.example.robert.family.util.FragmentNumbers;
 import com.example.robert.family.main.navigation.NavigationDrawer;
 
@@ -77,6 +78,9 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawer.
             case FragmentNumbers.HOME:
                 fragment = new HomeFragment();
                 break;
+            case FragmentNumbers.LIST_OF_SHOPPING_LISTS:
+                fragment = new ShoppingListsFragment();
+                break;
             case FragmentNumbers.SHOPPING_LIST:
                 fragment = new ShoppingListFragment();
                 break;
@@ -92,7 +96,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawer.
             case FragmentNumbers.HOME:
                 title = getString(R.string.section1);
                 break;
-            case FragmentNumbers.SHOPPING_LIST:
+            case FragmentNumbers.LIST_OF_SHOPPING_LISTS:
                 title = getString(R.string.section2);
                 break;
             case FragmentNumbers.PROFILE:

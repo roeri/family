@@ -4,6 +4,7 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.example.robert.family.login.LoginActivity;
 import com.example.robert.family.R;
@@ -37,11 +38,11 @@ public class CreateUser extends AsyncTask<String, Void, String> {
         try {
             String json = new ObjectMapper().writeValueAsString(userToCreate);
             StringEntity entityToSend = new StringEntity(json);
-            return HttpPoster.doHttpPost(Url.LOGIN_CREATE_USER, true, entityToSend);
+            return HttpPoster.doHttpPost(Url.LOGIN_CREATE_USER, entityToSend);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "";
+        return "FAILURE";
     }
 
     @Override
@@ -51,17 +52,12 @@ public class CreateUser extends AsyncTask<String, Void, String> {
             Bundle userData = new Bundle();
             userData.putString("id", result);
             if(AccountManager.get(loginActivity).addAccountExplicitly(newAccount, password, userData)) {
-                Account[] accounts = AccountManager.get(loginActivity).getAccounts();
                 new Login(loginActivity, email, password).execute();
-                /*Bundle result = new Bundle();
-                result.putString(AccountManager.KEY_ACCOUNT_NAME, mEmail);
-                result.putString(AccountManager.KEY_ACCOUNT_TYPE, getString(R.string.application_account_type));
-                setAccountAuthenticatorResult(result);*/
             } else {
-                System.out.println("FAILURE TO CREATE USER");
+                Toast.makeText(loginActivity, "ERROR in CreateUser", Toast.LENGTH_SHORT).show();
             }
         } else {
-            System.out.println("FAILURE TO CREATE USER");
+            Toast.makeText(loginActivity, "ERROR in CreateUser", Toast.LENGTH_SHORT).show();
         }
     }
 }

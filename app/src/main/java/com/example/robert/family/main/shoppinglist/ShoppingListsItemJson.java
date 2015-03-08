@@ -1,18 +1,21 @@
-
 package com.example.robert.family.main.shoppinglist;
 
-import java.util.ArrayList;
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import lombok.Data;
 
+/**
+ * Created by robert on 2015-03-01.
+ */
 @JsonPropertyOrder({
-    "items"
+        "id",
+        "name"
 })
 @Data
-public class ShoppingListJson {
-    @JsonProperty("items")
-    private List<ShoppingListItemJson> items = new ArrayList<>();
+public class ShoppingListsItemJson {
+    @JsonProperty("id")
+    int id;
+    @JsonProperty("name")
+    String name;
 }
