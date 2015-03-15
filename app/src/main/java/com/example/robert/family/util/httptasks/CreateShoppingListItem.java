@@ -32,7 +32,7 @@ public class CreateShoppingListItem extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... urls) {
         try {
             ShoppingListItemJson shoppingListItemJson = new ShoppingListItemJson();
-            shoppingListItemJson.setShoppingListsId(shoppingListFragment.shoppingListsId);
+            shoppingListItemJson.setShoppingListsId(shoppingListFragment.id);
             shoppingListItemJson.setUsersId(Session.getInstance().getUserId());
             shoppingListItemJson.setText(itemName);
             String json = new ObjectMapper().writeValueAsString(shoppingListItemJson);

@@ -36,7 +36,7 @@ import java.util.ArrayList;
 public class ShoppingListFragment extends Fragment implements RefreshableFragment {
 
     private final ShoppingListFragment theThis = this;
-    public final int shoppingListsId = 1; //TODO: FIX THIS, also make private?
+    public int id; //TODO: FIX THIS, also make private?
     private Typeface font;
 
     @Override
@@ -64,9 +64,17 @@ public class ShoppingListFragment extends Fragment implements RefreshableFragmen
         return view;
     }
 
-    @Override
+    /*@Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         new GetShoppingList(this).execute();
+    }*/
+
+    public void getShoppingList() {
+        new GetShoppingList(this).execute();
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void showCreateShoppingListItem() {
@@ -96,11 +104,9 @@ public class ShoppingListFragment extends Fragment implements RefreshableFragmen
         createItemText.setOnFocusChangeListener(new EditText.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View createItemText, boolean hasFocus) {
-            if (hasFocus) {
-                ((EditText) createItemText).setText("");
-            } else {
-                ((EditText) createItemText).setText(R.string.section2_createItemHint);
-            }
+                if (hasFocus) {
+                    ((EditText) createItemText).setText("");
+                }
             }
         });
 

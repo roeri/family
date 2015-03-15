@@ -13,7 +13,7 @@ import lombok.Data;
         "name"
 })
 @Data
-public class ShoppingListsItemJson {
+public class ListOfShoppingListsItemJson {
     @JsonProperty("id")
     int id;
     @JsonProperty("name")

@@ -13,7 +13,7 @@ import lombok.Data;
     "items"
 })
 @Data
-public class ShoppingListsJson {
+public class ListOfShoppingListsJson {
     @JsonProperty("items")
-    private List<ShoppingListsItemJson> items = new ArrayList<>();
+    private List<ListOfShoppingListsItemJson> items = new ArrayList<>();
 }

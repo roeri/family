@@ -26,7 +26,7 @@ public class GetShoppingList extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... urls) {
         StringEntity entityToSend = null;
         try {
-            entityToSend = new StringEntity(Integer.toString(shoppingListFragment.shoppingListsId));
+            entityToSend = new StringEntity(Integer.toString(shoppingListFragment.id));
             return HttpPoster.doHttpPost(Url.SHOPPING_LIST_GET_SHOPPING_LIST, entityToSend);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
@@ -39,7 +39,7 @@ public class GetShoppingList extends AsyncTask<String, Void, String> {
         if(!result.equals("FAILURE")) {
             shoppingListFragment.fillShoppingList(result);
         } else {
-            Toast.makeText(shoppingListFragment.getActivity(), "ERROR in CreateUser", Toast.LENGTH_SHORT).show();
+            Toast.makeText(shoppingListFragment.getActivity(), "ERROR in GetShoppingList", Toast.LENGTH_SHORT).show();
         }
     }
 }

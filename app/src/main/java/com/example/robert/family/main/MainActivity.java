@@ -1,11 +1,8 @@
 package com.example.robert.family.main;
 
-import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,7 +14,8 @@ import com.example.robert.family.Session;
 import com.example.robert.family.main.home.HomeFragment;
 import com.example.robert.family.main.profile.ProfileFragment;
 import com.example.robert.family.main.shoppinglist.ShoppingListFragment;
-import com.example.robert.family.main.shoppinglist.ShoppingListsFragment;
+import com.example.robert.family.main.shoppinglist.ListOfShoppingListsFragment;
+import com.example.robert.family.main.shoppinglist.ListOfShoppingListsItemJson;
 import com.example.robert.family.util.FragmentNumbers;
 import com.example.robert.family.main.navigation.NavigationDrawer;
 
@@ -27,9 +25,8 @@ import java.util.Map;
 public class MainActivity extends ActionBarActivity implements NavigationDrawer.NavigationDrawerCallbacks {
     private NavigationDrawer navigationDrawer;
     private CharSequence title;
-    private Map<Integer, Fragment> currentlyActiveFragments;
+    private Map<Integer, RefreshableFragment> currentlyActiveFragments;
     private RefreshableFragment currentlyLiveFragment;
-    private Account userAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,42 +45,36 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawer.
         return this.currentlyLiveFragment; //TODO: Risk for NPE, fix!
     }
 
-    public Account getUserAccount() {
-        return this.userAccount;
-    }
-
     @Override
     public void onNavigationDrawerItemSelected(int number) { //TODO: Maybe alias this to something for external use?
-        Fragment fragment;
-        FragmentManager fragmentManager = getSupportFragmentManager();
+        RefreshableFragment fragment;
 
         if(currentlyActiveFragments.containsKey(number)) {
             fragment = currentlyActiveFragments.get(number);
         } else {
             fragment = numberToFragment(number);
+            currentlyActiveFragments.put(number, fragment);
         }
 
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, fragment)
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container, (Fragment) fragment)
                 .commit();
 
-        currentlyLiveFragment = (RefreshableFragment) fragment;
+        currentlyLiveFragment = fragment;
         onSectionAttached(number);
     }
 
-    private Fragment numberToFragment(int number) {
-        Fragment fragment;
+    private RefreshableFragment numberToFragment(int number) {
+        RefreshableFragment fragment;
         switch (number) {
             default:
             case FragmentNumbers.HOME:
                 fragment = new HomeFragment();
                 break;
             case FragmentNumbers.LIST_OF_SHOPPING_LISTS:
-                fragment = new ShoppingListsFragment();
+                fragment = new ListOfShoppingListsFragment();
                 break;
-            case FragmentNumbers.SHOPPING_LIST:
-                fragment = new ShoppingListFragment();
-                break;
+            //Below items are not in the navigation drawer.
             case FragmentNumbers.PROFILE:
                 fragment = new ProfileFragment();
                 break;
@@ -101,14 +92,29 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawer.
                 break;
             case FragmentNumbers.PROFILE:
                 title = getString(R.string.fragment_profile);
-                restoreActionBar(); //TODO: Don't do it this way. How does it work for navigation drawer fragments?
                 break;
         }
+        restoreActionBar();
+    }
+
+    public void onShoppingListSelected(ListOfShoppingListsItemJson listOfShoppingListsItemJson) {
+        ShoppingListFragment shoppingList = new ShoppingListFragment();
+        shoppingList.setId(listOfShoppingListsItemJson.getId());
+        shoppingList.getShoppingList();
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container, shoppingList)
+                .commit();
+
+        currentlyActiveFragments.put(FragmentNumbers.SHOPPING_LIST, shoppingList);
+        currentlyLiveFragment = shoppingList;
+
+        title = listOfShoppingListsItemJson.getName();
+        restoreActionBar();
     }
 
     public void restoreActionBar() {
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle(title);
     }
