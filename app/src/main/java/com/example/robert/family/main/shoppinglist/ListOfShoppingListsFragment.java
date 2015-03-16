@@ -41,9 +41,9 @@ public class ListOfShoppingListsFragment extends Fragment implements Refreshable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/fontawesome-webfont.ttf");
-        View view = inflater.inflate(R.layout.fragment_shoppinglists, container, false);
+        View view = inflater.inflate(R.layout.fragment_list_of_shopping_lists, container, false);
 
-        Button createShoppingListButton = (Button) view.findViewById(R.id.shoppinglists_createShoppingListButton);
+        Button createShoppingListButton = (Button) view.findViewById(R.id.listOfShoppingLists_createShoppingListButton);
         createShoppingListButton.setTypeface(font);
         createShoppingListButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,7 +52,7 @@ public class ListOfShoppingListsFragment extends Fragment implements Refreshable
             }
         });
 
-        DragSortListView listView = (DragSortListView) view.findViewById(R.id.list_2);
+        DragSortListView listView = (DragSortListView) view.findViewById(R.id.listOfShoppingLists);
         DragSortController dragSortController = new DragSortController(listView);
         dragSortController.setDragInitMode(DragSortController.ON_LONG_PRESS);
         dragSortController.setBackgroundColor(Color.TRANSPARENT);
@@ -69,13 +69,13 @@ public class ListOfShoppingListsFragment extends Fragment implements Refreshable
     }
 
     public void showCreateShoppingList() {
-        final View addShoppingListLayout = getView().findViewById(R.id.shoppinglists_addShoppingListLayout);
+        final View addShoppingListLayout = getView().findViewById(R.id.listOfShoppingLists_addShoppingListLayout);
         addShoppingListLayout.setVisibility(View.VISIBLE);
 
-        final EditText createShoppingListText = (EditText) getView().findViewById(R.id.item_shoppinglists_createShoppingListText);
-        final Button cancelButton = (Button) addShoppingListLayout.findViewById(R.id.item_shoppinglists_cancelButton);
-        final Button saveButton = (Button) addShoppingListLayout.findViewById(R.id.item_shoppinglists_saveButton);
-        final View listView = getView().findViewById(R.id.list_2);
+        final EditText createShoppingListText = (EditText) getView().findViewById(R.id.listOfShoppingLists_addShoppingListLayout_createShoppingListText);
+        final Button cancelButton = (Button) addShoppingListLayout.findViewById(R.id.listOfShoppingLists_addShoppingListLayout_cancelButton);
+        final Button saveButton = (Button) addShoppingListLayout.findViewById(R.id.listOfShoppingLists_addShoppingListLayout_saveButton);
+        final View listView = getView().findViewById(R.id.listOfShoppingLists);
 
         final RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) listView.getLayoutParams();
         final InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -87,7 +87,7 @@ public class ListOfShoppingListsFragment extends Fragment implements Refreshable
             @Override
             public void onClick(View v) { //TODO: Refactor to use View v param?
             addShoppingListLayout.setVisibility(View.INVISIBLE);
-            layoutParams.addRule(RelativeLayout.BELOW, R.id.shoppinglists_createShoppingListButton);
+            layoutParams.addRule(RelativeLayout.BELOW, R.id.listOfShoppingLists_createShoppingListButton);
             inputMethodManager.hideSoftInputFromWindow(createShoppingListText.getWindowToken(), 0);
             }
         });
@@ -106,23 +106,23 @@ public class ListOfShoppingListsFragment extends Fragment implements Refreshable
             public void onClick(View v) {
                 new CreateShoppingList(theThis, createShoppingListText.getText().toString()).execute();
                 inputMethodManager.hideSoftInputFromWindow(createShoppingListText.getWindowToken(), 0);
-                final View addShoppingListLayout = getView().findViewById(R.id.shoppinglists_addShoppingListLayout);
+                final View addShoppingListLayout = getView().findViewById(R.id.listOfShoppingLists_addShoppingListLayout);
                 addShoppingListLayout.setVisibility(View.INVISIBLE);
-                layoutParams.addRule(RelativeLayout.BELOW, R.id.shoppinglists_createShoppingListButton);
+                layoutParams.addRule(RelativeLayout.BELOW, R.id.listOfShoppingLists_createShoppingListButton);
             }
         });
 
-        layoutParams.addRule(RelativeLayout.BELOW, R.id.shoppinglists_addShoppingListLayout);
+        layoutParams.addRule(RelativeLayout.BELOW, R.id.listOfShoppingLists_addShoppingListLayout);
         createShoppingListText.requestFocus();
         inputMethodManager.showSoftInput(createShoppingListText, 0);
     }
 
     public void fillListOfShoppingLists(String shoppingListsJson) {
         View view = getView();
-        if(view == null) { //Function is called with null all the time, why?
+        if(view == null) { //TODO: Function is called with null all the time, why?
             return;
         }
-        ListView shoppingLists = (ListView) getView().findViewById(R.id.list_2);
+        ListView shoppingLists = (ListView) getView().findViewById(R.id.listOfShoppingLists);
 
         try {
             ListOfShoppingListsJson inputShoppingLists = new ObjectMapper().readValue(shoppingListsJson, ListOfShoppingListsJson.class);
@@ -148,7 +148,7 @@ public class ListOfShoppingListsFragment extends Fragment implements Refreshable
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             if (convertView == null) {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_shoppinglists, parent, false);
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_list_of_shopping_lists, parent, false);
             }
             final ListOfShoppingListsItemJson shoppingList = getItem(position);
 
@@ -157,23 +157,22 @@ public class ListOfShoppingListsFragment extends Fragment implements Refreshable
 
             itemDeleteButton.setTypeface(font);
 
-            final View.OnClickListener selectShoppingListListener = new View.OnClickListener() {
+            itemText.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View thisButton) {
                     Toast.makeText(getActivity(), "USING LIST...", Toast.LENGTH_SHORT).show();
                     ((MainActivity) getActivity()).onShoppingListSelected(shoppingList); //TODO: Reference shoppingListItem in a better way.
                 }
-            };
-            itemText.setOnClickListener(selectShoppingListListener);
+            });
             itemText.setText(shoppingList.getName());
 
-            final View.OnClickListener itemDeleteListener = new View.OnClickListener() {
+            //final View.OnClickListener itemDeleteListener = ;
+            itemDeleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View thisButton) {
                     new DeleteShoppingList(theThis, shoppingList.id).execute();
                 }
-            };
-            itemDeleteButton.setOnClickListener(itemDeleteListener);
+            });
 
             return convertView;
         }

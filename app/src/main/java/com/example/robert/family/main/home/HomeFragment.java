@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 public class HomeFragment extends Fragment implements RefreshableFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_section1, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
         return view;
     }
 

@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/icon_plus"
-        android:id="@+id/shoppinglists_createShoppingListButton"
+        android:id="@+id/listOfShoppingLists_createShoppingListButton"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
@@ -21,23 +21,23 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:visibility="invisible"
-    android:layout_below="@+id/shoppinglists_createShoppingListButton"
-    android:id="@+id/shoppinglists_addShoppingListLayout">
+    android:layout_below="@+id/listOfShoppingLists_createShoppingListButton"
+    android:id="@+id/listOfShoppingLists_addShoppingListLayout">
 
         <Button
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/icon_cancel"
-            android:id="@+id/item_shoppinglists_cancelButton" />
+            android:id="@+id/listOfShoppingLists_addShoppingListLayout_cancelButton" />
 
         <EditText
-            android:layout_width="fill_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text=""
-            android:id="@+id/item_shoppinglists_createShoppingListText"
+            android:id="@+id/listOfShoppingLists_addShoppingListLayout_createShoppingListText"
             android:inputType="text" />
 
         <Button
@@ -45,16 +45,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/icon_save"
-            android:id="@+id/item_shoppinglists_saveButton" />
+            android:id="@+id/listOfShoppingLists_addShoppingListLayout_saveButton" />
     </LinearLayout>
 
     <com.mobeta.android.dslv.DragSortListView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:dslv="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/list_2"
+        android:id="@+id/listOfShoppingLists"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/shoppinglists_createShoppingListButton"
+        android:layout_below="@+id/listOfShoppingLists_createShoppingListButton"
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="false"
         android:dividerHeight="1dp"
