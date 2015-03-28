@@ -13,7 +13,6 @@ public class Session {
     private static Session me = null;
     private Account userAccount;
     private AccountManager accountManager;
-    //private MainActivity mainActivity;
 
     public static Session getInstance() {
         if(me == null) {
@@ -28,9 +27,11 @@ public class Session {
     }
 
     public void initiate(MainActivity mainActivity) {
-        //this.mainActivity = mainActivity;
         this.accountManager = AccountManager.get(mainActivity);
-        this.userAccount = accountManager.getAccountsByType(mainActivity.getString(R.string.application_account_type))[0]; //TODO: Handle if account does not exist.
+        Account[] accounts = accountManager.getAccountsByType(mainActivity.getString(R.string.application_account_type));
+        if(accounts.length > 0) {
+            this.userAccount = accounts[0]; //TODO: Handle more than one account.
+        }
     }
 
     public int getUserId() {
