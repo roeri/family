@@ -10,3 +10,4 @@
 app/app.iml
 hejjj.iml
 app/*.apk
+.idea/gradle.xml
