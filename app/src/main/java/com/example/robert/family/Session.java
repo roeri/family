@@ -26,7 +26,7 @@ public class Session {
         //Avoiding multiple instances.
     }
 
-    public void initiate(MainActivity mainActivity) {
+    public void initiateUserAccount(MainActivity mainActivity) {
         this.accountManager = AccountManager.get(mainActivity);
         Account[] accounts = accountManager.getAccountsByType(mainActivity.getString(R.string.application_account_type));
         if(accounts.length > 0) {

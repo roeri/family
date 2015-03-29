@@ -30,7 +30,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawer.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Session.getInstance().initiate(this);
+        Session.getInstance().initiateUserAccount(this);
         currentlyActiveFragments = new HashMap<>();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);

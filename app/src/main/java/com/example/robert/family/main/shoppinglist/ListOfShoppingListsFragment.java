@@ -43,6 +43,15 @@ public class ListOfShoppingListsFragment extends Fragment implements Refreshable
         font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/fontawesome-webfont.ttf");
         View view = inflater.inflate(R.layout.fragment_list_of_shopping_lists, container, false);
 
+        Button editListOfShoppingListsButton = (Button) view.findViewById(R.id.listOfShoppingLists_editListOfShoppingListsButton);
+        editListOfShoppingListsButton.setTypeface(font);
+        editListOfShoppingListsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //EDIT THE LIST OF SHOPPING LISTS
+            }
+        });
+
         Button createShoppingListButton = (Button) view.findViewById(R.id.listOfShoppingLists_createShoppingListButton);
         createShoppingListButton.setTypeface(font);
         createShoppingListButton.setOnClickListener(new View.OnClickListener() {
