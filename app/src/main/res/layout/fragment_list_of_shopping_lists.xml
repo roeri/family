@@ -11,10 +11,18 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/icon_edit"
+        android:id="@+id/listOfShoppingLists_editListOfShoppingListsButton"
+        android:layout_alignParentTop="true"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="@string/icon_plus"
         android:id="@+id/listOfShoppingLists_createShoppingListButton"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignRight="@+id/listOfShoppingLists_addShoppingListLayout"
+        android:layout_alignEnd="@+id/listOfShoppingLists_addShoppingListLayout" />
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
