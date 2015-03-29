@@ -38,6 +38,8 @@ public class ListOfShoppingListsFragment extends Fragment implements Refreshable
 
     private final ListOfShoppingListsFragment theThis = this;
     private Typeface font;
+    List<ListOfShoppingListsItemJson> listOfShoppingLists;
+    private boolean editMode = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -46,12 +48,25 @@ public class ListOfShoppingListsFragment extends Fragment implements Refreshable
 
         Button editListOfShoppingListsButton = (Button) view.findViewById(R.id.listOfShoppingLists_editListOfShoppingListsButton);
         editListOfShoppingListsButton.setTypeface(font);
-        editListOfShoppingListsButton.setOnClickListener(new View.OnClickListener() {
+
+        final View.OnClickListener toggleEditModeListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //EDIT THE LIST OF SHOPPING LISTS
+                if(editMode) {
+                    editMode = false;
+                    //DragSortListView listOfShoppingLists = (DragSortListView) getView().findViewById(R.id.listOfShoppingLists);
+                    //Toast.makeText(getActivity(), "DISABLING - ENABLED?: " + listOfShoppingLists.isDragEnabled(), Toast.LENGTH_SHORT).show();
+                    //listOfShoppingLists.setDragEnabled(true);
+                } else {
+                    editMode = true;
+                    //DragSortListView listOfShoppingLists = (DragSortListView) getView().findViewById(R.id.listOfShoppingLists);
+                    //Toast.makeText(getActivity(), "ENABLING - ENABLED?: " + listOfShoppingLists.isDragEnabled(), Toast.LENGTH_SHORT).show();
+                    //listOfShoppingLists.setDragEnabled(true);
+                }
+                editMode(editMode);
             }
-        });
+        };
+        editListOfShoppingListsButton.setOnClickListener(toggleEditModeListener);
 
         Button createShoppingListButton = (Button) view.findViewById(R.id.listOfShoppingLists_createShoppingListButton);
         createShoppingListButton.setTypeface(font);
@@ -134,13 +149,21 @@ public class ListOfShoppingListsFragment extends Fragment implements Refreshable
         }
         ListView shoppingLists = (ListView) getView().findViewById(R.id.listOfShoppingLists);
 
+        ListOfShoppingListsJson inputShoppingLists;
         try {
-            ListOfShoppingListsJson inputShoppingLists = new ObjectMapper().readValue(shoppingListsJson, ListOfShoppingListsJson.class);
-            ShoppingListsAdapter shoppingListsAdapter = new ShoppingListsAdapter(getActivity(), inputShoppingLists.getItems(), false);
+            inputShoppingLists = new ObjectMapper().readValue(shoppingListsJson, ListOfShoppingListsJson.class);
+            this.listOfShoppingLists = inputShoppingLists.getItems();
+            ShoppingListsAdapter shoppingListsAdapter = new ShoppingListsAdapter(getActivity(), this.listOfShoppingLists, false);
             shoppingLists.setAdapter(shoppingListsAdapter);
         } catch (IOException e) {
             System.out.println("ERROR: " + e.getMessage());
         }
+    }
+
+    public void editMode(boolean editMode) {
+        ListView shoppingLists = (ListView) getView().findViewById(R.id.listOfShoppingLists);
+        ShoppingListsAdapter shoppingListsAdapter = new ShoppingListsAdapter(getActivity(), this.listOfShoppingLists, editMode);
+        shoppingLists.setAdapter(shoppingListsAdapter);
     }
 
     @Override
@@ -191,9 +214,6 @@ public class ListOfShoppingListsFragment extends Fragment implements Refreshable
                 itemDeleteButton.setVisibility(View.VISIBLE);
             } else {
                 itemDeleteButton.setVisibility(View.GONE);
-                //final RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) itemText.getLayoutParams();
-                //layoutParams.addRule(RelativeLayout., R.id.listOfShoppingLists_createShoppingListButton);
-                //itemText.
             }
 
             return convertView;
