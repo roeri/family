@@ -5,7 +5,6 @@ import android.accounts.AccountManager;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.example.robert.family.login.LoginActivity;
 import com.example.robert.family.main.MainActivity;
