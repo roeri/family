@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -135,7 +136,7 @@ public class ListOfShoppingListsFragment extends Fragment implements Refreshable
 
         try {
             ListOfShoppingListsJson inputShoppingLists = new ObjectMapper().readValue(shoppingListsJson, ListOfShoppingListsJson.class);
-            ShoppingListsAdapter shoppingListsAdapter = new ShoppingListsAdapter(getActivity(), inputShoppingLists.getItems());
+            ShoppingListsAdapter shoppingListsAdapter = new ShoppingListsAdapter(getActivity(), inputShoppingLists.getItems(), false);
             shoppingLists.setAdapter(shoppingListsAdapter);
         } catch (IOException e) {
             System.out.println("ERROR: " + e.getMessage());
@@ -149,9 +150,11 @@ public class ListOfShoppingListsFragment extends Fragment implements Refreshable
     }
 
     public class ShoppingListsAdapter extends ArrayAdapter<ListOfShoppingListsItemJson> {
+        boolean editMode;
 
-        public ShoppingListsAdapter(Context context, List<ListOfShoppingListsItemJson> shoppingLists) { //TODO: Check List vs ArrayList here.
+        public ShoppingListsAdapter(Context context, List<ListOfShoppingListsItemJson> shoppingLists, boolean editMode) { //TODO: Check List vs ArrayList here.
             super(context, 0, shoppingLists);
+            this.editMode = editMode;
         }
 
         @Override
@@ -159,6 +162,7 @@ public class ListOfShoppingListsFragment extends Fragment implements Refreshable
             if (convertView == null) {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_list_of_shopping_lists, parent, false);
             }
+
             final ListOfShoppingListsItemJson shoppingList = getItem(position);
 
             final Button itemDeleteButton = (Button) convertView.findViewById(R.id.item_shoppinglists_deleteButton);
@@ -169,19 +173,28 @@ public class ListOfShoppingListsFragment extends Fragment implements Refreshable
             itemText.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View thisButton) {
-                    Toast.makeText(getActivity(), "USING LIST...", Toast.LENGTH_SHORT).show();
                     ((MainActivity) getActivity()).onShoppingListSelected(shoppingList); //TODO: Reference shoppingListItem in a better way.
                 }
             });
+            itemText.setHeight(140); //TODO: Set height in a better, more dynamic way.
+            itemText.setGravity(Gravity.CENTER_VERTICAL);
             itemText.setText(shoppingList.getName());
 
-            //final View.OnClickListener itemDeleteListener = ;
             itemDeleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View thisButton) {
                     new DeleteShoppingList(theThis, shoppingList.id).execute();
                 }
             });
+
+            if(editMode) {
+                itemDeleteButton.setVisibility(View.VISIBLE);
+            } else {
+                itemDeleteButton.setVisibility(View.GONE);
+                //final RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) itemText.getLayoutParams();
+                //layoutParams.addRule(RelativeLayout., R.id.listOfShoppingLists_createShoppingListButton);
+                //itemText.
+            }
 
             return convertView;
         }
