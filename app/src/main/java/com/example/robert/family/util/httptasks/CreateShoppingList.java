@@ -49,7 +49,7 @@ public class CreateShoppingList extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String result) {
         if(result.equals("SUCCESS")) {
-            new GetListOfShoppingLists(listOfShoppingListsFragment, false).execute();
+            new GetListOfShoppingLists(listOfShoppingListsFragment).execute();
         } else {
             Toast.makeText(listOfShoppingListsFragment.getActivity(), "ERROR in CreateShoppingList", Toast.LENGTH_SHORT).show();
         }

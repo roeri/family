@@ -39,7 +39,7 @@ public class DeleteShoppingList extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String result) {
         if(result.equals("SUCCESS")) {
-            new GetListOfShoppingLists(listOfShoppingListsFragment, true).execute();
+            new GetListOfShoppingLists(listOfShoppingListsFragment).execute();
         } else {
             Toast.makeText(listOfShoppingListsFragment.getActivity(), "ERROR in DeleteShoppingList", Toast.LENGTH_SHORT).show();
         }

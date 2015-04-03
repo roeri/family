@@ -13,11 +13,9 @@ import com.example.robert.family.util.Url;
 public class GetListOfShoppingLists extends AsyncTask<String, Void, String> {
 
     private final ListOfShoppingListsFragment listOfShoppingListsFragment;
-    private final boolean editMode;
 
-    public GetListOfShoppingLists(ListOfShoppingListsFragment listOfShoppingListsFragment, boolean editMode) {
+    public GetListOfShoppingLists(ListOfShoppingListsFragment listOfShoppingListsFragment) {
         this.listOfShoppingListsFragment = listOfShoppingListsFragment;
-        this.editMode = editMode;
     }
 
     @Override
@@ -28,7 +26,7 @@ public class GetListOfShoppingLists extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String result) {
         if(!result.equals("FAILURE")) {
-            listOfShoppingListsFragment.fillListOfShoppingLists(result, editMode);
+            listOfShoppingListsFragment.fillListOfShoppingLists(result);
         } else {
             Toast.makeText(listOfShoppingListsFragment.getActivity(), "ERROR in GetShoppingLists", Toast.LENGTH_SHORT).show();
         }

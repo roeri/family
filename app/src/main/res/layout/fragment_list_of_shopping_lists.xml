@@ -13,12 +13,12 @@
         android:layout_height="wrap_content"
         android:text="@string/icon_edit"
         android:id="@+id/listOfShoppingLists_editListOfShoppingListsButton"
-        android:layout_alignParentTop="true"/>
+        android:layout_alignParentTop="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/icon_plus"
+        android:text="@string/icon_shoppingCartPlus"
         android:id="@+id/listOfShoppingLists_createShoppingListButton"
         android:layout_alignParentTop="true"
         android:layout_alignRight="@+id/listOfShoppingLists_createShoppingListLayout"
@@ -66,12 +66,13 @@
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="false"
         android:dividerHeight="1dp"
-        dslv:drag_enabled="true"
+        dslv:drag_enabled="false"
         dslv:collapsed_height="2dp"
         dslv:max_drag_scroll_speed="2"
         dslv:float_alpha="1"
         dslv:slide_shuffle_speed="0.3"
         dslv:track_drag_sort="false"
-        dslv:use_default_controller="true" />
+        dslv:use_default_controller="true"
+        dslv:sort_enabled="true"/>
 
 </RelativeLayout>

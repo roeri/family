@@ -6,8 +6,9 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/icon_cancel"
-        android:id="@+id/item_shoppinglists_deleteButton" />
+        android:text="@string/icon_delete"
+        android:visibility="gone"
+        android:id="@+id/item_listOfShoppingLists_deleteButton" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -15,7 +16,13 @@
         android:layout_weight="1"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="[ THIS ITEM HAS NO TEXT ]"
-        android:id="@+id/item_shoppinglists_text" />
+        android:id="@+id/item_listOfShoppingLists_text" />
         <!--android:ellipsize="end"-->
 
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/icon_shoppingCart"
+        android:id="@+id/item_listOfShoppingLists_selectButton" />
 </LinearLayout>

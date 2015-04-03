@@ -40,6 +40,8 @@ public class ListOfShoppingListsFragment extends Fragment implements Refreshable
     private Typeface font;
     List<ListOfShoppingListsItemJson> listOfShoppingLists;
     private boolean editMode = false;
+    private ShoppingListsAdapter shoppingListsAdapter;
+    private DragSortController listOfShoppingListsController;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -53,16 +55,10 @@ public class ListOfShoppingListsFragment extends Fragment implements Refreshable
             public void onClick(View v) {
                 if(editMode) {
                     editMode = false;
-                    //DragSortListView listOfShoppingLists = (DragSortListView) getView().findViewById(R.id.listOfShoppingLists);
-                    //Toast.makeText(getActivity(), "DISABLING - ENABLED?: " + listOfShoppingLists.isDragEnabled(), Toast.LENGTH_SHORT).show();
-                    //listOfShoppingLists.setDragEnabled(true);
                 } else {
                     editMode = true;
-                    //DragSortListView listOfShoppingLists = (DragSortListView) getView().findViewById(R.id.listOfShoppingLists);
-                    //Toast.makeText(getActivity(), "ENABLING - ENABLED?: " + listOfShoppingLists.isDragEnabled(), Toast.LENGTH_SHORT).show();
-                    //listOfShoppingLists.setDragEnabled(true);
                 }
-                editMode(editMode);
+                setEditModeEnabled(editMode);
             }
         });
 
@@ -75,24 +71,43 @@ public class ListOfShoppingListsFragment extends Fragment implements Refreshable
             }
         });
 
-        DragSortListView listView = (DragSortListView) view.findViewById(R.id.listOfShoppingLists);
-        DragSortController dragSortController = new DragSortController(listView);
-        dragSortController.setDragInitMode(DragSortController.ON_LONG_PRESS);
-        dragSortController.setBackgroundColor(Color.TRANSPARENT);
+        DragSortListView listOfShoppingLists = (DragSortListView) view.findViewById(R.id.listOfShoppingLists);
+        listOfShoppingListsController = new DragSortController(listOfShoppingLists);
+        listOfShoppingListsController.setDragInitMode(DragSortController.ON_DOWN);
+        listOfShoppingListsController.setBackgroundColor(Color.TRANSPARENT);
 
-        listView.setFloatViewManager(dragSortController);
-        listView.setOnTouchListener(dragSortController);
-        listView.setDragEnabled(true);
+        listOfShoppingLists.setFloatViewManager(listOfShoppingListsController);
+        listOfShoppingLists.setOnTouchListener(listOfShoppingListsController);
+
+        listOfShoppingLists.setRemoveListener(new DragSortListView.RemoveListener() {
+            @Override
+            public void remove(int which) {
+                shoppingListsAdapter.remove(shoppingListsAdapter.getItem(which));
+            }
+        });
+
+        listOfShoppingLists.setDropListener(new DragSortListView.DropListener() {
+            @Override
+            public void drop(int from, int to) {
+                if (from != to) {
+                    ListOfShoppingListsItemJson item = shoppingListsAdapter.getItem(from);
+                    shoppingListsAdapter.remove(item);
+                    shoppingListsAdapter.insert(item, to);
+                }
+            }
+        });
+
         return view;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        new GetListOfShoppingLists(this, this.editMode).execute();
+        refresh();
     }
 
     public void showCreateShoppingList() {
-        editMode(false);
+        this.editMode = false;
+        setEditModeEnabled(false);
         final View addShoppingListLayout = getView().findViewById(R.id.listOfShoppingLists_createShoppingListLayout);
         addShoppingListLayout.setVisibility(View.VISIBLE);
 
@@ -141,7 +156,7 @@ public class ListOfShoppingListsFragment extends Fragment implements Refreshable
         inputMethodManager.showSoftInput(createShoppingListText, 0);
     }
 
-    public void fillListOfShoppingLists(String shoppingListsJson, boolean editMode) {
+    public void fillListOfShoppingLists(String shoppingListsJson) {
         View view = getView();
         if(view == null) { //TODO: Function is called with null all the time, why?
             return;
@@ -152,32 +167,40 @@ public class ListOfShoppingListsFragment extends Fragment implements Refreshable
         try {
             inputShoppingLists = new ObjectMapper().readValue(shoppingListsJson, ListOfShoppingListsJson.class);
             this.listOfShoppingLists = inputShoppingLists.getItems();
-            ShoppingListsAdapter shoppingListsAdapter = new ShoppingListsAdapter(getActivity(), this.listOfShoppingLists, false);
-            shoppingLists.setAdapter(shoppingListsAdapter);
+            this.shoppingListsAdapter = new ShoppingListsAdapter(getActivity(), this.listOfShoppingLists);
+            shoppingLists.setAdapter(this.shoppingListsAdapter);
         } catch (IOException e) {
             System.out.println("ERROR: " + e.getMessage());
         }
-        editMode(editMode);
     }
 
-    public void editMode(boolean editMode) {
-        ListView shoppingLists = (ListView) getView().findViewById(R.id.listOfShoppingLists);
-        ShoppingListsAdapter shoppingListsAdapter = new ShoppingListsAdapter(getActivity(), this.listOfShoppingLists, editMode);
-        shoppingLists.setAdapter(shoppingListsAdapter);
+    public void setEditModeEnabled(boolean editMode) {
+        DragSortListView listOfShoppingLists = (DragSortListView) getView().findViewById(R.id.listOfShoppingLists);
+        if (editMode) {
+            int shoppingListsCount = listOfShoppingLists.getCount();
+            for (int i = 0; i < shoppingListsCount; i++) {
+                listOfShoppingLists.getChildAt(i).findViewById(R.id.item_listOfShoppingLists_deleteButton).setVisibility(View.VISIBLE);
+            }
+            listOfShoppingLists.setDragEnabled(true);
+        } else {
+            int shoppingListsCount = listOfShoppingLists.getCount();
+            for (int i = 0; i < shoppingListsCount; i++) {
+                listOfShoppingLists.getChildAt(i).findViewById(R.id.item_listOfShoppingLists_deleteButton).setVisibility(View.GONE);
+            }
+            listOfShoppingLists.setDragEnabled(false);
+        }
     }
 
     @Override
     public void refresh() {
-        Toast.makeText(getActivity(), "Refreshing...", Toast.LENGTH_SHORT).show();
-        new GetListOfShoppingLists(this, this.editMode).execute();
+        new GetListOfShoppingLists(this).execute();
+        this.editMode = false;
     }
 
     public class ShoppingListsAdapter extends ArrayAdapter<ListOfShoppingListsItemJson> {
-        boolean editMode;
 
-        public ShoppingListsAdapter(Context context, List<ListOfShoppingListsItemJson> shoppingLists, boolean editMode) { //TODO: Check List vs ArrayList here.
+        public ShoppingListsAdapter(Context context, List<ListOfShoppingListsItemJson> shoppingLists) { //TODO: Check List vs ArrayList here.
             super(context, 0, shoppingLists);
-            this.editMode = editMode;
         }
 
         @Override
@@ -188,33 +211,31 @@ public class ListOfShoppingListsFragment extends Fragment implements Refreshable
 
             final ListOfShoppingListsItemJson shoppingList = getItem(position);
 
-            final Button itemDeleteButton = (Button) convertView.findViewById(R.id.item_shoppinglists_deleteButton);
-            final TextView itemText = (TextView) convertView.findViewById(R.id.item_shoppinglists_text);
+            final Button itemDeleteButton = (Button) convertView.findViewById(R.id.item_listOfShoppingLists_deleteButton);
+            final TextView itemText = (TextView) convertView.findViewById(R.id.item_listOfShoppingLists_text);
+            final Button itemSelectButton = (Button) convertView.findViewById(R.id.item_listOfShoppingLists_selectButton);
 
             itemDeleteButton.setTypeface(font);
-
-            itemText.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View thisButton) {
-                    ((MainActivity) getActivity()).onShoppingListSelected(shoppingList); //TODO: Reference shoppingListItem in a better way.
-                }
-            });
+            itemSelectButton.setTypeface(font);
             itemText.setHeight(140); //TODO: Set height in a better, more dynamic way.
             itemText.setGravity(Gravity.CENTER_VERTICAL);
+
             itemText.setText(shoppingList.getName());
 
             itemDeleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View thisButton) {
                     new DeleteShoppingList(theThis, shoppingList.id).execute();
+                    setEditModeEnabled(true);
                 }
             });
 
-            if(editMode) {
-                itemDeleteButton.setVisibility(View.VISIBLE);
-            } else {
-                itemDeleteButton.setVisibility(View.GONE);
-            }
+            itemSelectButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View thisButton) {
+                    ((MainActivity) getActivity()).onShoppingListSelected(shoppingList); //TODO: Reference shoppingListItem in a better way.
+                }
+            });
 
             return convertView;
         }

@@ -67,7 +67,7 @@ public class ShoppingListFragment extends Fragment implements RefreshableFragmen
 
         DragSortListView listView = (DragSortListView) view.findViewById(R.id.shoppingList);
         DragSortController dragSortController = new DragSortController(listView);
-        dragSortController.setDragInitMode(DragSortController.ON_LONG_PRESS);
+        dragSortController.setDragInitMode(DragSortController.ON_DOWN);
         dragSortController.setBackgroundColor(Color.TRANSPARENT);
 
         listView.setFloatViewManager(dragSortController);
@@ -185,6 +185,7 @@ public class ShoppingListFragment extends Fragment implements RefreshableFragmen
                 new DeleteShoppingListItem(theThis, shoppingListItemJson.id).execute();
                 }
             };
+
             final View.OnClickListener itemCheckListener = new View.OnClickListener() {
                 @Override
                 public void onClick(View thisButton) {
@@ -194,6 +195,7 @@ public class ShoppingListFragment extends Fragment implements RefreshableFragmen
                 button.setOnClickListener(itemDeleteListener);
                 }
             };
+
             if(shoppingListItemJson.checked) {
                 itemCheckButton.setText(getString(R.string.icon_checkboxChecked));
                 itemCheckButton.setOnClickListener(itemDeleteListener);

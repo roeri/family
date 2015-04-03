@@ -85,10 +85,10 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawer.
     private void onSectionAttached(int number) {
         switch (number) {
             case FragmentNumbers.HOME:
-                title = getString(R.string.section1);
+                title = getString(R.string.title_home);
                 break;
             case FragmentNumbers.LIST_OF_SHOPPING_LISTS:
-                title = getString(R.string.section2);
+                title = getString(R.string.title_shoppingLists);
                 break;
             case FragmentNumbers.PROFILE:
                 title = getString(R.string.fragment_profile);
