@@ -77,7 +77,6 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         Account[] accounts = accountManager.getAccountsByType(getString(R.string.application_account_type));
         if(accounts != null) {
             for(Account account : accounts) {
-                //int id = Integer.parseInt(accountManager.getUserData(account, "id"));
                 attemptLogin(account);
             }
         }
@@ -143,9 +142,6 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     public void showProgress(final boolean show) {
-        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
-        // for very easy animations. If available, use these APIs to fade-in
-        // the progress spinner.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
@@ -167,8 +163,6 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                 }
             });
         } else {
-            // The ViewPropertyAnimator APIs are not available, so simply show
-            // and hide the relevant UI components.
             progressView.setVisibility(show ? View.VISIBLE : View.GONE);
             loginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
@@ -177,16 +171,12 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         return new CursorLoader(this,
-            // Retrieve data rows for the device user's 'profile' contact.
             Uri.withAppendedPath(ContactsContract.Profile.CONTENT_URI,
                 ContactsContract.Contacts.Data.CONTENT_DIRECTORY), ProfileQuery.PROJECTION,
 
-            // Select only email addresses.
             ContactsContract.Contacts.Data.MIMETYPE +
                 " = ?", new String[]{ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE},
 
-            // Show primary email addresses first. Note that there won't be
-            // a primary email address if the user hasn't specified one.
             ContactsContract.Contacts.Data.IS_PRIMARY + " DESC");
     }
 
