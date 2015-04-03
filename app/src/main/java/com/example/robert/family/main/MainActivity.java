@@ -100,7 +100,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawer.
     public void onShoppingListSelected(ListOfShoppingListsItemJson listOfShoppingListsItemJson) {
         ShoppingListFragment shoppingList = new ShoppingListFragment();
         shoppingList.setId(listOfShoppingListsItemJson.getId());
-        shoppingList.getShoppingList();
+        shoppingList.refresh();
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container, shoppingList)

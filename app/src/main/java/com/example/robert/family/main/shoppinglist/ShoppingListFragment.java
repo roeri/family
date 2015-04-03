@@ -25,6 +25,7 @@ import com.example.robert.family.util.httptasks.CheckShoppingListItem;
 import com.example.robert.family.util.httptasks.CreateShoppingListItem;
 import com.example.robert.family.util.httptasks.DeleteShoppingListItem;
 import com.example.robert.family.util.httptasks.GetShoppingList;
+import com.example.robert.family.util.httptasks.RearrangeShoppingList;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mobeta.android.dslv.DragSortController;
 import com.mobeta.android.dslv.DragSortListView;
@@ -38,8 +39,10 @@ import java.util.ArrayList;
 public class ShoppingListFragment extends Fragment implements RefreshableFragment {
 
     private final ShoppingListFragment theThis = this;
-    public int id; //TODO: FIX THIS, also make private?
     private Typeface font;
+    public int id; //TODO: FIX THIS, also make private?
+    public ShoppingListAdapter shoppingListAdapter;
+    private DragSortController shoppingListController;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -65,19 +68,50 @@ public class ShoppingListFragment extends Fragment implements RefreshableFragmen
             }
         });
 
-        DragSortListView listView = (DragSortListView) view.findViewById(R.id.shoppingList);
-        DragSortController dragSortController = new DragSortController(listView);
-        dragSortController.setDragInitMode(DragSortController.ON_DOWN);
-        dragSortController.setBackgroundColor(Color.TRANSPARENT);
+        initDragSortListView(view);
 
-        listView.setFloatViewManager(dragSortController);
-        listView.setOnTouchListener(dragSortController);
-        listView.setDragEnabled(true);
         return view;
     }
 
-    public void getShoppingList() {
-        new GetShoppingList(this).execute();
+    private void initDragSortListView(View view) {
+        final DragSortListView shoppingList = (DragSortListView) view.findViewById(R.id.shoppingList);
+        shoppingListController = new DragSortController(shoppingList);
+        shoppingListController.setDragInitMode(DragSortController.ON_DOWN);
+        shoppingListController.setBackgroundColor(Color.TRANSPARENT);
+
+        shoppingList.setFloatViewManager(shoppingListController);
+        shoppingList.setOnTouchListener(shoppingListController);
+
+        shoppingList.setRemoveListener(new DragSortListView.RemoveListener() {
+            @Override
+            public void remove(int which) {
+                shoppingListAdapter.remove(shoppingListAdapter.getItem(which));
+            }
+        });
+
+        shoppingList.setDropListener(new DragSortListView.DropListener() {
+            @Override
+            public void drop(int from, int to) {
+                if (from != to) {
+                    ShoppingListItemJson item = shoppingListAdapter.getItem(from);
+                    shoppingListAdapter.remove(item);
+                    shoppingListAdapter.insert(item, to);
+
+                    rearrangeShoppingList();
+                }
+            }
+        });
+    }
+
+    private void rearrangeShoppingList() {
+        ShoppingListJson shoppingList = new ShoppingListJson();
+        int numItems = shoppingListAdapter.getCount();
+        for(int i = 0; i < numItems; i++) {
+            ShoppingListItemJson item = shoppingListAdapter.getItem(i);
+            item.sequence = i + 1;
+            shoppingList.getItems().add(item);
+        }
+        new RearrangeShoppingList(theThis, shoppingList).execute();
     }
 
     public void setId(int id) {
@@ -147,8 +181,8 @@ public class ShoppingListFragment extends Fragment implements RefreshableFragmen
                 shoppingListItemJsons.add(shoppingListItemJson);
             }
 
-            ShoppingListAdapter shoppingListAdapter = new ShoppingListAdapter(getActivity(), shoppingListItemJsons);
-            shoppingList.setAdapter(shoppingListAdapter);
+            this.shoppingListAdapter = new ShoppingListAdapter(getActivity(), shoppingListItemJsons);
+            shoppingList.setAdapter(this.shoppingListAdapter);
         } catch (IOException e) {
             System.out.println("ERROR: " + e.getMessage());
         }
@@ -156,7 +190,6 @@ public class ShoppingListFragment extends Fragment implements RefreshableFragmen
 
     @Override
     public void refresh() {
-        Toast.makeText(getActivity(), "Refreshing...", Toast.LENGTH_SHORT).show();
         new GetShoppingList(this).execute();
     }
 
