@@ -25,6 +25,7 @@ import com.example.robert.family.util.httptasks.DeleteShoppingList;
 import com.example.robert.family.util.httptasks.GetListOfShoppingLists;
 import com.example.robert.family.util.httptasks.RearrangeListOfShoppingLists;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.mobeta.android.dslv.DragSortController;
 import com.mobeta.android.dslv.DragSortListView;
 
@@ -206,12 +207,26 @@ public class ListOfShoppingListsFragment extends Fragment implements Refreshable
             }
             listOfShoppingLists.setDragEnabled(false);
         }
+        toggleEditButton(editMode);
+    }
+
+    public void toggleEditButton(boolean enable) {
+        Button editButton = (Button) getView().findViewById(R.id.listOfShoppingLists_editListOfShoppingListsButton);
+        if(enable) {
+            editButton.setTypeface(font, Typeface.BOLD);
+            editButton.setTextColor(Color.rgb(51, 102, 153));
+        } else {
+
+            editButton.setTypeface(font, Typeface.NORMAL);
+            editButton.setTextColor(Color.BLACK);
+        }
     }
 
     @Override
     public void refresh() {
         new GetListOfShoppingLists(this).execute();
-        this.editMode = false;
+        editMode = false;
+        toggleEditButton(editMode);
     }
 
     public class ShoppingListsAdapter extends ArrayAdapter<ListOfShoppingListsItemJson> {

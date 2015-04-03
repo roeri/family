@@ -9,16 +9,22 @@
     tools:context=".MainActivity$PlaceholderFragment">
 
     <Button
+        style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
         android:text="@string/icon_edit"
+        android:textSize="@dimen/largeButtonTextSize"
         android:id="@+id/listOfShoppingLists_editListOfShoppingListsButton"
         android:layout_alignParentTop="true" />
 
     <Button
+        style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
         android:text="@string/icon_shoppingCartPlus"
+        android:textSize="@dimen/largeButtonTextSize"
         android:id="@+id/listOfShoppingLists_createShoppingListButton"
         android:layout_alignParentTop="true"
         android:layout_alignRight="@+id/listOfShoppingLists_createShoppingListLayout"
@@ -36,7 +42,9 @@
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
             android:text="@string/icon_cancel"
+            android:textSize="@dimen/smallButtonTextSize"
             android:id="@+id/listOfShoppingLists_createShoppingListLayout_cancelButton" />
 
         <EditText
@@ -52,7 +60,9 @@
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
             android:text="@string/icon_save"
+            android:textSize="@dimen/smallButtonTextSize"
             android:id="@+id/listOfShoppingLists_createShoppingListLayout_saveButton" />
     </LinearLayout>
 

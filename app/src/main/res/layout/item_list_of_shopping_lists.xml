@@ -6,7 +6,9 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
         android:text="@string/icon_delete"
+        android:textSize="@dimen/smallButtonTextSize"
         android:visibility="gone"
         android:id="@+id/item_listOfShoppingLists_deleteButton" />
 
@@ -23,6 +25,8 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
         android:text="@string/icon_shoppingCart"
+        android:textSize="@dimen/smallButtonTextSize"
         android:id="@+id/item_listOfShoppingLists_selectButton" />
 </LinearLayout>
