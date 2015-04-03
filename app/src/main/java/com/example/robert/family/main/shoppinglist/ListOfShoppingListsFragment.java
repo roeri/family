@@ -140,7 +140,7 @@ public class ListOfShoppingListsFragment extends Fragment implements Refreshable
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { //TODO: Refactor to use View v param?
+            public void onClick(View v) {
                 addShoppingListLayout.setVisibility(View.INVISIBLE);
                 layoutParams.addRule(RelativeLayout.BELOW, R.id.listOfShoppingLists_createShoppingListButton);
                 inputMethodManager.hideSoftInputFromWindow(createShoppingListText.getWindowToken(), 0);

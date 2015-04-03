@@ -30,7 +30,7 @@ public class HttpPoster {
 
             String line;
             while ((line = reader.readLine()) != null) {
-                sb.append(line); //TODO: Figure out if "sb.append(line + '\n')" is better for something, shouldn't be for json.
+                sb.append(line);
             }
             inputStream.close();
             result = sb.toString();

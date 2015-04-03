@@ -17,17 +17,17 @@ import java.io.UnsupportedEncodingException;
 public class DeleteShoppingList extends AsyncTask<String, Void, String> {
 
     private final ListOfShoppingListsFragment listOfShoppingListsFragment;
-    private final int id;
+    private final int shoppingListId;
 
-    public DeleteShoppingList(ListOfShoppingListsFragment listOfShoppingListsFragment, int id) {
+    public DeleteShoppingList(ListOfShoppingListsFragment listOfShoppingListsFragment, int shoppingListId) {
         this.listOfShoppingListsFragment = listOfShoppingListsFragment;
-        this.id = id;
+        this.shoppingListId = shoppingListId;
     }
 
     @Override
     protected String doInBackground(String... urls) {
         try {
-            StringEntity entityToSend = new StringEntity(Integer.toString(id));
+            StringEntity entityToSend = new StringEntity(Integer.toString(shoppingListId));
             return HttpPoster.doHttpPost(Url.LIST_OF_SHOPPING_LISTS_DELETE_SHOPPING_LIST, entityToSend);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
