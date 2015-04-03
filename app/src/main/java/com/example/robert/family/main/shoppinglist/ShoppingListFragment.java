@@ -18,7 +18,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.robert.family.R;
+import com.example.robert.family.main.MainActivity;
 import com.example.robert.family.main.RefreshableFragment;
+import com.example.robert.family.util.FragmentNumbers;
 import com.example.robert.family.util.httptasks.CheckShoppingListItem;
 import com.example.robert.family.util.httptasks.CreateShoppingListItem;
 import com.example.robert.family.util.httptasks.DeleteShoppingListItem;
@@ -44,7 +46,17 @@ public class ShoppingListFragment extends Fragment implements RefreshableFragmen
         font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/fontawesome-webfont.ttf");
         View view = inflater.inflate(R.layout.fragment_shopping_list, container, false);
 
-        Button createItemButton = (Button) view.findViewById(R.id.shoppingList_createItemButton);
+        Button backButton = (Button) view.findViewById(R.id.shoppingList_backButton);
+        backButton.setTypeface(font);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity) getActivity()).onNavigationDrawerItemSelected(FragmentNumbers.LIST_OF_SHOPPING_LISTS);
+                //TODO: Implement a "backable" interface for fragments, taking its creator as argument?
+            }
+        });
+
+        Button createItemButton = (Button) view.findViewById(R.id.shoppingList_createShoppingListItemButton); //TODO: Make this button toggleable
         createItemButton.setTypeface(font);
         createItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,12 +85,12 @@ public class ShoppingListFragment extends Fragment implements RefreshableFragmen
     }
 
     public void showCreateShoppingListItem() {
-        final View addItemLayout = getView().findViewById(R.id.shoppingList_addItemLayout);
+        final View addItemLayout = getView().findViewById(R.id.shoppingList_createShoppingListItemLayout);
         addItemLayout.setVisibility(View.VISIBLE);
 
-        final EditText createItemText = (EditText) getView().findViewById(R.id.shoppingList_addItemLayout_createItemText);
-        final Button cancelButton = (Button) addItemLayout.findViewById(R.id.shoppingList_addItemLayout_cancelButton);
-        final Button saveButton = (Button) addItemLayout.findViewById(R.id.shoppingList_addItemLayout_saveButton);
+        final EditText createItemText = (EditText) getView().findViewById(R.id.shoppingList_createShoppingListItemLayout_createItemText);
+        final Button cancelButton = (Button) addItemLayout.findViewById(R.id.shoppingList_createShoppingListItemLayout_cancelButton);
+        final Button saveButton = (Button) addItemLayout.findViewById(R.id.shoppingList_createShoppingListItemLayout_saveButton);
         final View listView = getView().findViewById(R.id.shoppingList);
 
         final RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) listView.getLayoutParams();
@@ -91,7 +103,7 @@ public class ShoppingListFragment extends Fragment implements RefreshableFragmen
             @Override
             public void onClick(View v) { //TODO: Refactor to use View v param?
             addItemLayout.setVisibility(View.INVISIBLE);
-            layoutParams.addRule(RelativeLayout.BELOW, R.id.shoppingList_createItemButton);
+            layoutParams.addRule(RelativeLayout.BELOW, R.id.shoppingList_createShoppingListItemButton);
             inputMethodManager.hideSoftInputFromWindow(createItemText.getWindowToken(), 0);
             }
         });
@@ -110,13 +122,13 @@ public class ShoppingListFragment extends Fragment implements RefreshableFragmen
             public void onClick(View v) {
             new CreateShoppingListItem(theThis, createItemText.getText().toString()).execute();
             inputMethodManager.hideSoftInputFromWindow(createItemText.getWindowToken(), 0);
-            final View addItemLayout = getView().findViewById(R.id.shoppingList_addItemLayout);
+            final View addItemLayout = getView().findViewById(R.id.shoppingList_createShoppingListItemLayout);
             addItemLayout.setVisibility(View.INVISIBLE);
-            layoutParams.addRule(RelativeLayout.BELOW, R.id.shoppingList_createItemButton);
+            layoutParams.addRule(RelativeLayout.BELOW, R.id.shoppingList_createShoppingListItemButton);
             }
         });
 
-        layoutParams.addRule(RelativeLayout.BELOW, R.id.shoppingList_addItemLayout);
+        layoutParams.addRule(RelativeLayout.BELOW, R.id.shoppingList_createShoppingListItemLayout);
         createItemText.requestFocus();
         inputMethodManager.showSoftInput(createItemText, 0);
     }

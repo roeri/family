@@ -34,7 +34,6 @@ public class HomeFragment extends Fragment implements RefreshableFragment {
 
     @Override
     public void refresh() {
-        Toast.makeText(getActivity(), "REFRESHING", Toast.LENGTH_SHORT).show();
         Calendar today = Calendar.getInstance();
         Calendar dateOfEvent = Calendar.getInstance();
 
