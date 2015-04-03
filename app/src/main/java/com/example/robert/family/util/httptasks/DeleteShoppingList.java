@@ -4,7 +4,6 @@ import android.os.AsyncTask;
 import android.widget.Toast;
 
 import com.example.robert.family.main.shoppinglist.ListOfShoppingListsFragment;
-import com.example.robert.family.main.shoppinglist.ShoppingListFragment;
 import com.example.robert.family.util.HttpPoster;
 import com.example.robert.family.util.Url;
 

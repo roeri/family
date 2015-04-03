@@ -12,6 +12,7 @@ import lombok.Data;
         "id",
         "shoppinglists_id",
         "users_id",
+        "sequence",
         "text",
         "checked"
 })
@@ -23,6 +24,8 @@ public class ShoppingListItemJson {
     int shoppingListsId;
     @JsonProperty("users_id")
     int usersId;
+    @JsonProperty("sequence")
+    int sequence;
     @JsonProperty("text")
     String text;
     @JsonProperty("checked")

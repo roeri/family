@@ -10,12 +10,15 @@ import lombok.Data;
  */
 @JsonPropertyOrder({
         "id",
+        "sequence",
         "name"
 })
 @Data
 public class ListOfShoppingListsItemJson {
     @JsonProperty("id")
     int id;
+    @JsonProperty("sequence")
+    int sequence;
     @JsonProperty("name")
     String name;
 }

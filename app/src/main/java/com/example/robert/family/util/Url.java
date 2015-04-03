@@ -8,6 +8,7 @@ public class Url {
     public static final String LOGIN_CREATE_USER = "http://roberteriksson.no-ip.org/family/Login_CreateUser.php";
 
     public static final String LIST_OF_SHOPPING_LISTS_CREATE_SHOPPING_LIST = "http://roberteriksson.no-ip.org/family/ListOfShoppingLists_CreateShoppingList.php";
+    public static final String LIST_OF_SHOPPING_LISTS_UPDATE = "http://roberteriksson.no-ip.org/family/ListOfShoppingLists_Update.php";
     public static final String LIST_OF_SHOPPING_LISTS_DELETE_SHOPPING_LIST = "http://roberteriksson.no-ip.org/family/ListOfShoppingLists_DeleteShoppingList.php";
     public static final String LIST_OF_SHOPPING_LISTS_GET_SHOPPING_LISTS = "http://roberteriksson.no-ip.org/family/ListOfShoppingLists_GetShoppingLists.php";
 

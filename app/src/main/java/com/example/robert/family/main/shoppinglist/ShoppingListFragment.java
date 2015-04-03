@@ -135,7 +135,7 @@ public class ShoppingListFragment extends Fragment implements RefreshableFragmen
 
     public void fillShoppingList(String shoppingListJson) {
         View view = getView();
-        if(view == null) { //Function is called with null all the time, why?
+        if(view == null) { //TODO: Function is called with null all the time, why?
             return;
         }
         ListView shoppingList = (ListView) getView().findViewById(R.id.shoppingList);
