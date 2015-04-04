@@ -20,7 +20,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Firstname Lastname"
         android:id="@+id/profile_name"
-        android:layout_below="@+id/imageView"
+        android:layout_below="@+id/profile_image"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
