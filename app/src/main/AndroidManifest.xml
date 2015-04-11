@@ -19,7 +19,7 @@
 
         <activity
             android:name=".login.LoginActivity"
-            android:label="@string/title_activity_login"
+            android:label="@string/title_application"
             android:windowSoftInputMode="adjustResize|stateVisible" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
