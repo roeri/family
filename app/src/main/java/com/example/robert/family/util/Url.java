@@ -19,4 +19,6 @@ public class Url {
     public static final String SHOPPING_LIST_GET_SHOPPING_LIST = "http://roberteriksson.no-ip.org/family/ShoppingList_GetShoppingList.php";
 
     public static final String PROFILE_GET_PROFILE = "http://roberteriksson.no-ip.org/family/Profile_GetProfile.php";
+
+    public static final String SESSION_GET_USER_ID = "http://roberteriksson.no-ip.org/family/Session_GetUserId.php";
 }
