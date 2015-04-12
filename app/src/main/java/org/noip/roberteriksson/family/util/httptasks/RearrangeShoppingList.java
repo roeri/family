@@ -33,9 +33,7 @@ public class RearrangeShoppingList extends AsyncTask<String, Void, String> {
             String json = new ObjectMapper().writeValueAsString(shoppingList);
             StringEntity entityToSend = new StringEntity(json);
             return HttpPoster.doHttpPost(Url.SHOPPING_LIST_REARRANGE, entityToSend);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (JsonProcessingException e) {
+        } catch (UnsupportedEncodingException | JsonProcessingException e) {
             e.printStackTrace();
         }
         return "FAILURE";

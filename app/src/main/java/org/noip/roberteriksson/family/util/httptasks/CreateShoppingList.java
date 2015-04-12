@@ -35,9 +35,7 @@ public class CreateShoppingList extends AsyncTask<String, Void, String> {
             String json = new ObjectMapper().writeValueAsString(listOfShoppingListsItemJson);
             StringEntity entityToSend = new StringEntity(json);
             return HttpPoster.doHttpPost(Url.LIST_OF_SHOPPING_LISTS_CREATE_SHOPPING_LIST, entityToSend);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (JsonProcessingException e) {
+        } catch (UnsupportedEncodingException | JsonProcessingException e) {
             e.printStackTrace();
         }
         return "FAILURE";
