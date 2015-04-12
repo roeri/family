@@ -1,5 +1,5 @@
 
-package org.noip.roberteriksson.family.main.shoppinglist;
+package org.noip.roberteriksson.family.main.shoppinglists;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package org.noip.roberteriksson.family.main.shoppinglist;
+package org.noip.roberteriksson.family.main.shoppinglists;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -20,10 +20,10 @@ import android.widget.TextView;
 import com.example.robert.family.R;
 import org.noip.roberteriksson.family.main.MainActivity;
 import org.noip.roberteriksson.family.main.RefreshableFragment;
-import org.noip.roberteriksson.family.util.http.shoppinglist.CreateShoppingList;
-import org.noip.roberteriksson.family.util.http.shoppinglist.DeleteShoppingList;
-import org.noip.roberteriksson.family.util.http.shoppinglist.GetListOfShoppingLists;
-import org.noip.roberteriksson.family.util.http.shoppinglist.RearrangeListOfShoppingLists;
+import org.noip.roberteriksson.family.util.http.shoppinglists.CreateShoppingList;
+import org.noip.roberteriksson.family.util.http.shoppinglists.DeleteShoppingList;
+import org.noip.roberteriksson.family.util.http.shoppinglists.GetListOfShoppingLists;
+import org.noip.roberteriksson.family.util.http.shoppinglists.RearrangeListOfShoppingLists;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mobeta.android.dslv.DragSortController;
 import com.mobeta.android.dslv.DragSortListView;

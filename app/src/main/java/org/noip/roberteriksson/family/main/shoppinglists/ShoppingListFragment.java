@@ -1,4 +1,4 @@
-package org.noip.roberteriksson.family.main.shoppinglist;
+package org.noip.roberteriksson.family.main.shoppinglists;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -20,11 +20,11 @@ import com.example.robert.family.R;
 import org.noip.roberteriksson.family.main.MainActivity;
 import org.noip.roberteriksson.family.main.RefreshableFragment;
 import org.noip.roberteriksson.family.util.FragmentNumbers;
-import org.noip.roberteriksson.family.util.http.shoppinglist.CheckShoppingListItem;
-import org.noip.roberteriksson.family.util.http.shoppinglist.CreateShoppingListItem;
-import org.noip.roberteriksson.family.util.http.shoppinglist.DeleteShoppingListItem;
-import org.noip.roberteriksson.family.util.http.shoppinglist.GetShoppingList;
-import org.noip.roberteriksson.family.util.http.shoppinglist.RearrangeShoppingList;
+import org.noip.roberteriksson.family.util.http.shoppinglists.CheckShoppingListItem;
+import org.noip.roberteriksson.family.util.http.shoppinglists.CreateShoppingListItem;
+import org.noip.roberteriksson.family.util.http.shoppinglists.DeleteShoppingListItem;
+import org.noip.roberteriksson.family.util.http.shoppinglists.GetShoppingList;
+import org.noip.roberteriksson.family.util.http.shoppinglists.RearrangeShoppingList;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mobeta.android.dslv.DragSortController;
 import com.mobeta.android.dslv.DragSortListView;

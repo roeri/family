@@ -13,9 +13,9 @@ import com.example.robert.family.R;
 import org.noip.roberteriksson.family.session.Session;
 import org.noip.roberteriksson.family.main.home.HomeFragment;
 import org.noip.roberteriksson.family.main.profile.ProfileFragment;
-import org.noip.roberteriksson.family.main.shoppinglist.ShoppingListFragment;
-import org.noip.roberteriksson.family.main.shoppinglist.ListOfShoppingListsFragment;
-import org.noip.roberteriksson.family.main.shoppinglist.ListOfShoppingListsItemJson;
+import org.noip.roberteriksson.family.main.shoppinglists.ShoppingListFragment;
+import org.noip.roberteriksson.family.main.shoppinglists.ListOfShoppingListsFragment;
+import org.noip.roberteriksson.family.main.shoppinglists.ListOfShoppingListsItemJson;
 import org.noip.roberteriksson.family.util.FragmentNumbers;
 import org.noip.roberteriksson.family.main.navigation.NavigationDrawerFragment;
 
