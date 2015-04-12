@@ -1,12 +1,12 @@
-package org.noip.roberteriksson.family.util.httptasks;
+package org.noip.roberteriksson.family.util.http.session;
 
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-import org.noip.roberteriksson.family.Session;
+import org.noip.roberteriksson.family.session.Session;
 
-import org.noip.roberteriksson.family.util.HttpPoster;
-import org.noip.roberteriksson.family.util.Url;
+import org.noip.roberteriksson.family.util.http.HttpPoster;
+import org.noip.roberteriksson.family.util.http.Url;
 
 import org.apache.http.entity.StringEntity;
 

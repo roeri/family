@@ -1,4 +1,4 @@
-package org.noip.roberteriksson.family;
+package org.noip.roberteriksson.family.session;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -6,7 +6,7 @@ import android.accounts.AccountManager;
 import com.example.robert.family.R;
 
 import org.noip.roberteriksson.family.main.MainActivity;
-import org.noip.roberteriksson.family.util.httptasks.GetUserId;
+import org.noip.roberteriksson.family.util.http.session.GetUserId;
 
 /**
  * Created by robert on 2015-03-07.

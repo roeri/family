@@ -1,11 +1,11 @@
-package org.noip.roberteriksson.family.util.httptasks;
+package org.noip.roberteriksson.family.util.http.shoppinglist;
 
 import android.os.AsyncTask;
 import android.widget.Toast;
 
 import org.noip.roberteriksson.family.main.shoppinglist.ShoppingListFragment;
-import org.noip.roberteriksson.family.util.Url;
-import org.noip.roberteriksson.family.util.HttpPoster;
+import org.noip.roberteriksson.family.util.http.Url;
+import org.noip.roberteriksson.family.util.http.HttpPoster;
 
 import org.apache.http.entity.StringEntity;
 

@@ -1,4 +1,4 @@
-package org.noip.roberteriksson.family.util;
+package org.noip.roberteriksson.family.util.http;
 
 /**
  * Created by robert on 2015-03-06.

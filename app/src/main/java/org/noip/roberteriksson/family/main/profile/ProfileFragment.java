@@ -9,9 +9,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.robert.family.R;
-import org.noip.roberteriksson.family.Session;
+import org.noip.roberteriksson.family.session.Session;
 import org.noip.roberteriksson.family.main.RefreshableFragment;
-import org.noip.roberteriksson.family.util.httptasks.GetProfile;
+import org.noip.roberteriksson.family.util.http.profile.GetProfile;
 
 /**
  * Created by robert on 2015-03-06.

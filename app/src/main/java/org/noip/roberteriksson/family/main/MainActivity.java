@@ -10,7 +10,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.widget.Toast;
 
 import com.example.robert.family.R;
-import org.noip.roberteriksson.family.Session;
+import org.noip.roberteriksson.family.session.Session;
 import org.noip.roberteriksson.family.main.home.HomeFragment;
 import org.noip.roberteriksson.family.main.profile.ProfileFragment;
 import org.noip.roberteriksson.family.main.shoppinglist.ShoppingListFragment;

@@ -1,4 +1,4 @@
-package org.noip.roberteriksson.family.util;
+package org.noip.roberteriksson.family.util.http;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;

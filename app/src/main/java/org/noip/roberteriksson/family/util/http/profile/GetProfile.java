@@ -1,12 +1,12 @@
-package org.noip.roberteriksson.family.util.httptasks;
+package org.noip.roberteriksson.family.util.http.profile;
 
 import android.os.AsyncTask;
 import android.widget.Toast;
 
 import org.noip.roberteriksson.family.main.profile.ProfileFragment;
 import org.noip.roberteriksson.family.main.profile.ProfileJson;
-import org.noip.roberteriksson.family.util.Url;
-import org.noip.roberteriksson.family.util.HttpPoster;
+import org.noip.roberteriksson.family.util.http.Url;
+import org.noip.roberteriksson.family.util.http.HttpPoster;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.apache.http.entity.StringEntity;

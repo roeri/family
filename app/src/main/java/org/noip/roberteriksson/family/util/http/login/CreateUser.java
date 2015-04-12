@@ -1,4 +1,4 @@
-package org.noip.roberteriksson.family.util.httptasks;
+package org.noip.roberteriksson.family.util.http.login;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -9,8 +9,8 @@ import android.widget.Toast;
 import org.noip.roberteriksson.family.login.LoginActivity;
 import com.example.robert.family.R;
 import org.noip.roberteriksson.family.login.UserToCreateJson;
-import org.noip.roberteriksson.family.util.Url;
-import org.noip.roberteriksson.family.util.HttpPoster;
+import org.noip.roberteriksson.family.util.http.Url;
+import org.noip.roberteriksson.family.util.http.HttpPoster;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.apache.http.entity.StringEntity;
