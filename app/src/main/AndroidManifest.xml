@@ -38,6 +38,28 @@
             <meta-data android:name="android.accounts.AccountAuthenticator" android:resource="@xml/authenticator" />
         </service>
 
+        <receiver android:name="org.noip.roberteriksson.family.widget.WidgetProvider" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_provider" />
+        </receiver>
+
+        <receiver
+            android:name="org.noip.roberteriksson.family.widget.WidgetIntentReceiver"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="com.javatechig.intent.action.UPDATE_WIDGET" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_provider" />
+        </receiver>
+
     </application>
 
 </manifest>
