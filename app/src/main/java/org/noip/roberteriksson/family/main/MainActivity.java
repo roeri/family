@@ -17,13 +17,13 @@ import org.noip.roberteriksson.family.main.shoppinglist.ShoppingListFragment;
 import org.noip.roberteriksson.family.main.shoppinglist.ListOfShoppingListsFragment;
 import org.noip.roberteriksson.family.main.shoppinglist.ListOfShoppingListsItemJson;
 import org.noip.roberteriksson.family.util.FragmentNumbers;
-import org.noip.roberteriksson.family.main.navigation.NavigationDrawer;
+import org.noip.roberteriksson.family.main.navigation.NavigationDrawerFragment;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity extends ActionBarActivity implements NavigationDrawer.NavigationDrawerCallbacks {
-    private NavigationDrawer navigationDrawer;
+public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+    private NavigationDrawerFragment navigationDrawer;
     private CharSequence title;
     private Map<Integer, RefreshableFragment> currentlyActiveFragments;
     private RefreshableFragment currentlyLiveFragment;
@@ -35,7 +35,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawer.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        navigationDrawer = (NavigationDrawer) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
+        navigationDrawer = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         title = getTitle();
 
         navigationDrawer.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout));

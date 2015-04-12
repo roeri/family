@@ -30,7 +30,7 @@ import org.noip.roberteriksson.family.util.FragmentNumbers;
  * See the <a href="https://developer.android.com/design/patterns/navigation-drawer.html#Interaction">
  * design guidelines</a> for a complete explanation of the behaviors implemented here.
  */
-public class NavigationDrawer extends Fragment {
+public class NavigationDrawerFragment extends Fragment {
 
     /**
      * Remember the position of the selected item.
@@ -61,7 +61,7 @@ public class NavigationDrawer extends Fragment {
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
 
-    public NavigationDrawer() {
+    public NavigationDrawerFragment() {
     }
 
     @Override
