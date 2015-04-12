@@ -53,7 +53,7 @@ public class ShoppingListFragment extends Fragment implements RefreshableFragmen
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity) getActivity()).onNavigationDrawerItemSelected(FragmentNumbers.LIST_OF_SHOPPING_LISTS);
+                ((MainActivity) getActivity()).setCurrentlyLiveFragment(FragmentNumbers.LIST_OF_SHOPPING_LISTS);
                 //TODO: Implement a "backable" interface for fragments, taking its creator as argument?
             }
         });

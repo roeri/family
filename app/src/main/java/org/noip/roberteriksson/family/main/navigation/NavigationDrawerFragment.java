@@ -258,7 +258,7 @@ public class NavigationDrawerFragment extends Fragment {
                 ((MainActivity) getActivity()).getCurrentlyLiveFragment().refresh();
                 return true;
             case R.id.action_profile:
-                ((MainActivity) getActivity()).onNavigationDrawerItemSelected(FragmentNumbers.PROFILE);
+                ((MainActivity) getActivity()).setCurrentlyLiveFragment(FragmentNumbers.PROFILE);
                 return true; //TODO: Not sure if I have to return true here... What happens if I don't?
             default:
         }

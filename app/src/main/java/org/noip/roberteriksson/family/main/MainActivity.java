@@ -46,7 +46,11 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
     }
 
     @Override
-    public void onNavigationDrawerItemSelected(int number) { //TODO: Maybe alias this to something for external use?
+    public void onNavigationDrawerItemSelected(int number) {
+        setCurrentlyLiveFragment(number);
+    }
+
+    public void setCurrentlyLiveFragment(int number) {
         RefreshableFragment fragment;
 
         if(currentlyActiveFragments.containsKey(number)) {
