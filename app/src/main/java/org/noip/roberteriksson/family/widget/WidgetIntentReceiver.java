@@ -7,11 +7,8 @@ import android.widget.RemoteViews;
 
 import com.example.robert.family.R;
 
-import java.util.ArrayList;
-
 public class WidgetIntentReceiver extends BroadcastReceiver {
     public static int clickCount = 0;
-    private String msg[] = null;
     final static String WIDGET_UPDATE_ACTION ="com.javatechig.intent.action.UPDATE_WIDGET";
 
     @Override
@@ -22,31 +19,20 @@ public class WidgetIntentReceiver extends BroadcastReceiver {
     }
 
     private void updateWidgetPictureAndButtonListener(Context context) {
-        RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
-                R.layout.widget);
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget);
 
         // updating view
         remoteViews.setTextViewText(R.id.title, getTitle());
-        remoteViews.setTextViewText(R.id.desc, getDesc(context));
+        remoteViews.setTextViewText(R.id.desc, getDesc());
 
         // re-registering for click listener
-        remoteViews.setOnClickPendingIntent(R.id.sync_button,
-                WidgetProvider.buildButtonPendingIntent(context));
+        remoteViews.setOnClickPendingIntent(R.id.sync_button, WidgetProvider.buildButtonPendingIntent(context));
 
-        WidgetProvider.pushWidgetUpdate(context.getApplicationContext(),
-                remoteViews);
+        WidgetProvider.pushWidgetUpdate(context.getApplicationContext(), remoteViews);
     }
 
-    private String getDesc(Context context) {
-        // some static jokes from xml
-        //msg = context.getResources().getStringArray(R.array.news_headlines);
-        ArrayList<String> newMsg = new ArrayList<>();
-        newMsg.add("SOMETHING?");
-        msg = (String[]) newMsg.toArray();
-        if (clickCount >= msg.length) {
-            clickCount = 0;
-        }
-        return msg[clickCount];
+    private String getDesc() {
+        return "YAY the family widget";
     }
 
     private String getTitle() {

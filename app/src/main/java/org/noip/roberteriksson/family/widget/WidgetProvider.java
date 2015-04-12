@@ -15,16 +15,13 @@ public class WidgetProvider extends AppWidgetProvider {
     final static String WIDGET_UPDATE_ACTION ="com.javatechig.intent.action.UPDATE_WIDGET";
 
     @Override
-    public void onUpdate(Context context, AppWidgetManager appWidgetManager,
-                         int[] appWidgetIds) {
+    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 
         // initializing widget layout
-        RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
-                R.layout.widget);
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget);
 
         // register for button event
-        remoteViews.setOnClickPendingIntent(R.id.sync_button,
-                buildButtonPendingIntent(context));
+        remoteViews.setOnClickPendingIntent(R.id.sync_button, buildButtonPendingIntent(context));
 
         // updating view with initial data
         remoteViews.setTextViewText(R.id.title, getTitle());
@@ -40,8 +37,7 @@ public class WidgetProvider extends AppWidgetProvider {
         // initiate widget update request
         Intent intent = new Intent();
         intent.setAction(WIDGET_UPDATE_ACTION);
-        return PendingIntent.getBroadcast(context, 0, intent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
+        return PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
     private static CharSequence getDesc() {
@@ -53,8 +49,7 @@ public class WidgetProvider extends AppWidgetProvider {
     }
 
     public static void pushWidgetUpdate(Context context, RemoteViews remoteViews) {
-        ComponentName myWidget = new ComponentName(context,
-                WidgetProvider.class);
+        ComponentName myWidget = new ComponentName(context, WidgetProvider.class);
         AppWidgetManager manager = AppWidgetManager.getInstance(context);
         manager.updateAppWidget(myWidget, remoteViews);
     }
