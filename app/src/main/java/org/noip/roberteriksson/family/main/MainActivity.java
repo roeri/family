@@ -11,15 +11,15 @@ import android.widget.Toast;
 
 import com.example.robert.family.R;
 
-import org.noip.roberteriksson.family.fragments.RefreshableFragment;
+import org.noip.roberteriksson.family.sections.RefreshableFragment;
 import org.noip.roberteriksson.family.session.Session;
-import org.noip.roberteriksson.family.fragments.home.HomeFragment;
-import org.noip.roberteriksson.family.fragments.profile.ProfileFragment;
-import org.noip.roberteriksson.family.fragments.shoppinglists.ShoppingListFragment;
-import org.noip.roberteriksson.family.fragments.shoppinglists.ListOfShoppingListsFragment;
-import org.noip.roberteriksson.family.fragments.shoppinglists.ListOfShoppingListsItemJson;
-import org.noip.roberteriksson.family.util.FragmentNumbers;
-import org.noip.roberteriksson.family.fragments.navigation.NavigationDrawerFragment;
+import org.noip.roberteriksson.family.sections.home.HomeFragment;
+import org.noip.roberteriksson.family.sections.profile.ProfileFragment;
+import org.noip.roberteriksson.family.sections.shoppinglists.ShoppingListFragment;
+import org.noip.roberteriksson.family.sections.shoppinglists.ListOfShoppingListsFragment;
+import org.noip.roberteriksson.family.sections.shoppinglists.ListOfShoppingListsItemJson;
+import org.noip.roberteriksson.family.sections.FragmentNumbers;
+import org.noip.roberteriksson.family.sections.navigation.NavigationDrawerFragment;
 
 import java.util.HashMap;
 import java.util.Map;
