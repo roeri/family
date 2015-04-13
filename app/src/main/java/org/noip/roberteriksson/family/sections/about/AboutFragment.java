@@ -1,12 +1,17 @@
 package org.noip.roberteriksson.family.sections.about;
 
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.example.robert.family.BuildConfig;
 import com.example.robert.family.R;
 
 import org.noip.roberteriksson.family.sections.RefreshableFragment;
@@ -17,21 +22,32 @@ import org.noip.roberteriksson.family.sections.RefreshableFragment;
 public class AboutFragment extends Fragment implements RefreshableFragment {
 
     private View view;
-    private Typeface font;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/fontawesome-webfont.ttf");
         View view = inflater.inflate(R.layout.fragment_about, container, false);
-
         this.view = view;
+
         return view;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+        showVersion();
+    }
 
-        //new GetProfile(this, Session.getInstance().getUserEmail()).execute();
+    private void showVersion() {
+        try {
+            PackageInfo pInfo = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0);
+            TextView version = (TextView) view.findViewById(R.id.about_version);
+            version.setText(pInfo.versionName);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace(); //TODO: Handle version problems.
+        }
+        if(BuildConfig.DEBUG) {
+            TextView version = (TextView) view.findViewById(R.id.about_version);
+            version.setText(version.getText() + " (debug)");
+        }
     }
 
     @Override
