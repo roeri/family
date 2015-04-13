@@ -1,4 +1,4 @@
-package org.noip.roberteriksson.family.main.home;
+package org.noip.roberteriksson.family.fragments.home;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.robert.family.R;
-import org.noip.roberteriksson.family.main.RefreshableFragment;
+import org.noip.roberteriksson.family.fragments.RefreshableFragment;
 
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;

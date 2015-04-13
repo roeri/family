@@ -1,4 +1,4 @@
-package org.noip.roberteriksson.family.main.profile;
+package org.noip.roberteriksson.family.fragments.profile;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;

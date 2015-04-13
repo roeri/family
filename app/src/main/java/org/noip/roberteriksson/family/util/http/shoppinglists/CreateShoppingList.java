@@ -3,8 +3,8 @@ package org.noip.roberteriksson.family.util.http.shoppinglists;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-import org.noip.roberteriksson.family.main.shoppinglists.ListOfShoppingListsFragment;
-import org.noip.roberteriksson.family.main.shoppinglists.ListOfShoppingListsItemJson;
+import org.noip.roberteriksson.family.fragments.shoppinglists.ListOfShoppingListsFragment;
+import org.noip.roberteriksson.family.fragments.shoppinglists.ListOfShoppingListsItemJson;
 import org.noip.roberteriksson.family.util.http.HttpPoster;
 import org.noip.roberteriksson.family.util.http.Url;
 import com.fasterxml.jackson.core.JsonProcessingException;

@@ -1,5 +1,5 @@
 
-package org.noip.roberteriksson.family.main.shoppinglists;
+package org.noip.roberteriksson.family.fragments.shoppinglists;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;

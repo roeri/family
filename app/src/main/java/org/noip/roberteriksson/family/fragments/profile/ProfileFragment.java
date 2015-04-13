@@ -1,4 +1,4 @@
-package org.noip.roberteriksson.family.main.profile;
+package org.noip.roberteriksson.family.fragments.profile;
 
 import android.support.v4.app.Fragment;
 import android.graphics.Typeface;
@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.example.robert.family.R;
 import org.noip.roberteriksson.family.session.Session;
-import org.noip.roberteriksson.family.main.RefreshableFragment;
+import org.noip.roberteriksson.family.fragments.RefreshableFragment;
 import org.noip.roberteriksson.family.util.http.profile.GetProfile;
 
 /**

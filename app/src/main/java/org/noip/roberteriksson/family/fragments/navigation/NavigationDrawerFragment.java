@@ -1,4 +1,4 @@
-package org.noip.roberteriksson.family.main.navigation;
+package org.noip.roberteriksson.family.fragments.navigation;
 
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;

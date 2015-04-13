@@ -1,4 +1,4 @@
-package org.noip.roberteriksson.family.main.shoppinglists;
+package org.noip.roberteriksson.family.fragments.shoppinglists;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -19,7 +19,7 @@ import android.widget.TextView;
 
 import com.example.robert.family.R;
 import org.noip.roberteriksson.family.main.MainActivity;
-import org.noip.roberteriksson.family.main.RefreshableFragment;
+import org.noip.roberteriksson.family.fragments.RefreshableFragment;
 import org.noip.roberteriksson.family.util.http.shoppinglists.CreateShoppingList;
 import org.noip.roberteriksson.family.util.http.shoppinglists.DeleteShoppingList;
 import org.noip.roberteriksson.family.util.http.shoppinglists.GetListOfShoppingLists;
