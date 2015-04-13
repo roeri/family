@@ -1,22 +1,20 @@
-package org.noip.roberteriksson.family.sections.profile;
+package org.noip.roberteriksson.family.sections.about;
 
-import android.support.v4.app.Fragment;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.example.robert.family.R;
-import org.noip.roberteriksson.family.session.Session;
+
 import org.noip.roberteriksson.family.sections.RefreshableFragment;
-import org.noip.roberteriksson.family.sections.profile.http.GetProfile;
 
 /**
- * Created by robert on 2015-03-06.
+ * Created by robert on 2015-04-13.
  */
-public class ProfileFragment extends Fragment implements RefreshableFragment {
+public class AboutFragment extends Fragment implements RefreshableFragment {
 
     private View view;
     private Typeface font;
@@ -24,7 +22,7 @@ public class ProfileFragment extends Fragment implements RefreshableFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/fontawesome-webfont.ttf");
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_about, container, false);
 
         this.view = view;
         return view;
@@ -32,16 +30,12 @@ public class ProfileFragment extends Fragment implements RefreshableFragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        new GetProfile(this, Session.getInstance().getUserEmail()).execute();
+
+        //new GetProfile(this, Session.getInstance().getUserEmail()).execute();
     }
 
     @Override
     public void refresh() {
         //TODO: Implement this.
-    }
-
-    public void populateProfile(ProfileJson profileJson) {
-        TextView profileName = (TextView) view.findViewById(R.id.profile_name);
-        profileName.setText(profileJson.getName());
     }
 }

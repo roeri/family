@@ -1,4 +1,4 @@
-package org.noip.roberteriksson.family.sections.navigation;
+package org.noip.roberteriksson.family.navigation;
 
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
@@ -259,6 +259,9 @@ public class NavigationDrawerFragment extends Fragment {
                 return true;
             case R.id.action_profile:
                 ((MainActivity) getActivity()).setCurrentlyLiveFragment(FragmentNumbers.PROFILE);
+                return true; //TODO: Not sure if I have to return true here... What happens if I don't?
+            case R.id.action_about:
+                ((MainActivity) getActivity()).setCurrentlyLiveFragment(FragmentNumbers.ABOUT);
                 return true; //TODO: Not sure if I have to return true here... What happens if I don't?
             default:
         }

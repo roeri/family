@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.example.robert.family.R;
 
 import org.noip.roberteriksson.family.sections.RefreshableFragment;
+import org.noip.roberteriksson.family.sections.about.AboutFragment;
 import org.noip.roberteriksson.family.session.Session;
 import org.noip.roberteriksson.family.sections.home.HomeFragment;
 import org.noip.roberteriksson.family.sections.profile.ProfileFragment;
@@ -19,7 +20,7 @@ import org.noip.roberteriksson.family.sections.shoppinglists.ShoppingListFragmen
 import org.noip.roberteriksson.family.sections.shoppinglists.ListOfShoppingListsFragment;
 import org.noip.roberteriksson.family.sections.shoppinglists.ListOfShoppingListsItemJson;
 import org.noip.roberteriksson.family.sections.FragmentNumbers;
-import org.noip.roberteriksson.family.sections.navigation.NavigationDrawerFragment;
+import org.noip.roberteriksson.family.navigation.NavigationDrawerFragment;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -84,6 +85,9 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
             case FragmentNumbers.PROFILE:
                 fragment = new ProfileFragment();
                 break;
+            case FragmentNumbers.ABOUT:
+                fragment = new AboutFragment();
+                break;
         }
         return fragment;
     }
@@ -98,6 +102,9 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
                 break;
             case FragmentNumbers.PROFILE:
                 title = getString(R.string.fragment_profile);
+                break;
+            case FragmentNumbers.ABOUT:
+                title = getString(R.string.fragment_about);
                 break;
         }
         restoreActionBar();

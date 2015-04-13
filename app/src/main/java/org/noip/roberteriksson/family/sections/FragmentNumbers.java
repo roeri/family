@@ -11,5 +11,6 @@ public class FragmentNumbers {
 
     public static final int PROFILE = 11;
     public static final int SHOPPING_LIST = 12;
+    public static final int ABOUT = 13;
 
 }
