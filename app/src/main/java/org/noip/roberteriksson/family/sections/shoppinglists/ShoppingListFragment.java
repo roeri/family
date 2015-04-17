@@ -31,6 +31,7 @@ import com.mobeta.android.dslv.DragSortListView;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -193,12 +194,7 @@ public class ShoppingListFragment extends Fragment implements RefreshableFragmen
 
         try {
             ShoppingListJson inputShoppingListJsonItems = new ObjectMapper().readValue(shoppingListJson, ShoppingListJson.class);
-            ArrayList<ShoppingListItemJson> shoppingListItemJsons = new ArrayList<>();
-            for(ShoppingListItemJson shoppingListItemJson : inputShoppingListJsonItems.getItems()) {
-                shoppingListItemJsons.add(shoppingListItemJson);
-            }
-
-            this.shoppingListAdapter = new ShoppingListAdapter(getActivity(), shoppingListItemJsons);
+            this.shoppingListAdapter = new ShoppingListAdapter(getActivity(), inputShoppingListJsonItems.getItems());
             shoppingList.setAdapter(this.shoppingListAdapter);
         } catch (IOException e) {
             System.out.println("ERROR: " + e.getMessage());
@@ -240,7 +236,7 @@ public class ShoppingListFragment extends Fragment implements RefreshableFragmen
 
     public class ShoppingListAdapter extends ArrayAdapter<ShoppingListItemJson> {
 
-        public ShoppingListAdapter(Context context, ArrayList<ShoppingListItemJson> shoppingList) {
+        public ShoppingListAdapter(Context context, List<ShoppingListItemJson> shoppingList) {
             super(context, 0, shoppingList);
         }
 

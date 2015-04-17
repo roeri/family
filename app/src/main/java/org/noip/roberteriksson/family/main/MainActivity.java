@@ -157,7 +157,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
-            Toast.makeText(this, "WAOAOAOAOOO", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Settings? Nope.", Toast.LENGTH_SHORT).show();
             return true;
         }
 
