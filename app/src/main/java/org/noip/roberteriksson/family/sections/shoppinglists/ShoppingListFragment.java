@@ -260,17 +260,17 @@ public class ShoppingListFragment extends Fragment implements RefreshableFragmen
             final View.OnClickListener itemDeleteListener = new View.OnClickListener() {
                 @Override
                 public void onClick(View thisButton) {
-                new DeleteShoppingListItem(theThis, shoppingListItemJson.id).execute();
+                    new DeleteShoppingListItem(theThis, shoppingListItemJson.id).execute();
                 }
             };
 
             final View.OnClickListener itemCheckListener = new View.OnClickListener() {
                 @Override
                 public void onClick(View thisButton) {
-                Button button = (Button) thisButton;
-                new CheckShoppingListItem(theThis, shoppingListItemJson.id).execute();
-                button.setText(getString(R.string.icon_checkboxChecked));
-                button.setOnClickListener(itemDeleteListener);
+                    Button button = (Button) thisButton;
+                    new CheckShoppingListItem(theThis, shoppingListItemJson.id).execute();
+                    button.setText(getString(R.string.icon_checkboxChecked));
+                    button.setOnClickListener(itemDeleteListener);
                 }
             };
 
