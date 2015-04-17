@@ -187,6 +187,8 @@ public class ListOfShoppingListsFragment extends Fragment implements Refreshable
         } catch (IOException e) {
             System.out.println("ERROR: " + e.getMessage());
         }
+        editMode = false;
+        toggleEditButton(editMode);
     }
 
     public void setEditModeEnabled(boolean editMode) {
@@ -215,7 +217,6 @@ public class ListOfShoppingListsFragment extends Fragment implements Refreshable
             editButton.setTypeface(font, Typeface.BOLD);
             editButton.setTextColor(Color.rgb(51, 102, 153));
         } else {
-
             editButton.setTypeface(font, Typeface.NORMAL);
             editButton.setTextColor(Color.BLACK);
         }
@@ -224,8 +225,6 @@ public class ListOfShoppingListsFragment extends Fragment implements Refreshable
     @Override
     public void refresh() {
         new GetListOfShoppingLists(this).execute();
-        editMode = false;
-        toggleEditButton(editMode);
     }
 
     public class ShoppingListsAdapter extends ArrayAdapter<ListOfShoppingListsItemJson> {

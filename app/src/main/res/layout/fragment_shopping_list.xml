@@ -16,7 +16,21 @@
         android:text="@string/icon_back"
         android:textSize="@dimen/largeButtonTextSize"
         android:id="@+id/shoppingList_backButton"
-        android:layout_alignParentTop="true"/>
+        android:layout_alignParentTop="true" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:text="@string/icon_edit"
+        android:textSize="@dimen/largeButtonTextSize"
+        android:id="@+id/shoppingList_editButton"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/shoppingList_backButton"
+        android:layout_toEndOf="@+id/shoppingList_backButton"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -28,7 +42,7 @@
         android:id="@+id/shoppingList_createShoppingListItemButton"
         android:layout_alignParentTop="true"
         android:layout_alignRight="@+id/shoppingList_createShoppingListItemLayout"
-        android:layout_alignEnd="@+id/shoppingList_createShoppingListItemLayout" />
+        android:layout_alignEnd="@+id/shoppingList_createShoppingListItemLayout"/>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
@@ -76,12 +90,13 @@
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="false"
         android:dividerHeight="1dp"
-        dslv:drag_enabled="true"
+        dslv:drag_enabled="false"
         dslv:collapsed_height="2dp"
         dslv:max_drag_scroll_speed="2"
         dslv:float_alpha="1"
         dslv:slide_shuffle_speed="0.3"
         dslv:track_drag_sort="false"
-        dslv:use_default_controller="true" />
+        dslv:use_default_controller="true"
+        dslv:sort_enabled="true"/>
 
 </RelativeLayout>

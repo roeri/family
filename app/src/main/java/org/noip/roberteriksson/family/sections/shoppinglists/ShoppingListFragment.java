@@ -39,6 +39,7 @@ public class ShoppingListFragment extends Fragment implements RefreshableFragmen
 
     private final ShoppingListFragment theThis = this;
     private Typeface font;
+    public boolean editMode = false;
     public int id; //TODO: FIX THIS, also make private?
     public ShoppingListAdapter shoppingListAdapter;
     private DragSortController shoppingListController;
@@ -58,11 +59,27 @@ public class ShoppingListFragment extends Fragment implements RefreshableFragmen
             }
         });
 
+        Button editButton = (Button) view.findViewById(R.id.shoppingList_editButton);
+        editButton.setTypeface(font);
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (editMode) {
+                    editMode = false;
+                } else {
+                    editMode = true;
+                }
+                setEditModeEnabled(editMode);
+            }
+        });
+
         Button createItemButton = (Button) view.findViewById(R.id.shoppingList_createShoppingListItemButton); //TODO: Make this button toggleable
         createItemButton.setTypeface(font);
         createItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                editMode = false;
+                setEditModeEnabled(editMode);
                 showCreateShoppingListItem();
             }
         });
@@ -184,6 +201,29 @@ public class ShoppingListFragment extends Fragment implements RefreshableFragmen
             shoppingList.setAdapter(this.shoppingListAdapter);
         } catch (IOException e) {
             System.out.println("ERROR: " + e.getMessage());
+        }
+        editMode = false;
+        toggleEditButton(editMode);
+    }
+
+    public void setEditModeEnabled(boolean editMode) {
+        DragSortListView shoppingList = (DragSortListView) getView().findViewById(R.id.shoppingList);
+        if (editMode) {
+            shoppingList.setDragEnabled(true);
+        } else {
+            shoppingList.setDragEnabled(false);
+        }
+        toggleEditButton(editMode);
+    }
+
+    public void toggleEditButton(boolean enable) {
+        Button editButton = (Button) getView().findViewById(R.id.shoppingList_editButton);
+        if(enable) {
+            editButton.setTypeface(font, Typeface.BOLD);
+            editButton.setTextColor(Color.rgb(51, 102, 153));
+        } else {
+            editButton.setTypeface(font, Typeface.NORMAL);
+            editButton.setTextColor(Color.BLACK);
         }
     }
 
