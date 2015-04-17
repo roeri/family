@@ -75,8 +75,8 @@ public class ShoppingListFragment extends Fragment implements RefreshableFragmen
         createItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setEditModeEnabled(editMode = false);
-                showCreateShoppingListItem();
+            setEditModeEnabled(editMode = false);
+            showCreateShoppingListItem();
             }
         });
 
@@ -97,7 +97,7 @@ public class ShoppingListFragment extends Fragment implements RefreshableFragmen
         shoppingList.setRemoveListener(new DragSortListView.RemoveListener() {
             @Override
             public void remove(int which) {
-                shoppingListAdapter.remove(shoppingListAdapter.getItem(which));
+            shoppingListAdapter.remove(shoppingListAdapter.getItem(which));
             }
         });
 
@@ -152,10 +152,10 @@ public class ShoppingListFragment extends Fragment implements RefreshableFragmen
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { //TODO: Refactor to use View v param?
-            addItemLayout.setVisibility(View.INVISIBLE);
-            layoutParams.addRule(RelativeLayout.BELOW, R.id.shoppingList_createShoppingListItemButton);
-            inputMethodManager.hideSoftInputFromWindow(createItemText.getWindowToken(), 0);
+            public void onClick(View v) {
+                addItemLayout.setVisibility(View.INVISIBLE);
+                layoutParams.addRule(RelativeLayout.BELOW, R.id.shoppingList_createShoppingListItemButton);
+                inputMethodManager.hideSoftInputFromWindow(createItemText.getWindowToken(), 0);
             }
         });
 
@@ -186,7 +186,7 @@ public class ShoppingListFragment extends Fragment implements RefreshableFragmen
 
     public void fillShoppingList(String shoppingListJson) {
         View view = getView();
-        if(view == null) { //TODO: Function is called with null all the time, why?
+        if(view == null) {
             return;
         }
         ListView shoppingList = (ListView) getView().findViewById(R.id.shoppingList);
