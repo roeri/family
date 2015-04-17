@@ -45,7 +45,6 @@ public class ShoppingListFragment extends Fragment implements RefreshableFragmen
     public boolean editMode = false;
     public int id; //TODO: FIX THIS, also make private?
     public ShoppingListAdapter shoppingListAdapter;
-    private DragSortController shoppingListController;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -67,8 +66,7 @@ public class ShoppingListFragment extends Fragment implements RefreshableFragmen
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editMode = !editMode;
-                setEditModeEnabled(editMode);
+                setEditModeEnabled(editMode = (!editMode));
             }
         });
 
@@ -89,7 +87,7 @@ public class ShoppingListFragment extends Fragment implements RefreshableFragmen
 
     private void initDragSortListView(View view) {
         final DragSortListView shoppingList = (DragSortListView) view.findViewById(R.id.shoppingList);
-        shoppingListController = new DragSortController(shoppingList);
+        DragSortController shoppingListController = new DragSortController(shoppingList);
         shoppingListController.setDragInitMode(DragSortController.ON_DOWN);
         shoppingListController.setBackgroundColor(Color.TRANSPARENT);
 
@@ -208,12 +206,13 @@ public class ShoppingListFragment extends Fragment implements RefreshableFragmen
     }
 
     public void setEditModeEnabled(boolean editMode) {
-        DragSortListView shoppingList = (DragSortListView) getView().findViewById(R.id.shoppingList);
-        if (editMode) {
-            shoppingList.setDragEnabled(true);
-        } else {
-            shoppingList.setDragEnabled(false);
+        View view = getView();
+        if(view == null) {
+            log.warn("view == null in setEditModeEnabled()");
+            return;
         }
+        DragSortListView shoppingList = (DragSortListView) view.findViewById(R.id.shoppingList);
+        shoppingList.setDragEnabled(editMode);
         toggleEditButton(editMode);
     }
 

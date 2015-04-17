@@ -43,7 +43,6 @@ public class ListOfShoppingListsFragment extends Fragment implements Refreshable
     private Typeface font;
     public boolean editMode = false;
     public ShoppingListsAdapter shoppingListsAdapter;
-    private DragSortController listOfShoppingListsController;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, final Bundle savedInstanceState) {
@@ -55,12 +54,7 @@ public class ListOfShoppingListsFragment extends Fragment implements Refreshable
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (editMode) {
-                    editMode = false;
-                } else {
-                    editMode = true;
-                }
-                setEditModeEnabled(editMode);
+                setEditModeEnabled(editMode = (!editMode));
             }
         });
 
@@ -69,8 +63,7 @@ public class ListOfShoppingListsFragment extends Fragment implements Refreshable
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editMode = false;
-                setEditModeEnabled(editMode);
+                setEditModeEnabled(editMode = false);
                 showCreateShoppingList();
             }
         });
@@ -82,7 +75,7 @@ public class ListOfShoppingListsFragment extends Fragment implements Refreshable
 
     private void initDragSortListView(View view) {
         final DragSortListView listOfShoppingLists = (DragSortListView) view.findViewById(R.id.listOfShoppingLists);
-        listOfShoppingListsController = new DragSortController(listOfShoppingLists);
+        DragSortController listOfShoppingListsController = new DragSortController(listOfShoppingLists);
         listOfShoppingListsController.setDragInitMode(DragSortController.ON_DOWN);
         listOfShoppingListsController.setBackgroundColor(Color.TRANSPARENT);
 
@@ -149,29 +142,29 @@ public class ListOfShoppingListsFragment extends Fragment implements Refreshable
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addShoppingListLayout.setVisibility(View.INVISIBLE);
-                layoutParams.addRule(RelativeLayout.BELOW, R.id.listOfShoppingLists_createShoppingListButton);
-                inputMethodManager.hideSoftInputFromWindow(createShoppingListText.getWindowToken(), 0);
+            addShoppingListLayout.setVisibility(View.INVISIBLE);
+            layoutParams.addRule(RelativeLayout.BELOW, R.id.listOfShoppingLists_createShoppingListButton);
+            inputMethodManager.hideSoftInputFromWindow(createShoppingListText.getWindowToken(), 0);
             }
         });
 
-        createShoppingListText.setOnFocusChangeListener(new EditText.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View createShoppingListText, boolean hasFocus) {
-                if (hasFocus) {
-                    ((EditText) createShoppingListText).setText("");
-                }
+    createShoppingListText.setOnFocusChangeListener(new EditText.OnFocusChangeListener() {
+        @Override
+        public void onFocusChange(View createShoppingListText, boolean hasFocus) {
+            if (hasFocus) {
+                ((EditText) createShoppingListText).setText("");
+            }
             }
         });
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new CreateShoppingList(theThis, createShoppingListText.getText().toString()).execute();
-                inputMethodManager.hideSoftInputFromWindow(createShoppingListText.getWindowToken(), 0);
-                final View addShoppingListLayout = getView().findViewById(R.id.listOfShoppingLists_createShoppingListLayout);
-                addShoppingListLayout.setVisibility(View.INVISIBLE);
-                layoutParams.addRule(RelativeLayout.BELOW, R.id.listOfShoppingLists_createShoppingListButton);
+            new CreateShoppingList(theThis, createShoppingListText.getText().toString()).execute();
+            inputMethodManager.hideSoftInputFromWindow(createShoppingListText.getWindowToken(), 0);
+            final View addShoppingListLayout = getView().findViewById(R.id.listOfShoppingLists_createShoppingListLayout);
+            addShoppingListLayout.setVisibility(View.INVISIBLE);
+            layoutParams.addRule(RelativeLayout.BELOW, R.id.listOfShoppingLists_createShoppingListButton);
             }
         });
 
@@ -199,7 +192,12 @@ public class ListOfShoppingListsFragment extends Fragment implements Refreshable
     }
 
     public void setEditModeEnabled(boolean editMode) {
-        DragSortListView listOfShoppingLists = (DragSortListView) getView().findViewById(R.id.listOfShoppingLists);
+        View view = getView();
+        if(view == null) {
+            log.warn("view == null in setEditModeEnabled()");
+            return;
+        }
+        DragSortListView listOfShoppingLists = (DragSortListView) view.findViewById(R.id.listOfShoppingLists);
         if (editMode) {
             int shoppingListsCount = listOfShoppingLists.getCount();
             for (int i = 0; i < shoppingListsCount; i++) {
@@ -219,7 +217,12 @@ public class ListOfShoppingListsFragment extends Fragment implements Refreshable
     }
 
     public void toggleEditButton(boolean enable) {
-        Button editButton = (Button) getView().findViewById(R.id.listOfShoppingLists_editListOfShoppingListsButton);
+        View view = getView();
+        if(view == null) {
+            log.warn("view == null in toggleEditButton()");
+            return;
+        }
+        Button editButton = (Button) view.findViewById(R.id.listOfShoppingLists_editListOfShoppingListsButton);
         if(enable) {
             editButton.setTypeface(font, Typeface.BOLD);
             editButton.setTextColor(Color.rgb(51, 102, 153));
