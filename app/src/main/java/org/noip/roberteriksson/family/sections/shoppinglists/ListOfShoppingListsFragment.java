@@ -31,9 +31,12 @@ import com.mobeta.android.dslv.DragSortListView;
 import java.io.IOException;
 import java.util.List;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * Created by robert on 2015-02-23.
  */
+@Slf4j
 public class ListOfShoppingListsFragment extends Fragment implements RefreshableFragment {
 
     private final ListOfShoppingListsFragment theThis = this;
@@ -124,6 +127,11 @@ public class ListOfShoppingListsFragment extends Fragment implements Refreshable
     }
 
     public void showCreateShoppingList() {
+        View view = getView();
+        if(view == null) {
+            log.warn("view == null in showCreateShoppingList()");
+            return;
+        }
         final View addShoppingListLayout = getView().findViewById(R.id.listOfShoppingLists_createShoppingListLayout);
         addShoppingListLayout.setVisibility(View.VISIBLE);
 
@@ -174,7 +182,8 @@ public class ListOfShoppingListsFragment extends Fragment implements Refreshable
 
     public void fillListOfShoppingLists(String shoppingListsJson) {
         View view = getView();
-        if(view == null) { //TODO: Function is called with null all the time, why?
+        if(view == null) {
+            log.warn("view == null in fillListOfShoppingLists()");
             return;
         }
         ListView shoppingLists = (ListView) getView().findViewById(R.id.listOfShoppingLists);
@@ -187,8 +196,6 @@ public class ListOfShoppingListsFragment extends Fragment implements Refreshable
         } catch (IOException e) {
             System.out.println("ERROR: " + e.getMessage());
         }
-        editMode = false;
-        toggleEditButton(editMode);
     }
 
     public void setEditModeEnabled(boolean editMode) {
@@ -224,6 +231,7 @@ public class ListOfShoppingListsFragment extends Fragment implements Refreshable
 
     @Override
     public void refresh() {
+        toggleEditButton(editMode = false);
         new GetListOfShoppingLists(this).execute();
     }
 

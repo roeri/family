@@ -32,9 +32,12 @@ import com.mobeta.android.dslv.DragSortListView;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * Created by robert on 2015-02-23.
  */
+@Slf4j
 public class ShoppingListFragment extends Fragment implements RefreshableFragment {
 
     private final ShoppingListFragment theThis = this;
@@ -64,11 +67,7 @@ public class ShoppingListFragment extends Fragment implements RefreshableFragmen
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (editMode) {
-                    editMode = false;
-                } else {
-                    editMode = true;
-                }
+                editMode = !editMode;
                 setEditModeEnabled(editMode);
             }
         });
@@ -78,8 +77,7 @@ public class ShoppingListFragment extends Fragment implements RefreshableFragmen
         createItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editMode = false;
-                setEditModeEnabled(editMode);
+                setEditModeEnabled(editMode = false);
                 showCreateShoppingListItem();
             }
         });
@@ -135,13 +133,18 @@ public class ShoppingListFragment extends Fragment implements RefreshableFragmen
     }
 
     public void showCreateShoppingListItem() {
-        final View addItemLayout = getView().findViewById(R.id.shoppingList_createShoppingListItemLayout);
+        View view = getView();
+        if(view == null) {
+            log.warn("view == null in showCreateShoppingListItem()");
+            return;
+        }
+        final View addItemLayout = view.findViewById(R.id.shoppingList_createShoppingListItemLayout);
         addItemLayout.setVisibility(View.VISIBLE);
 
-        final EditText createItemText = (EditText) getView().findViewById(R.id.shoppingList_createShoppingListItemLayout_createItemText);
+        final EditText createItemText = (EditText) view.findViewById(R.id.shoppingList_createShoppingListItemLayout_createItemText);
         final Button cancelButton = (Button) addItemLayout.findViewById(R.id.shoppingList_createShoppingListItemLayout_cancelButton);
         final Button saveButton = (Button) addItemLayout.findViewById(R.id.shoppingList_createShoppingListItemLayout_saveButton);
-        final View listView = getView().findViewById(R.id.shoppingList);
+        final View listView = view.findViewById(R.id.shoppingList);
 
         final RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) listView.getLayoutParams();
         final InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -161,9 +164,9 @@ public class ShoppingListFragment extends Fragment implements RefreshableFragmen
         createItemText.setOnFocusChangeListener(new EditText.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View createItemText, boolean hasFocus) {
-                if (hasFocus) {
-                    ((EditText) createItemText).setText("");
-                }
+            if (hasFocus) {
+                ((EditText) createItemText).setText("");
+            }
             }
         });
 
@@ -202,8 +205,6 @@ public class ShoppingListFragment extends Fragment implements RefreshableFragmen
         } catch (IOException e) {
             System.out.println("ERROR: " + e.getMessage());
         }
-        editMode = false;
-        toggleEditButton(editMode);
     }
 
     public void setEditModeEnabled(boolean editMode) {
@@ -217,7 +218,12 @@ public class ShoppingListFragment extends Fragment implements RefreshableFragmen
     }
 
     public void toggleEditButton(boolean enable) {
-        Button editButton = (Button) getView().findViewById(R.id.shoppingList_editButton);
+        View view = getView();
+        if(view == null) {
+            log.warn("view == null in toggleEditButton()");
+            return;
+        }
+        Button editButton = (Button) view.findViewById(R.id.shoppingList_editButton);
         if(enable) {
             editButton.setTypeface(font, Typeface.BOLD);
             editButton.setTextColor(Color.rgb(51, 102, 153));
@@ -229,6 +235,7 @@ public class ShoppingListFragment extends Fragment implements RefreshableFragmen
 
     @Override
     public void refresh() {
+        toggleEditButton(editMode = false);
         new GetShoppingList(this).execute();
     }
 
