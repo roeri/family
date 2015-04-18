@@ -7,7 +7,6 @@ import com.example.robert.family.R;
 
 import org.noip.roberteriksson.family.main.MainActivity;
 import org.noip.roberteriksson.family.sections.shoppinglists.ShoppingListFragment;
-import org.noip.roberteriksson.family.sections.shoppinglists.ShoppingListItemJson;
 import org.noip.roberteriksson.family.session.http.GetUserId;
 
 /**
@@ -18,7 +17,7 @@ public class Session {
     private Account userAccount;
     private MainActivity mainActivity;
     private int userId;
-    private ShoppingListFragment widgetShoppingList;
+    private int widgetShoppingListId;
 
     public static Session getInstance() {
         if(me == null) {
@@ -55,12 +54,12 @@ public class Session {
         return userId;
     }
 
-    public void setWidgetShoppingList(ShoppingListFragment shoppingList) {
-        this.widgetShoppingList = shoppingList;
+    public void setWidgetShoppingListId(int shoppingListId) {
+        this.widgetShoppingListId = shoppingListId;
     }
 
-    public ShoppingListFragment getWidgetShoppingList() {
-        return widgetShoppingList;
+    public int getWidgetShoppingListId() {
+        return widgetShoppingListId;
     }
 
     public String getUserEmail() {

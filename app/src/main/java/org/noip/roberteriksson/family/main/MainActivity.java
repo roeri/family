@@ -25,10 +25,6 @@ import org.noip.roberteriksson.family.navigation.NavigationDrawerFragment;
 import java.util.HashMap;
 import java.util.Map;
 
-import lombok.extern.log4j.Log4j;
-import lombok.extern.slf4j.Slf4j;
-import lombok.extern.slf4j.XSlf4j;
-
 public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
     private NavigationDrawerFragment navigationDrawer;
     private CharSequence title;
@@ -129,7 +125,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         title = listOfShoppingListsItemJson.getName();
         restoreActionBar();
 
-        Session.getInstance().setWidgetShoppingList(shoppingList);
+        Session.getInstance().setWidgetShoppingListId(listOfShoppingListsItemJson.getId());
     }
 
     public void restoreActionBar() {

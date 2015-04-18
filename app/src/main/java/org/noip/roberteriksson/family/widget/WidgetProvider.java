@@ -7,8 +7,11 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
+import android.widget.TextView;
 
 import com.example.robert.family.R;
+
+import org.noip.roberteriksson.family.session.Session;
 
 public class WidgetProvider extends AppWidgetProvider {
 
@@ -19,6 +22,8 @@ public class WidgetProvider extends AppWidgetProvider {
 
         // initializing widget layout
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget);
+
+        int widgetShoppingListId = Session.getInstance().getWidgetShoppingListId();
 
         // register for button event
         //remoteViews.setOnClickPendingIntent(R.id.sync_button, buildButtonPendingIntent(context));
