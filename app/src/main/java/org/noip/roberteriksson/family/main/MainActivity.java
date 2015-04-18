@@ -128,6 +128,8 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 
         title = listOfShoppingListsItemJson.getName();
         restoreActionBar();
+
+        Session.getInstance().setWidgetShoppingList(shoppingList);
     }
 
     public void restoreActionBar() {

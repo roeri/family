@@ -22,11 +22,11 @@ public class WidgetIntentReceiver extends BroadcastReceiver {
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget);
 
         // updating view
-        remoteViews.setTextViewText(R.id.title, getTitle());
-        remoteViews.setTextViewText(R.id.desc, getDesc());
+        //remoteViews.setTextViewText(R.id.title, getTitle());
+        //remoteViews.setTextViewText(R.id.desc, getDesc());
 
         // re-registering for click listener
-        remoteViews.setOnClickPendingIntent(R.id.sync_button, WidgetProvider.buildButtonPendingIntent(context));
+        //remoteViews.setOnClickPendingIntent(R.id.sync_button, WidgetProvider.buildButtonPendingIntent(context));
 
         WidgetProvider.pushWidgetUpdate(context.getApplicationContext(), remoteViews);
     }

@@ -6,50 +6,12 @@
     android:orientation="vertical" >
     <!--android:background="@drawable/appwidget_dark_bg"-->
 
-    <RelativeLayout
-        android:id="@+id/buttonContainer"
+    <ListView
+        android:id="@+id/widgetShoppingList"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" >
-
-        <Button
-            android:id="@+id/sync_button"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_centerInParent="true"
-            android:text="" />
-            <!--android:background="@drawable/ic_sync_button"-->
-    </RelativeLayout>
-
-    <LinearLayout
-        android:id="@+id/contentContainer"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/buttonContainer"
-        android:layout_alignParentTop="true"
-        android:orientation="vertical"
-        android:padding="8dp" >
-
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:maxLines="2"
-            android:paddingBottom="5dp"
-            android:text=""
-            android:textColor="#fcfcfc"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/desc"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:maxLines="5"
-            android:text=""
-            android:textColor="#fcfcfc"
-            android:textSize="13sp"
-            android:textStyle="normal" />
-    </LinearLayout>
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="false"
+        android:dividerHeight="1dp" />
 
 </RelativeLayout>

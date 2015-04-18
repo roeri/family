@@ -21,11 +21,16 @@ public class WidgetProvider extends AppWidgetProvider {
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget);
 
         // register for button event
-        remoteViews.setOnClickPendingIntent(R.id.sync_button, buildButtonPendingIntent(context));
+        //remoteViews.setOnClickPendingIntent(R.id.sync_button, buildButtonPendingIntent(context));
 
         // updating view with initial data
-        remoteViews.setTextViewText(R.id.title, getTitle());
-        remoteViews.setTextViewText(R.id.desc, getDesc());
+        //remoteViews.setTextViewText(R.id.title, getTitle());
+        //remoteViews.setTextViewText(R.id.desc, getDesc());
+        /*Intent intent = new Intent(context, GeotaskRemoteViewService.class);
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
+                remoteViews);
+        intent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));
+        remoteViews.setRemoteAdapter(R.id.widgetShoppingList, intent);*/
 
         // request for widget update
         pushWidgetUpdate(context, remoteViews);
