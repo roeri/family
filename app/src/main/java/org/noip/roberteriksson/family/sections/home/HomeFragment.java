@@ -10,9 +10,6 @@ import android.widget.Toast;
 
 import com.example.robert.family.R;
 
-import org.noip.roberteriksson.family.main.MainActivity;
-import org.noip.roberteriksson.family.sections.FragmentNumbers;
-import org.noip.roberteriksson.family.sections.RefreshableFragment;
 import org.noip.roberteriksson.family.sections.SectionFragment;
 
 import java.util.Calendar;

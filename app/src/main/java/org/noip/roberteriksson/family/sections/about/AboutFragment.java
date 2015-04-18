@@ -2,8 +2,6 @@ package org.noip.roberteriksson.family.sections.about;
 
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Typeface;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -16,7 +14,6 @@ import com.example.robert.family.R;
 
 import org.noip.roberteriksson.family.main.MainActivity;
 import org.noip.roberteriksson.family.sections.FragmentNumbers;
-import org.noip.roberteriksson.family.sections.RefreshableFragment;
 import org.noip.roberteriksson.family.sections.SectionFragment;
 
 /**

@@ -11,8 +11,6 @@ import android.widget.Toast;
 
 import com.example.robert.family.R;
 
-import org.noip.roberteriksson.family.sections.BackableFragment;
-import org.noip.roberteriksson.family.sections.RefreshableFragment;
 import org.noip.roberteriksson.family.sections.SectionFragment;
 import org.noip.roberteriksson.family.sections.about.AboutFragment;
 import org.noip.roberteriksson.family.session.Session;

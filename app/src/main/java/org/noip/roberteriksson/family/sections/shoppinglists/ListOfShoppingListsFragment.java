@@ -20,7 +20,6 @@ import android.widget.TextView;
 import com.example.robert.family.R;
 import org.noip.roberteriksson.family.main.MainActivity;
 import org.noip.roberteriksson.family.sections.FragmentNumbers;
-import org.noip.roberteriksson.family.sections.RefreshableFragment;
 import org.noip.roberteriksson.family.sections.SectionFragment;
 import org.noip.roberteriksson.family.sections.shoppinglists.http.CreateShoppingList;
 import org.noip.roberteriksson.family.sections.shoppinglists.http.DeleteShoppingList;
