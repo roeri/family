@@ -13,24 +13,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
-        android:text="@string/icon_back"
-        android:textSize="@dimen/largeButtonTextSize"
-        android:id="@+id/shoppingList_backButton"
-        android:layout_alignParentTop="true" />
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
         android:text="@string/icon_edit"
         android:textSize="@dimen/largeButtonTextSize"
         android:id="@+id/shoppingList_editButton"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/shoppingList_backButton"
-        android:layout_toEndOf="@+id/shoppingList_backButton"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp" />
+        android:layout_alignParentTop="true" />
 
     <Button
         style="?android:attr/buttonStyleSmall"

@@ -18,8 +18,10 @@ import android.widget.TextView;
 
 import com.example.robert.family.R;
 import org.noip.roberteriksson.family.main.MainActivity;
+import org.noip.roberteriksson.family.sections.BackableFragment;
 import org.noip.roberteriksson.family.sections.RefreshableFragment;
 import org.noip.roberteriksson.family.sections.FragmentNumbers;
+import org.noip.roberteriksson.family.sections.SectionFragment;
 import org.noip.roberteriksson.family.sections.shoppinglists.http.CheckShoppingListItem;
 import org.noip.roberteriksson.family.sections.shoppinglists.http.CreateShoppingListItem;
 import org.noip.roberteriksson.family.sections.shoppinglists.http.DeleteShoppingListItem;
@@ -30,7 +32,6 @@ import com.mobeta.android.dslv.DragSortController;
 import com.mobeta.android.dslv.DragSortListView;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import lombok.extern.slf4j.Slf4j;
@@ -39,7 +40,7 @@ import lombok.extern.slf4j.Slf4j;
  * Created by robert on 2015-02-23.
  */
 @Slf4j
-public class ShoppingListFragment extends Fragment implements RefreshableFragment {
+public class ShoppingListFragment extends Fragment implements SectionFragment {
 
     private final ShoppingListFragment theThis = this;
     private Typeface font;
@@ -51,16 +52,6 @@ public class ShoppingListFragment extends Fragment implements RefreshableFragmen
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/fontawesome-webfont.ttf");
         View view = inflater.inflate(R.layout.fragment_shopping_list, container, false);
-
-        Button backButton = (Button) view.findViewById(R.id.shoppingList_backButton);
-        backButton.setTypeface(font);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((MainActivity) getActivity()).setCurrentlyLiveFragment(FragmentNumbers.LIST_OF_SHOPPING_LISTS);
-                //TODO: Implement a "backable" interface for fragments, taking its creator as argument?
-            }
-        });
 
         Button editButton = (Button) view.findViewById(R.id.shoppingList_editButton);
         editButton.setTypeface(font);
@@ -232,6 +223,11 @@ public class ShoppingListFragment extends Fragment implements RefreshableFragmen
     public void refresh() {
         toggleEditButton(editMode = false);
         new GetShoppingList(this).execute();
+    }
+
+    @Override
+    public void goBack() {
+        ((MainActivity) getActivity()).setCurrentlyLiveFragment(FragmentNumbers.LIST_OF_SHOPPING_LISTS);
     }
 
     public class ShoppingListAdapter extends ArrayAdapter<ShoppingListItemJson> {

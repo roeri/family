@@ -11,7 +11,9 @@ import android.widget.Toast;
 
 import com.example.robert.family.R;
 
+import org.noip.roberteriksson.family.sections.BackableFragment;
 import org.noip.roberteriksson.family.sections.RefreshableFragment;
+import org.noip.roberteriksson.family.sections.SectionFragment;
 import org.noip.roberteriksson.family.sections.about.AboutFragment;
 import org.noip.roberteriksson.family.session.Session;
 import org.noip.roberteriksson.family.sections.home.HomeFragment;
@@ -25,11 +27,14 @@ import org.noip.roberteriksson.family.navigation.NavigationDrawerFragment;
 import java.util.HashMap;
 import java.util.Map;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
     private NavigationDrawerFragment navigationDrawer;
     private CharSequence title;
-    private Map<Integer, RefreshableFragment> currentlyActiveFragments;
-    private RefreshableFragment currentlyLiveFragment;
+    private Map<Integer, SectionFragment> currentlyActiveFragments;
+    private SectionFragment currentlyLiveFragment; //TODO: CHANGE TO SectionFragment
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +49,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         navigationDrawer.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout));
     }
 
-    public RefreshableFragment getCurrentlyLiveFragment() {
+    public SectionFragment getCurrentlyLiveFragment() {
         return this.currentlyLiveFragment; //TODO: Risk for NPE, fix!
     }
 
@@ -53,8 +58,17 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         setCurrentlyLiveFragment(number);
     }
 
+    @Override
+    public void onBackPressed() {
+        if(currentlyLiveFragment == null) {
+            log.debug("currentlyLiveFragment == null in onBackPressed()");
+            return;
+        }
+        currentlyLiveFragment.goBack();
+    }
+
     public void setCurrentlyLiveFragment(int number) {
-        RefreshableFragment fragment;
+        SectionFragment fragment;
 
         if(currentlyActiveFragments.containsKey(number)) {
             fragment = currentlyActiveFragments.get(number);
@@ -71,8 +85,8 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         onSectionAttached(number);
     }
 
-    private RefreshableFragment numberToFragment(int number) {
-        RefreshableFragment fragment;
+    private SectionFragment numberToFragment(int number) {
+        SectionFragment fragment;
         switch (number) {
             default:
             case FragmentNumbers.HOME:

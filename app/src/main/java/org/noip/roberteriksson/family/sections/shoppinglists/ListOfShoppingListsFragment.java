@@ -19,7 +19,9 @@ import android.widget.TextView;
 
 import com.example.robert.family.R;
 import org.noip.roberteriksson.family.main.MainActivity;
+import org.noip.roberteriksson.family.sections.FragmentNumbers;
 import org.noip.roberteriksson.family.sections.RefreshableFragment;
+import org.noip.roberteriksson.family.sections.SectionFragment;
 import org.noip.roberteriksson.family.sections.shoppinglists.http.CreateShoppingList;
 import org.noip.roberteriksson.family.sections.shoppinglists.http.DeleteShoppingList;
 import org.noip.roberteriksson.family.sections.shoppinglists.http.GetListOfShoppingLists;
@@ -37,7 +39,7 @@ import lombok.extern.slf4j.Slf4j;
  * Created by robert on 2015-02-23.
  */
 @Slf4j
-public class ListOfShoppingListsFragment extends Fragment implements RefreshableFragment {
+public class ListOfShoppingListsFragment extends Fragment implements SectionFragment {
 
     private final ListOfShoppingListsFragment theThis = this;
     private Typeface font;
@@ -236,6 +238,11 @@ public class ListOfShoppingListsFragment extends Fragment implements Refreshable
     public void refresh() {
         toggleEditButton(editMode = false);
         new GetListOfShoppingLists(this).execute();
+    }
+
+    @Override
+    public void goBack() {
+        ((MainActivity) getActivity()).setCurrentlyLiveFragment(FragmentNumbers.HOME);
     }
 
     public class ShoppingListsAdapter extends ArrayAdapter<ListOfShoppingListsItemJson> {
