@@ -28,7 +28,7 @@ public class ProfileFragment extends Fragment implements SectionFragment {
     private Typeface font;
 
     @Data
-    public static class ProfileJson {
+    public static final class ProfileJson {
         @JsonProperty("email")
         private String email;
         @JsonProperty("name")

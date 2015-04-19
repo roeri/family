@@ -47,7 +47,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     private View loginFormView;
 
     @Data
-    public static class UserToCreateJson {
+    public static final class UserToCreateJson {
         @JsonProperty("email")
         private String email;
         @JsonProperty("password")
@@ -55,7 +55,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     }
 
     @Data
-    public static class UserToLoginJson {
+    public static final class UserToLoginJson {
         @JsonProperty("email")
         private String email;
         @JsonProperty("password")
@@ -190,9 +190,13 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+        String[] PROJECTION = {
+                ContactsContract.CommonDataKinds.Email.ADDRESS,
+                ContactsContract.CommonDataKinds.Email.IS_PRIMARY,
+        };
         return new CursorLoader(this,
             Uri.withAppendedPath(ContactsContract.Profile.CONTENT_URI,
-                ContactsContract.Contacts.Data.CONTENT_DIRECTORY), ProfileQuery.PROJECTION,
+                ContactsContract.Contacts.Data.CONTENT_DIRECTORY), PROJECTION,
 
             ContactsContract.Contacts.Data.MIMETYPE +
                 " = ?", new String[]{ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE},
@@ -202,34 +206,12 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
-        List<String> emails = new ArrayList<>();
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            emails.add(cursor.getString(ProfileQuery.ADDRESS));
-            cursor.moveToNext();
-        }
 
-        addEmailsToAutoComplete(emails);
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> cursorLoader) {
 
-    }
-
-    private interface ProfileQuery {
-        String[] PROJECTION = {
-            ContactsContract.CommonDataKinds.Email.ADDRESS,
-            ContactsContract.CommonDataKinds.Email.IS_PRIMARY,
-        };
-
-        int ADDRESS = 0;
-        int IS_PRIMARY = 1;
-    }
-
-    private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(LoginActivity.this, android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
-        emailView.setAdapter(adapter);
     }
 }
 
