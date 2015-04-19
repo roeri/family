@@ -50,13 +50,13 @@ public class ShoppingListsFragment extends Fragment implements SectionFragment {
     public ShoppingListsAdapter shoppingListsAdapter;
 
     @Data
-    public static class ShoppingListsJson {
+    public static final class ShoppingListsJson {
         @JsonProperty("items")
         private List<ShoppingListsItemJson> items = new ArrayList<>();
     }
 
     @Data
-    public static class ShoppingListsItemJson {
+    public static final class ShoppingListsItemJson {
         @JsonProperty("id")
         int id;
         @JsonProperty("sequence")

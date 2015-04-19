@@ -51,13 +51,13 @@ public class ShoppingListFragment extends Fragment implements SectionFragment {
     public ShoppingListAdapter shoppingListAdapter;
 
     @Data
-    public static class ShoppingListJson {
+    public static final class ShoppingListJson {
         @JsonProperty("items")
         private List<ShoppingListItemJson> items = new ArrayList<>();
     }
 
     @Data
-    public static class ShoppingListItemJson {
+    public static final class ShoppingListItemJson {
         @JsonProperty("id")
         int id;
         @JsonProperty("shoppinglists_id")
