@@ -3,17 +3,13 @@ package org.noip.roberteriksson.family.sections.shoppinglists.http;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-import org.noip.roberteriksson.family.sections.shoppinglists.ShoppingListFragment;
-import org.noip.roberteriksson.family.util.Url;
-import org.noip.roberteriksson.family.util.HttpPoster;
-
 import org.apache.http.entity.StringEntity;
+import org.noip.roberteriksson.family.sections.shoppinglists.ShoppingListFragment;
+import org.noip.roberteriksson.family.util.HttpPoster;
+import org.noip.roberteriksson.family.util.Url;
 
 import java.io.UnsupportedEncodingException;
 
-/**
- * Created by robert on 2015-03-06.
- */
 public class GetShoppingList extends AsyncTask<String, Void, String> {
 
     private final ShoppingListFragment shoppingListFragment;
@@ -24,9 +20,8 @@ public class GetShoppingList extends AsyncTask<String, Void, String> {
 
     @Override
     protected String doInBackground(String... urls) {
-        StringEntity entityToSend = null;
         try {
-            entityToSend = new StringEntity(Integer.toString(shoppingListFragment.id));
+            StringEntity entityToSend = new StringEntity(Integer.toString(shoppingListFragment.id));
             return HttpPoster.doHttpPost(Url.SHOPPING_LIST_GET_SHOPPING_LIST, entityToSend);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();

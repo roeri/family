@@ -10,9 +10,6 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-/**
- * Created by robert on 2015-03-01.
- */
 public class HttpPoster {
 
     public static String doHttpPost(String postUrl, AbstractHttpEntity entityToSend) {

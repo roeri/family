@@ -17,9 +17,6 @@ import java.util.concurrent.TimeUnit;
 
 import lombok.extern.slf4j.Slf4j;
 
-/**
- * Created by robert on 2015-02-23.
- */
 @Slf4j
 public class HomeFragment extends Fragment implements SectionFragment {
     @Override

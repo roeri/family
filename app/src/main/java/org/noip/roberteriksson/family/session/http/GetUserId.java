@@ -3,18 +3,13 @@ package org.noip.roberteriksson.family.session.http;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
+import org.apache.http.entity.StringEntity;
 import org.noip.roberteriksson.family.session.Session;
-
 import org.noip.roberteriksson.family.util.HttpPoster;
 import org.noip.roberteriksson.family.util.Url;
 
-import org.apache.http.entity.StringEntity;
-
 import java.io.UnsupportedEncodingException;
 
-/**
- * Created by robert on 2015-03-06.
- */
 public class GetUserId extends AsyncTask<String, Void, String> {
 
     private final Session session;

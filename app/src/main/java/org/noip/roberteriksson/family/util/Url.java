@@ -1,8 +1,5 @@
 package org.noip.roberteriksson.family.util;
 
-/**
- * Created by robert on 2015-03-06.
- */
 public class Url {
     public static final String LOGIN_ATTEMPT_LOGIN = "http://roberteriksson.no-ip.org/family/Login_AttemptLogin.php";
     public static final String LOGIN_CREATE_USER = "http://roberteriksson.no-ip.org/family/Login_CreateUser.php";

@@ -6,12 +6,8 @@ import android.accounts.AccountManager;
 import com.example.robert.family.R;
 
 import org.noip.roberteriksson.family.main.MainActivity;
-import org.noip.roberteriksson.family.sections.shoppinglists.ShoppingListFragment;
 import org.noip.roberteriksson.family.session.http.GetUserId;
 
-/**
- * Created by robert on 2015-03-07.
- */
 public class Session {
     private static Session me = null;
     private Account userAccount;

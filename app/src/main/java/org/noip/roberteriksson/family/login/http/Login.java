@@ -6,18 +6,15 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
-import org.noip.roberteriksson.family.login.LoginActivity;
-import org.noip.roberteriksson.family.main.MainActivity;
 import com.example.robert.family.R;
-import org.noip.roberteriksson.family.util.Url;
-import org.noip.roberteriksson.family.util.HttpPoster;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.apache.http.entity.StringEntity;
+import org.noip.roberteriksson.family.login.LoginActivity;
+import org.noip.roberteriksson.family.main.MainActivity;
+import org.noip.roberteriksson.family.util.HttpPoster;
+import org.noip.roberteriksson.family.util.Url;
 
-/**
- * Created by robert on 2015-03-06.
- */
 public class Login extends AsyncTask<String, Void, String> {
 
     private final LoginActivity loginActivity;

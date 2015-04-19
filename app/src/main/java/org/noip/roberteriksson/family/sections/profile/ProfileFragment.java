@@ -1,8 +1,7 @@
 package org.noip.roberteriksson.family.sections.profile;
 
-import android.support.v4.app.Fragment;
-import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,18 +13,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.noip.roberteriksson.family.main.MainActivity;
 import org.noip.roberteriksson.family.sections.FragmentNumbers;
 import org.noip.roberteriksson.family.sections.SectionFragment;
-import org.noip.roberteriksson.family.session.Session;
 import org.noip.roberteriksson.family.sections.profile.http.GetProfile;
+import org.noip.roberteriksson.family.session.Session;
 
 import lombok.Data;
 
-/**
- * Created by robert on 2015-03-06.
- */
 public class ProfileFragment extends Fragment implements SectionFragment {
 
     private View view;
-    private Typeface font;
 
     @Data
     public static final class ProfileJson {
@@ -41,7 +36,6 @@ public class ProfileFragment extends Fragment implements SectionFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/fontawesome-webfont.ttf");
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         this.view = view;

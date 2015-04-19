@@ -3,19 +3,16 @@ package org.noip.roberteriksson.family.sections.profile.http;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-import org.noip.roberteriksson.family.sections.profile.ProfileFragment;
-import org.noip.roberteriksson.family.util.Url;
-import org.noip.roberteriksson.family.util.HttpPoster;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.apache.http.entity.StringEntity;
+import org.noip.roberteriksson.family.sections.profile.ProfileFragment;
+import org.noip.roberteriksson.family.util.HttpPoster;
+import org.noip.roberteriksson.family.util.Url;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
-/**
- * Created by robert on 2015-03-06.
- */
 public class GetProfile extends AsyncTask<String, Void, String> {
 
     private final ProfileFragment profileFragment;

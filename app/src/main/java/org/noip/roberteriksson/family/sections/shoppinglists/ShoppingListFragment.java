@@ -17,6 +17,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.robert.family.R;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mobeta.android.dslv.DragSortController;
+import com.mobeta.android.dslv.DragSortListView;
+
 import org.noip.roberteriksson.family.main.MainActivity;
 import org.noip.roberteriksson.family.sections.FragmentNumbers;
 import org.noip.roberteriksson.family.sections.SectionFragment;
@@ -26,11 +31,6 @@ import org.noip.roberteriksson.family.sections.shoppinglists.http.DeleteShopping
 import org.noip.roberteriksson.family.sections.shoppinglists.http.GetShoppingList;
 import org.noip.roberteriksson.family.sections.shoppinglists.http.RearrangeShoppingList;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mobeta.android.dslv.DragSortController;
-import com.mobeta.android.dslv.DragSortListView;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,9 +38,6 @@ import java.util.List;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
-/**
- * Created by robert on 2015-02-23.
- */
 @Slf4j
 public class ShoppingListFragment extends Fragment implements SectionFragment {
 

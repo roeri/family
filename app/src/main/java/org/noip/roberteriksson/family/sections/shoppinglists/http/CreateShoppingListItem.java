@@ -3,20 +3,17 @@ package org.noip.roberteriksson.family.sections.shoppinglists.http;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-import org.noip.roberteriksson.family.session.Session;
-import org.noip.roberteriksson.family.sections.shoppinglists.ShoppingListFragment;
-import org.noip.roberteriksson.family.util.Url;
-import org.noip.roberteriksson.family.util.HttpPoster;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.apache.http.entity.StringEntity;
+import org.noip.roberteriksson.family.sections.shoppinglists.ShoppingListFragment;
+import org.noip.roberteriksson.family.session.Session;
+import org.noip.roberteriksson.family.util.HttpPoster;
+import org.noip.roberteriksson.family.util.Url;
 
 import java.io.UnsupportedEncodingException;
 
-/**
- * Created by robert on 2015-03-06.
- */
 public class CreateShoppingListItem extends AsyncTask<String, Void, String> {
 
     private final ShoppingListFragment shoppingListFragment;

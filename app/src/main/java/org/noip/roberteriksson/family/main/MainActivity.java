@@ -1,25 +1,25 @@
 package org.noip.roberteriksson.family.main;
 
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.support.v4.widget.DrawerLayout;
 import android.widget.Toast;
 
 import com.example.robert.family.R;
 
+import org.noip.roberteriksson.family.navigation.NavigationDrawerFragment;
+import org.noip.roberteriksson.family.sections.FragmentNumbers;
 import org.noip.roberteriksson.family.sections.SectionFragment;
 import org.noip.roberteriksson.family.sections.about.AboutFragment;
-import org.noip.roberteriksson.family.session.Session;
 import org.noip.roberteriksson.family.sections.home.HomeFragment;
 import org.noip.roberteriksson.family.sections.profile.ProfileFragment;
 import org.noip.roberteriksson.family.sections.shoppinglists.ShoppingListFragment;
 import org.noip.roberteriksson.family.sections.shoppinglists.ShoppingListsFragment;
-import org.noip.roberteriksson.family.sections.FragmentNumbers;
-import org.noip.roberteriksson.family.navigation.NavigationDrawerFragment;
+import org.noip.roberteriksson.family.session.Session;
 
 import java.util.HashMap;
 import java.util.Map;

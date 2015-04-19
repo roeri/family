@@ -7,9 +7,6 @@ import org.noip.roberteriksson.family.sections.shoppinglists.ShoppingListsFragme
 import org.noip.roberteriksson.family.util.HttpPoster;
 import org.noip.roberteriksson.family.util.Url;
 
-/**
- * Created by robert on 2015-03-06.
- */
 public class GetListOfShoppingLists extends AsyncTask<String, Void, String> {
 
     private final ShoppingListsFragment shoppingListsFragment;

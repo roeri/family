@@ -16,9 +16,6 @@ import org.noip.roberteriksson.family.main.MainActivity;
 import org.noip.roberteriksson.family.sections.FragmentNumbers;
 import org.noip.roberteriksson.family.sections.SectionFragment;
 
-/**
- * Created by robert on 2015-04-13.
- */
 public class AboutFragment extends Fragment implements SectionFragment {
 
     private View view;
