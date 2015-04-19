@@ -3,8 +3,7 @@ package org.noip.roberteriksson.family.sections.shoppinglists.http;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-import org.noip.roberteriksson.family.sections.shoppinglists.ListOfShoppingListsFragment;
-import org.noip.roberteriksson.family.sections.shoppinglists.ListOfShoppingListsItemJson;
+import org.noip.roberteriksson.family.sections.shoppinglists.ShoppingListsFragment;
 import org.noip.roberteriksson.family.util.HttpPoster;
 import org.noip.roberteriksson.family.util.Url;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -19,20 +18,20 @@ import java.io.UnsupportedEncodingException;
  */
 public class CreateShoppingList extends AsyncTask<String, Void, String> {
 
-    private final ListOfShoppingListsFragment listOfShoppingListsFragment;
+    private final ShoppingListsFragment shoppingListsFragment;
     private final String name;
 
-    public CreateShoppingList(ListOfShoppingListsFragment listOfShoppingListsFragment, String name) {
-        this.listOfShoppingListsFragment = listOfShoppingListsFragment;
+    public CreateShoppingList(ShoppingListsFragment shoppingListsFragment, String name) {
+        this.shoppingListsFragment = shoppingListsFragment;
         this.name = name;
     }
 
     @Override
     protected String doInBackground(String... urls) {
         try {
-            ListOfShoppingListsItemJson listOfShoppingListsItemJson = new ListOfShoppingListsItemJson();
-            listOfShoppingListsItemJson.setName(name);
-            String json = new ObjectMapper().writeValueAsString(listOfShoppingListsItemJson);
+            ShoppingListsFragment.ShoppingListsItemJson shoppingListsItemJson = new ShoppingListsFragment.ShoppingListsItemJson();
+            shoppingListsItemJson.setName(name);
+            String json = new ObjectMapper().writeValueAsString(shoppingListsItemJson);
             StringEntity entityToSend = new StringEntity(json);
             return HttpPoster.doHttpPost(Url.LIST_OF_SHOPPING_LISTS_CREATE_SHOPPING_LIST, entityToSend);
         } catch (UnsupportedEncodingException | JsonProcessingException e) {
@@ -44,9 +43,9 @@ public class CreateShoppingList extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String result) {
         if(result.equals("SUCCESS")) {
-            new GetListOfShoppingLists(listOfShoppingListsFragment).execute();
+            new GetListOfShoppingLists(shoppingListsFragment).execute();
         } else {
-            Toast.makeText(listOfShoppingListsFragment.getActivity(), "ERROR in CreateShoppingList", Toast.LENGTH_SHORT).show();
+            Toast.makeText(shoppingListsFragment.getActivity(), "ERROR in CreateShoppingList", Toast.LENGTH_SHORT).show();
         }
     }
 }

@@ -8,7 +8,6 @@ import android.widget.Toast;
 
 import org.noip.roberteriksson.family.login.LoginActivity;
 import com.example.robert.family.R;
-import org.noip.roberteriksson.family.login.UserToCreateJson;
 import org.noip.roberteriksson.family.util.Url;
 import org.noip.roberteriksson.family.util.HttpPoster;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -32,7 +31,7 @@ public class CreateUser extends AsyncTask<String, Void, String> {
 
     @Override
     protected String doInBackground(String... urls) {
-        UserToCreateJson userToCreate = new UserToCreateJson();
+        LoginActivity.UserToCreateJson userToCreate = new LoginActivity.UserToCreateJson();
         userToCreate.setEmail(email);
         userToCreate.setPassword(password);
         try {

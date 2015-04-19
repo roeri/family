@@ -25,13 +25,17 @@ import org.noip.roberteriksson.family.sections.shoppinglists.http.CreateShopping
 import org.noip.roberteriksson.family.sections.shoppinglists.http.DeleteShoppingListItem;
 import org.noip.roberteriksson.family.sections.shoppinglists.http.GetShoppingList;
 import org.noip.roberteriksson.family.sections.shoppinglists.http.RearrangeShoppingList;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mobeta.android.dslv.DragSortController;
 import com.mobeta.android.dslv.DragSortListView;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -45,6 +49,28 @@ public class ShoppingListFragment extends Fragment implements SectionFragment {
     public boolean editMode = false;
     public int id; //TODO: FIX THIS, also make private?
     public ShoppingListAdapter shoppingListAdapter;
+
+    @Data
+    public static class ShoppingListJson {
+        @JsonProperty("items")
+        private List<ShoppingListItemJson> items = new ArrayList<>();
+    }
+
+    @Data
+    public static class ShoppingListItemJson {
+        @JsonProperty("id")
+        int id;
+        @JsonProperty("shoppinglists_id")
+        int shoppingListsId;
+        @JsonProperty("users_id")
+        int usersId;
+        @JsonProperty("sequence")
+        int sequence;
+        @JsonProperty("text")
+        String text;
+        @JsonProperty("checked")
+        boolean checked;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -225,7 +251,7 @@ public class ShoppingListFragment extends Fragment implements SectionFragment {
 
     @Override
     public void goBack() {
-        ((MainActivity) getActivity()).setCurrentlyLiveFragment(FragmentNumbers.LIST_OF_SHOPPING_LISTS);
+        ((MainActivity) getActivity()).setCurrentlyLiveFragment(FragmentNumbers.SHOPPING_LISTS);
     }
 
     public class ShoppingListAdapter extends ArrayAdapter<ShoppingListItemJson> {

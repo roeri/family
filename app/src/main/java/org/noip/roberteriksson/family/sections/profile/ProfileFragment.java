@@ -9,12 +9,15 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.robert.family.R;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.noip.roberteriksson.family.main.MainActivity;
 import org.noip.roberteriksson.family.sections.FragmentNumbers;
 import org.noip.roberteriksson.family.sections.SectionFragment;
 import org.noip.roberteriksson.family.session.Session;
 import org.noip.roberteriksson.family.sections.profile.http.GetProfile;
+
+import lombok.Data;
 
 /**
  * Created by robert on 2015-03-06.
@@ -23,6 +26,18 @@ public class ProfileFragment extends Fragment implements SectionFragment {
 
     private View view;
     private Typeface font;
+
+    @Data
+    public static class ProfileJson {
+        @JsonProperty("email")
+        private String email;
+        @JsonProperty("name")
+        private String name;
+        @JsonProperty("lastseen")
+        private String lastSeen;
+        @JsonProperty("lastactivity")
+        private String lastActivity;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

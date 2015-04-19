@@ -17,8 +17,7 @@ import org.noip.roberteriksson.family.session.Session;
 import org.noip.roberteriksson.family.sections.home.HomeFragment;
 import org.noip.roberteriksson.family.sections.profile.ProfileFragment;
 import org.noip.roberteriksson.family.sections.shoppinglists.ShoppingListFragment;
-import org.noip.roberteriksson.family.sections.shoppinglists.ListOfShoppingListsFragment;
-import org.noip.roberteriksson.family.sections.shoppinglists.ListOfShoppingListsItemJson;
+import org.noip.roberteriksson.family.sections.shoppinglists.ShoppingListsFragment;
 import org.noip.roberteriksson.family.sections.FragmentNumbers;
 import org.noip.roberteriksson.family.navigation.NavigationDrawerFragment;
 
@@ -90,8 +89,8 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
             case FragmentNumbers.HOME:
                 fragment = new HomeFragment();
                 break;
-            case FragmentNumbers.LIST_OF_SHOPPING_LISTS:
-                fragment = new ListOfShoppingListsFragment();
+            case FragmentNumbers.SHOPPING_LISTS:
+                fragment = new ShoppingListsFragment();
                 break;
             //Below items are not in the navigation drawer.
             case FragmentNumbers.PROFILE:
@@ -109,7 +108,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
             case FragmentNumbers.HOME:
                 title = getString(R.string.title_home);
                 break;
-            case FragmentNumbers.LIST_OF_SHOPPING_LISTS:
+            case FragmentNumbers.SHOPPING_LISTS:
                 title = getString(R.string.title_shoppingLists);
                 break;
             case FragmentNumbers.PROFILE:
@@ -122,9 +121,9 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         restoreActionBar();
     }
 
-    public void onShoppingListSelected(ListOfShoppingListsItemJson listOfShoppingListsItemJson) {
+    public void onShoppingListSelected(ShoppingListsFragment.ShoppingListsItemJson shoppingListsItemJson) {
         ShoppingListFragment shoppingList = new ShoppingListFragment();
-        shoppingList.setId(listOfShoppingListsItemJson.getId());
+        shoppingList.setId(shoppingListsItemJson.getId());
         shoppingList.refresh();
 
         getSupportFragmentManager().beginTransaction()
@@ -134,10 +133,10 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         currentlyActiveFragments.put(FragmentNumbers.SHOPPING_LIST, shoppingList);
         currentlyLiveFragment = shoppingList;
 
-        title = listOfShoppingListsItemJson.getName();
+        title = shoppingListsItemJson.getName();
         restoreActionBar();
 
-        Session.getInstance().setWidgetShoppingListId(listOfShoppingListsItemJson.getId());
+        Session.getInstance().setWidgetShoppingListId(shoppingListsItemJson.getId());
     }
 
     public void restoreActionBar() {

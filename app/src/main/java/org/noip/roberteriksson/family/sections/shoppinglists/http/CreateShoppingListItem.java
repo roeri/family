@@ -5,7 +5,6 @@ import android.widget.Toast;
 
 import org.noip.roberteriksson.family.session.Session;
 import org.noip.roberteriksson.family.sections.shoppinglists.ShoppingListFragment;
-import org.noip.roberteriksson.family.sections.shoppinglists.ShoppingListItemJson;
 import org.noip.roberteriksson.family.util.Url;
 import org.noip.roberteriksson.family.util.HttpPoster;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -31,7 +30,7 @@ public class CreateShoppingListItem extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... urls) {
         try {
-            ShoppingListItemJson shoppingListItemJson = new ShoppingListItemJson();
+            ShoppingListFragment.ShoppingListItemJson shoppingListItemJson = new ShoppingListFragment.ShoppingListItemJson();
             shoppingListItemJson.setShoppingListsId(shoppingListFragment.id);
             shoppingListItemJson.setUsersId(Session.getInstance().getUserId());
             shoppingListItemJson.setText(itemName);

@@ -3,7 +3,7 @@ package org.noip.roberteriksson.family.sections.shoppinglists.http;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-import org.noip.roberteriksson.family.sections.shoppinglists.ListOfShoppingListsFragment;
+import org.noip.roberteriksson.family.sections.shoppinglists.ShoppingListsFragment;
 import org.noip.roberteriksson.family.util.HttpPoster;
 import org.noip.roberteriksson.family.util.Url;
 
@@ -16,11 +16,11 @@ import java.io.UnsupportedEncodingException;
  */
 public class DeleteShoppingList extends AsyncTask<String, Void, String> {
 
-    private final ListOfShoppingListsFragment listOfShoppingListsFragment;
+    private final ShoppingListsFragment shoppingListsFragment;
     private final int shoppingListId;
 
-    public DeleteShoppingList(ListOfShoppingListsFragment listOfShoppingListsFragment, int shoppingListId) {
-        this.listOfShoppingListsFragment = listOfShoppingListsFragment;
+    public DeleteShoppingList(ShoppingListsFragment shoppingListsFragment, int shoppingListId) {
+        this.shoppingListsFragment = shoppingListsFragment;
         this.shoppingListId = shoppingListId;
     }
 
@@ -38,9 +38,9 @@ public class DeleteShoppingList extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String result) {
         if(result.equals("SUCCESS")) {
-            new GetListOfShoppingLists(listOfShoppingListsFragment).execute();
+            new GetListOfShoppingLists(shoppingListsFragment).execute();
         } else {
-            Toast.makeText(listOfShoppingListsFragment.getActivity(), "ERROR in DeleteShoppingList", Toast.LENGTH_SHORT).show();
+            Toast.makeText(shoppingListsFragment.getActivity(), "ERROR in DeleteShoppingList", Toast.LENGTH_SHORT).show();
         }
     }
 }

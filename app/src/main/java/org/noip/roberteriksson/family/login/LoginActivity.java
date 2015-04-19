@@ -28,10 +28,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.robert.family.R;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import org.noip.roberteriksson.family.login.http.Login;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import lombok.Data;
 
 public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
@@ -41,6 +45,22 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     public EditText passwordView; //TODO: Make private!
     private View progressView;
     private View loginFormView;
+
+    @Data
+    public static class UserToCreateJson {
+        @JsonProperty("email")
+        private String email;
+        @JsonProperty("password")
+        private String password;
+    }
+
+    @Data
+    public static class UserToLoginJson {
+        @JsonProperty("email")
+        private String email;
+        @JsonProperty("password")
+        private String password;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

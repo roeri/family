@@ -11,7 +11,6 @@ import org.noip.roberteriksson.family.main.MainActivity;
 import com.example.robert.family.R;
 import org.noip.roberteriksson.family.util.Url;
 import org.noip.roberteriksson.family.util.HttpPoster;
-import org.noip.roberteriksson.family.login.UserToLoginJson;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.apache.http.entity.StringEntity;
@@ -33,7 +32,7 @@ public class Login extends AsyncTask<String, Void, String> {
 
     @Override
     protected String doInBackground(String... urls) {
-        UserToLoginJson userToLogin = new UserToLoginJson();
+        LoginActivity.UserToLoginJson userToLogin = new LoginActivity.UserToLoginJson();
         userToLogin.setEmail(email);
         userToLogin.setPassword(password);
         try {

@@ -4,7 +4,6 @@ import android.os.AsyncTask;
 import android.widget.Toast;
 
 import org.noip.roberteriksson.family.sections.shoppinglists.ShoppingListFragment;
-import org.noip.roberteriksson.family.sections.shoppinglists.ShoppingListJson;
 import org.noip.roberteriksson.family.util.HttpPoster;
 import org.noip.roberteriksson.family.util.Url;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -20,9 +19,9 @@ import java.io.UnsupportedEncodingException;
 public class RearrangeShoppingList extends AsyncTask<String, Void, String> {
 
     private final ShoppingListFragment shoppingListFragment;
-    private final ShoppingListJson shoppingList;
+    private final ShoppingListFragment.ShoppingListJson shoppingList;
 
-    public RearrangeShoppingList(ShoppingListFragment shoppingListFragment, ShoppingListJson shoppingList) {
+    public RearrangeShoppingList(ShoppingListFragment shoppingListFragment, ShoppingListFragment.ShoppingListJson shoppingList) {
         this.shoppingListFragment = shoppingListFragment;
         this.shoppingList = shoppingList;
     }

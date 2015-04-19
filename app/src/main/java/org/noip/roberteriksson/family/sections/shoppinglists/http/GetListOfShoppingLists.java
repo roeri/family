@@ -3,7 +3,7 @@ package org.noip.roberteriksson.family.sections.shoppinglists.http;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-import org.noip.roberteriksson.family.sections.shoppinglists.ListOfShoppingListsFragment;
+import org.noip.roberteriksson.family.sections.shoppinglists.ShoppingListsFragment;
 import org.noip.roberteriksson.family.util.HttpPoster;
 import org.noip.roberteriksson.family.util.Url;
 
@@ -12,10 +12,10 @@ import org.noip.roberteriksson.family.util.Url;
  */
 public class GetListOfShoppingLists extends AsyncTask<String, Void, String> {
 
-    private final ListOfShoppingListsFragment listOfShoppingListsFragment;
+    private final ShoppingListsFragment shoppingListsFragment;
 
-    public GetListOfShoppingLists(ListOfShoppingListsFragment listOfShoppingListsFragment) {
-        this.listOfShoppingListsFragment = listOfShoppingListsFragment;
+    public GetListOfShoppingLists(ShoppingListsFragment shoppingListsFragment) {
+        this.shoppingListsFragment = shoppingListsFragment;
     }
 
     @Override
@@ -26,9 +26,9 @@ public class GetListOfShoppingLists extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String result) {
         if(!result.equals("FAILURE")) {
-            listOfShoppingListsFragment.fillListOfShoppingLists(result);
+            shoppingListsFragment.fillListOfShoppingLists(result);
         } else {
-            Toast.makeText(listOfShoppingListsFragment.getActivity(), "ERROR in GetShoppingLists", Toast.LENGTH_SHORT).show();
+            Toast.makeText(shoppingListsFragment.getActivity(), "ERROR in GetShoppingLists", Toast.LENGTH_SHORT).show();
         }
     }
 }

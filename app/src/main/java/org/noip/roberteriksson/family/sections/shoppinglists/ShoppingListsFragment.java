@@ -25,25 +25,45 @@ import org.noip.roberteriksson.family.sections.shoppinglists.http.CreateShopping
 import org.noip.roberteriksson.family.sections.shoppinglists.http.DeleteShoppingList;
 import org.noip.roberteriksson.family.sections.shoppinglists.http.GetListOfShoppingLists;
 import org.noip.roberteriksson.family.sections.shoppinglists.http.RearrangeListOfShoppingLists;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mobeta.android.dslv.DragSortController;
 import com.mobeta.android.dslv.DragSortListView;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * Created by robert on 2015-02-23.
  */
 @Slf4j
-public class ListOfShoppingListsFragment extends Fragment implements SectionFragment {
+public class ShoppingListsFragment extends Fragment implements SectionFragment {
 
-    private final ListOfShoppingListsFragment theThis = this;
+    private final ShoppingListsFragment theThis = this;
     private Typeface font;
     public boolean editMode = false;
     public ShoppingListsAdapter shoppingListsAdapter;
+
+    @Data
+    public static class ShoppingListsJson {
+        @JsonProperty("items")
+        private List<ShoppingListsItemJson> items = new ArrayList<>();
+    }
+
+    @Data
+    public static class ShoppingListsItemJson {
+        @JsonProperty("id")
+        int id;
+        @JsonProperty("sequence")
+        int sequence;
+        @JsonProperty("name")
+        String name;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, final Bundle savedInstanceState) {
@@ -94,7 +114,7 @@ public class ListOfShoppingListsFragment extends Fragment implements SectionFrag
             @Override
             public void drop(int from, int to) {
                 if (from != to) {
-                    ListOfShoppingListsItemJson item = shoppingListsAdapter.getItem(from);
+                    ShoppingListsItemJson item = shoppingListsAdapter.getItem(from);
                     shoppingListsAdapter.remove(item);
                     shoppingListsAdapter.insert(item, to);
 
@@ -105,10 +125,10 @@ public class ListOfShoppingListsFragment extends Fragment implements SectionFrag
     }
 
     private void rearrangeListOfShoppingLists() {
-        ListOfShoppingListsJson listOfShoppingLists = new ListOfShoppingListsJson();
+        ShoppingListsJson listOfShoppingLists = new ShoppingListsJson();
         int numShoppingLists = shoppingListsAdapter.getCount();
         for(int i = 0; i < numShoppingLists; i++) {
-            ListOfShoppingListsItemJson shoppingList = shoppingListsAdapter.getItem(i);
+            ShoppingListsItemJson shoppingList = shoppingListsAdapter.getItem(i);
             shoppingList.sequence = i + 1;
             listOfShoppingLists.getItems().add(shoppingList);
         }
@@ -182,9 +202,9 @@ public class ListOfShoppingListsFragment extends Fragment implements SectionFrag
         }
         ListView shoppingLists = (ListView) getView().findViewById(R.id.listOfShoppingLists);
 
-        ListOfShoppingListsJson inputShoppingLists;
+        ShoppingListsJson inputShoppingLists;
         try {
-            inputShoppingLists = new ObjectMapper().readValue(shoppingListsJson, ListOfShoppingListsJson.class);
+            inputShoppingLists = new ObjectMapper().readValue(shoppingListsJson, ShoppingListsJson.class);
             this.shoppingListsAdapter = new ShoppingListsAdapter(getActivity(), inputShoppingLists.getItems());
             shoppingLists.setAdapter(this.shoppingListsAdapter);
         } catch (IOException e) {
@@ -244,9 +264,9 @@ public class ListOfShoppingListsFragment extends Fragment implements SectionFrag
         ((MainActivity) getActivity()).setCurrentlyLiveFragment(FragmentNumbers.HOME);
     }
 
-    public class ShoppingListsAdapter extends ArrayAdapter<ListOfShoppingListsItemJson> {
+    public class ShoppingListsAdapter extends ArrayAdapter<ShoppingListsItemJson> {
 
-        public ShoppingListsAdapter(Context context, List<ListOfShoppingListsItemJson> shoppingLists) { //TODO: Check List vs ArrayList here.
+        public ShoppingListsAdapter(Context context, List<ShoppingListsItemJson> shoppingLists) { //TODO: Check List vs ArrayList here.
             super(context, 0, shoppingLists);
         }
 
@@ -256,7 +276,7 @@ public class ListOfShoppingListsFragment extends Fragment implements SectionFrag
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_list_of_shopping_lists, parent, false);
             }
 
-            final ListOfShoppingListsItemJson shoppingListItemJson = getItem(position);
+            final ShoppingListsItemJson shoppingListItemJson = getItem(position);
 
             final Button itemDeleteButton = (Button) convertView.findViewById(R.id.item_listOfShoppingLists_deleteButton);
             final TextView itemText = (TextView) convertView.findViewById(R.id.item_listOfShoppingLists_text);

@@ -4,7 +4,6 @@ import android.os.AsyncTask;
 import android.widget.Toast;
 
 import org.noip.roberteriksson.family.sections.profile.ProfileFragment;
-import org.noip.roberteriksson.family.sections.profile.ProfileJson;
 import org.noip.roberteriksson.family.util.Url;
 import org.noip.roberteriksson.family.util.HttpPoster;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -42,7 +41,7 @@ public class GetProfile extends AsyncTask<String, Void, String> {
     protected void onPostExecute(String profileJson) {
         if(!profileJson.equals("FAILURE")) {
             try {
-                ProfileJson profile = new ObjectMapper().readValue(profileJson, ProfileJson.class);
+                ProfileFragment.ProfileJson profile = new ObjectMapper().readValue(profileJson, ProfileFragment.ProfileJson.class);
                 profileFragment.populateProfile(profile);
             } catch (IOException e) {
                 e.printStackTrace();
