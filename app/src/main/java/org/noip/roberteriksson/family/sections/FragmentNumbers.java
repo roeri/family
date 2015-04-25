@@ -5,7 +5,7 @@ public class FragmentNumbers {
     public static final int SHOPPING_LISTS = 1;
 
 
-
+    public static final int ERROR = 10;
     public static final int PROFILE = 11;
     public static final int SHOPPING_LIST = 12;
     public static final int ABOUT = 13;

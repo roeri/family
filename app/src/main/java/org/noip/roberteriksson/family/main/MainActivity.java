@@ -15,6 +15,7 @@ import org.noip.roberteriksson.family.navigation.NavigationDrawerFragment;
 import org.noip.roberteriksson.family.sections.FragmentNumbers;
 import org.noip.roberteriksson.family.sections.SectionFragment;
 import org.noip.roberteriksson.family.sections.about.AboutFragment;
+import org.noip.roberteriksson.family.sections.error.ErrorFragment;
 import org.noip.roberteriksson.family.sections.home.HomeFragment;
 import org.noip.roberteriksson.family.sections.profile.ProfileFragment;
 import org.noip.roberteriksson.family.sections.shoppinglists.ShoppingListFragment;
@@ -32,6 +33,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
     private CharSequence title;
     private Map<Integer, SectionFragment> currentlyActiveFragments;
     private SectionFragment currentlyLiveFragment; //TODO: CHANGE TO SectionFragment
+    private String errorText = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +95,9 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
                 fragment = new ShoppingListsFragment();
                 break;
             //Below items are not in the navigation drawer.
+            case FragmentNumbers.ERROR:
+                fragment = new ErrorFragment();
+                break;
             case FragmentNumbers.PROFILE:
                 fragment = new ProfileFragment();
                 break;
@@ -171,5 +176,17 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void showError(String errorText) {
+        this.errorText = errorText;
+        setCurrentlyLiveFragment(FragmentNumbers.ERROR);
+    }
+
+    public String getErrorText() {
+        if(errorText.equals("")) {
+            errorText = "Critical error, please restart the application";
+        }
+        return errorText;
     }
 }

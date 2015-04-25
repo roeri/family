@@ -18,7 +18,6 @@ public class Session {
     public static Session getInstance() {
         if(me == null) {
             me = new Session();
-
         }
         return me;
     }
@@ -33,13 +32,11 @@ public class Session {
         Account[] accounts = accountManager.getAccountsByType(mainActivity.getString(R.string.application_account_type));
         if(accounts.length > 0) {
             this.userAccount = accounts[0]; //TODO: Handle more than one account.
+            new GetUserId(userAccount.name).execute();
+        } else {
+            showError("Could not initiate local user account");
         }
-        new GetUserId(this, userAccount.name).execute();
         //new GetWidgetShoppingList().execute();
-    }
-
-    public MainActivity getMainActivity() {
-        return this.mainActivity;
     }
 
     public void setUserId(int userId) {
@@ -60,5 +57,9 @@ public class Session {
 
     public String getUserEmail() {
         return userAccount.name;
+    }
+
+    public void showError(String errorText) {
+        mainActivity.showError(errorText);
     }
 }

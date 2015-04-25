@@ -12,11 +12,9 @@ import java.io.UnsupportedEncodingException;
 
 public class GetUserId extends AsyncTask<String, Void, String> {
 
-    private final Session session;
     private final String email;
 
-    public GetUserId(Session session, String email) {
-        this.session = session;
+    public GetUserId(String email) {
         this.email = email;
     }
 
@@ -33,16 +31,16 @@ public class GetUserId extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
+        Session session = Session.getInstance();
         if(!result.equals("FAILURE")) {
             try {
                 int id = Integer.parseInt(result);
                 session.setUserId(id);
             } catch (NumberFormatException e) {
-                Toast.makeText(session.getMainActivity(), "ERROR in GetUserId", Toast.LENGTH_SHORT).show();
-                //TODO: Seriously have to handle when a session is not initialized correctly.
+                session.showError("Could not connect to server.");
             }
         } else {
-            //TODO: Also handle here when a session is not initialized correctly.
+            session.showError("User ID does not exist in database.");
         }
     }
 }
