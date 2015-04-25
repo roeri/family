@@ -34,6 +34,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
     private Map<Integer, SectionFragment> currentlyActiveFragments;
     private SectionFragment currentlyLiveFragment; //TODO: CHANGE TO SectionFragment
     private String errorText = "";
+    private Menu optionsMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,6 +153,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        this.optionsMenu = menu;
         if (!navigationDrawer.isDrawerOpen()) {
             // Only show items in the action bar relevant to this screen
             // if the drawer is not showing. Otherwise, let the drawer
@@ -181,6 +183,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
     public void showError(String errorText) {
         this.errorText = errorText;
         setCurrentlyLiveFragment(FragmentNumbers.ERROR);
+        navigationDrawer.setMenuVisibility(false);
     }
 
     public String getErrorText() {
@@ -188,5 +191,12 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
             errorText = "Critical error, please restart the application";
         }
         return errorText;
+    }
+
+    public void disableOptionsMenu() {
+        if(optionsMenu == null) {
+            return;
+        }
+        optionsMenu.setGroupVisible(0, false);
     }
 }
