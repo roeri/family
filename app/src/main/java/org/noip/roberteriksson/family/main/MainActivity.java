@@ -18,6 +18,7 @@ import org.noip.roberteriksson.family.sections.about.AboutFragment;
 import org.noip.roberteriksson.family.sections.error.ErrorFragment;
 import org.noip.roberteriksson.family.sections.home.HomeFragment;
 import org.noip.roberteriksson.family.sections.profile.ProfileFragment;
+import org.noip.roberteriksson.family.sections.recipes.RecipesFragment;
 import org.noip.roberteriksson.family.sections.shoppinglists.ShoppingListFragment;
 import org.noip.roberteriksson.family.sections.shoppinglists.ShoppingListsFragment;
 import org.noip.roberteriksson.family.session.Session;
@@ -32,7 +33,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
     private NavigationDrawerFragment navigationDrawer;
     private CharSequence title;
     private Map<Integer, SectionFragment> currentlyActiveFragments;
-    private SectionFragment currentlyLiveFragment; //TODO: CHANGE TO SectionFragment
+    private SectionFragment currentlyLiveFragment;
     private String errorText = "";
     private Menu optionsMenu;
 
@@ -49,8 +50,11 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         navigationDrawer.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout));
     }
 
-    public SectionFragment getCurrentlyLiveFragment() {
-        return this.currentlyLiveFragment; //TODO: Risk for NPE, fix!
+    public void refreshCurrentlyLiveFragment() {
+        if(currentlyLiveFragment == null) {
+            return;
+        }
+        currentlyLiveFragment.refresh();
     }
 
     @Override
@@ -95,6 +99,9 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
             case FragmentNumbers.SHOPPING_LISTS:
                 fragment = new ShoppingListsFragment();
                 break;
+            case FragmentNumbers.RECIPES:
+                fragment = new RecipesFragment();
+                break;
             //Below items are not in the navigation drawer.
             case FragmentNumbers.ERROR:
                 fragment = new ErrorFragment();
@@ -116,6 +123,12 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
                 break;
             case FragmentNumbers.SHOPPING_LISTS:
                 title = getString(R.string.title_shoppingLists);
+                break;
+            case FragmentNumbers.RECIPES:
+                title = getString(R.string.title_recipes);
+                break;
+            case FragmentNumbers.ERROR:
+                title = getString(R.string.fragment_error);
                 break;
             case FragmentNumbers.PROFILE:
                 title = getString(R.string.fragment_profile);

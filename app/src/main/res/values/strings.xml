@@ -4,9 +4,9 @@
     <string name="title_home">Home</string>
     <string name="title_shoppingLists">Shopping lists</string>
     <string name="title_recipes">Recipes</string>
-    <string name="title_dinnerSuggestions">Dinner suggestions</string>
     <string name="title_notes">Notes</string>
 
+    <string name="fragment_error">Error</string>
     <string name="fragment_profile">Profile</string>
     <string name="fragment_about">About</string>
 

@@ -110,7 +110,6 @@ public class NavigationDrawerFragment extends Fragment {
                         getString(R.string.title_home),
                         getString(R.string.title_shoppingLists),
                         getString(R.string.title_recipes),
-                        getString(R.string.title_dinnerSuggestions),
                         getString(R.string.title_notes),
                 }));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
@@ -256,7 +255,7 @@ public class NavigationDrawerFragment extends Fragment {
 
         switch(item.getItemId()) {
             case R.id.action_refresh:
-                ((MainActivity) getActivity()).getCurrentlyLiveFragment().refresh();
+                ((MainActivity) getActivity()).refreshCurrentlyLiveFragment();
                 return true;
             case R.id.action_profile:
                 ((MainActivity) getActivity()).setCurrentlyLiveFragment(FragmentNumbers.PROFILE);
