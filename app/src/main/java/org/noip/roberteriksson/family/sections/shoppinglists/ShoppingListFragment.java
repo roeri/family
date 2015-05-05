@@ -252,9 +252,16 @@ public class ShoppingListFragment extends Fragment implements SectionFragment {
     }
 
     public class ShoppingListAdapter extends ArrayAdapter<ShoppingListItemJson> {
+        private boolean shoppingListIsEmpty = false;
 
         public ShoppingListAdapter(Context context, List<ShoppingListItemJson> shoppingList) {
             super(context, 0, shoppingList);
+            if(shoppingList.isEmpty()) {
+                ShoppingListItemJson placeholderItem = new ShoppingListItemJson();
+                placeholderItem.setText("Empty shopping list, add some items!");
+                super.add(placeholderItem);
+                shoppingListIsEmpty = true;
+            }
         }
 
         @Override
@@ -287,12 +294,16 @@ public class ShoppingListFragment extends Fragment implements SectionFragment {
                 }
             };
 
-            if(shoppingListItemJson.checked) {
+            if (shoppingListItemJson.checked) {
                 itemCheckButton.setText(getString(R.string.icon_checkboxChecked));
                 itemCheckButton.setOnClickListener(itemDeleteListener);
             } else {
                 itemCheckButton.setText(getString(R.string.icon_checkboxUnchecked));
                 itemCheckButton.setOnClickListener(itemCheckListener);
+            }
+
+            if(shoppingListIsEmpty) {
+                itemCheckButton.setVisibility(View.GONE);
             }
 
             return convertView;
